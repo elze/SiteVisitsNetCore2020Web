@@ -8,8 +8,10 @@ export class Visitor {
     label: string,
     note: string
   }) {
-    this.id = options.id;
-    this.label = options.label;
-    this.note = options.note;
+    if (options) {
+      this.id = options.id;
+      this.label = options.label;
+      this.note = options.note;
+    }
   }
 }

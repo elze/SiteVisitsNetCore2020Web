@@ -9,8 +9,10 @@ export class City {
     name: string,
     region: Region
   }) {
-    this.id = options.id;
-    this.name = options.name;
-    this.region = new Region(options.region);
+    if (options) {
+      this.id = options.id;
+      this.name = options.name;
+      this.region = new Region(options.region);
+    }
   }
 }

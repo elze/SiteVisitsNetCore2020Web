@@ -9,9 +9,11 @@ export class PageTitleVariation {
     titleVariationCompact: string,
     pageTitle: PageTitle
   }) {
-    this.titleVariation = options.titleVariation;
-    this.titleVariationCompact = options.titleVariationCompact;
-    this.pageTitle = new PageTitle(options.pageTitle);
+    if (options) {
+      this.titleVariation = options.titleVariation;
+      this.titleVariationCompact = options.titleVariationCompact;
+      this.pageTitle = new PageTitle(options.pageTitle);
+    }
   }
 
 }

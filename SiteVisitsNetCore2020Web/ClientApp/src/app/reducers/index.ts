@@ -15,10 +15,14 @@ import { Visit } from '../models/Visit';
 
 export interface FlatVisitState {
   flatVisitsDataSourceData: Array<Visit>;
+  //error: boolean;
+  //loading: boolean;
 }
 
 const initialVisitState: FlatVisitState = {
-  flatVisitsDataSourceData: new Array<Visit>()
+  flatVisitsDataSourceData: new Array<Visit>(),
+  //error: false,
+  //loading: true
 };
 
 export interface AppState {
@@ -57,5 +61,6 @@ export const reducers: ActionReducerMap<AppState> = {
   visits: vReducer
 };
 
+export const selectVisits = (state: AppState) => state.visits.flatVisitsDataSourceData;
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

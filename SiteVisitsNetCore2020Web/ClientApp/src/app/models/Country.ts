@@ -6,8 +6,10 @@ export class Country {
     id: number,
     name: string
   }) {
-    this.id = options.id;
-    this.name = options.name;
+    if (options) {
+      this.id = options.id;
+      this.name = options.name;
+    }
   }
 
 }

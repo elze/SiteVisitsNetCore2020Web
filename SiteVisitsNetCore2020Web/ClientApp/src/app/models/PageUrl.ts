@@ -9,8 +9,10 @@ export class PageUrl {
     urlCompact: string,
     pageTitle: PageTitle
   }) {
-    this.url = options.url;
-    this.urlCompact = options.urlCompact;
-    this.pageTitle = new PageTitle(options.pageTitle);
+    if (options) {
+      this.url = options.url;
+      this.urlCompact = options.urlCompact;
+      this.pageTitle = new PageTitle(options.pageTitle);
+    }
   }
 }

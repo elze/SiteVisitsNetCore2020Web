@@ -5,7 +5,9 @@ export class PageTitle {
     title: string,
     titleCompact: string
   }) {
-    this.title = options.title;
-    this.titleCompact = options.titleCompact;
+    if (options) {
+      this.title = options.title;
+      this.titleCompact = options.titleCompact;
+    }
   }
 }

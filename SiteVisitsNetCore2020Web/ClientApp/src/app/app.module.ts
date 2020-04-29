@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatButtonModule, MatIconModule, MatInputModule, MatPaginatorModule, MatTableModule, } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,9 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { FlatVisitsComponent } from './flat-visits/flat-visits.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { FlatVisitsEffects } from './flat-visits/flat-visits.effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { FlatVisitsComponent } from './flat-visits/flat-visits.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatButtonModule, MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatTableModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -42,7 +50,9 @@ import { FlatVisitsComponent } from './flat-visits/flat-visits.component';
         strictActionImmutability: true,
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    BrowserAnimationsModule,
+    EffectsModule.forRoot([FlatVisitsEffects])
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: environment.baseHref }],
   bootstrap: [AppComponent]

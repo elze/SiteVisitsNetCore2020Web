@@ -26,8 +26,13 @@ namespace SiteVisitsNetCore2020Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Visit>>> GetVisit()
         {
-            return await _context.Visit.Include(v => v.IpAddress)
-                .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
+            return await _context.Visit
+                .Include(v => v.IpAddress)
+                    .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
+                .Include(v => v.IpAddress)
+                    .ThenInclude(i => i.Isp)
+                //.Include(v => v.IpAddress)
+                 //   .ThenInclude(i => i.Visitor)
                 .Include(v => v.PageUrl)
                 .Include(v => v.PageUrlVariation)
                 .Include(v => v.PageTitle)

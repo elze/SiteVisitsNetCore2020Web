@@ -7,8 +7,10 @@ export class Referrer {
     cameFrom: string,
     shortCameFrom: string
   }) {
-    this.id = options.id;
-    this.cameFrom = options.cameFrom;
-    this.shortCameFrom = options.shortCameFrom;
+    if (options) {
+      this.id = options.id;
+      this.cameFrom = options.cameFrom;
+      this.shortCameFrom = options.shortCameFrom;
+    }
   }
 }
