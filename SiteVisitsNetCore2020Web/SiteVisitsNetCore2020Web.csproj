@@ -31,8 +31,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\models\" />
+    <None Remove="ClientApp\src\app\flat-visits\FlatVisitRowOdd.ts" />
+    <None Remove="ClientApp\src\app\flat-visits\HalfRow.ts" />
+    <None Remove="ClientApp\src\app\models\FlatVisitRowEven.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\FlatVisitRowEven.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\FlatVisitRowOdd.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\HalfRow.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

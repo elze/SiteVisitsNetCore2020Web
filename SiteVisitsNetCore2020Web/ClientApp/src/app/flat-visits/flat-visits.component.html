@@ -3,43 +3,35 @@
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="visitDatetime">
       <mat-header-cell *matHeaderCellDef> Visit date time </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.visitDatetime}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="numberOfTimes">
-      <mat-header-cell *matHeaderCellDef> # times </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.numberOfTimes}} </mat-cell>
+      <mat-cell *matCellDef="let item"> {{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="pageUrl">
       <mat-header-cell *matHeaderCellDef> Page URL </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.pageUrl.urlCompact ? item.pageUrl.urlCompact : item.pageUrl.url}} </mat-cell>
+      <mat-cell *matCellDef="let item"> {{item.pageUrl ? (item.pageUrl.urlCompact ? item.pageUrl.urlCompact : item.pageUrl.url) : ""}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="pageTitle">
       <mat-header-cell *matHeaderCellDef> Page Title </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.pageTitle.titleCompact ? item.pageTitle.titleCompact : item.pageTitle.title}} </mat-cell>
+      <mat-cell *matCellDef="let item"> {{item.pageTitle ? (item.pageTitle.titleCompact ? item.pageTitle.titleCompact : item.pageTitle.title) : ""}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="city">
       <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.city ? item.city.name : ""}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="region">
-      <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.region ? item.region.name : ""}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.country ? item.country.name : ""}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="cameFrom">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.cameFrom}} </mat-cell>
+      <mat-cell *matCellDef="let item"> {{ getCountryRegionCity(item.ipAddress) }} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ipAddress">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.ipAddress}} </mat-cell>
+      <mat-header-cell colspan="1" *matHeaderCellDef></mat-header-cell>
+      <mat-cell colspan="1" *matCellDef="let item"> {{item.ipAddress.ipV4Address}} </mat-cell>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="['visitDatetime', 'numberOfTimes', 'pageUrl', 'pageTitle', 'city', 'region', 'country']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['visitDatetime', 'numberOfTimes', 'pageUrl', 'pageTitle', 'city', 'region', 'country'];" class="light-border"></mat-row>
-    <mat-row *matRowDef="let row; columns: ['cameFrom', 'ipAddress']; when: isSecondRow">
+    <ng-container matColumnDef="seTerm">
+      <mat-header-cell colspan="1" *matHeaderCellDef></mat-header-cell>
+      <mat-cell colspan="1" *matCellDef="let item"> {{item.seTerm}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cameFrom">
+      <mat-header-cell colspan="2" *matHeaderCellDef></mat-header-cell>
+      <mat-cell colspan="2" *matCellDef="let item"> {{item.cameFrom ? (item.cameFrom.shortCameFrom ? item.cameFrom.shortCameFrom : item.cameFrom.cameFrom) : ""}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['visitDatetime', 'pageUrl', 'pageTitle', 'city']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city'];" class="light-border"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['ipAddress', 'seTerm', 'cameFrom']; when: isSecondRow">
     </mat-row>
   </mat-table>
 </div>

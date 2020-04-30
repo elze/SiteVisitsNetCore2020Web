@@ -27,6 +27,7 @@ namespace SiteVisitsNetCore2020Web.Controllers
         public async Task<ActionResult<IEnumerable<Visit>>> GetVisit()
         {
             return await _context.Visit
+                //.Where(v => !string.IsNullOrEmpty(v.SeTerm))
                 .Include(v => v.IpAddress)
                     .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
                 .Include(v => v.IpAddress)
@@ -38,6 +39,7 @@ namespace SiteVisitsNetCore2020Web.Controllers
                 .Include(v => v.PageTitle)
                 .Include(v => v.PageTitleVariation)
                 .Include(v => v.CameFrom)
+                .OrderByDescending(v => v.VisitDatetime)
                 .ToListAsync();
         }
 
