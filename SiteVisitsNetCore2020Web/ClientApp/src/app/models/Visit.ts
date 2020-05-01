@@ -25,7 +25,8 @@ export class Visit {
         ***/
 
   constructor(options: {
-    id: string, visitDatetime: Date, numberOfTimes: number,
+    id: string, visitDatetime: string,
+    numberOfTimes: number,
     seTerm: string,
     logFileName: string,
     visitType: string,
@@ -36,7 +37,9 @@ export class Visit {
     pageTitleVariation: PageTitleVariation,
     cameFrom: Referrer}) {
     this.id = options.id;
-    this.visitDatetime = options.visitDatetime;
+    //let vDateTime = new Date(options.visitDatetime);
+    //this.visitDatetime = options.visitDatetime;
+    this.visitDatetime = new Date(options.visitDatetime);
     this.id = options.id;
     this.numberOfTimes = options.numberOfTimes;
     this.seTerm = options.seTerm;

@@ -21,6 +21,7 @@ export class FlatVisitsComponent implements OnInit {
   //public dataSource: MatTableDataSource<Visit>;
   public dataSource: MatTableDataSource<HalfRow>;
   //public noData: Visit[] = [<Visit>{}];
+  public noData: HalfRow[] = [];
   public loading: boolean;
   public error$: Observable<boolean>;
   private subscription: Subscription = new Subscription();

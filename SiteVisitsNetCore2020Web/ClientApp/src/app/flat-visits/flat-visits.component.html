@@ -1,37 +1,38 @@
-<p>flat-visits works very well!</p>
+<p>Page visits</p>
 <div style="padding: 32px" *ngIf="dataSource">
-  <mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="visitDatetime">
-      <mat-header-cell *matHeaderCellDef> Visit date time </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }} </mat-cell>
+      <th mat-header-cell *matHeaderCellDef> Visit date/time </th>
+      <td mat-cell *matCellDef="let item"> {{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }} {{ i }} </td>
     </ng-container>
     <ng-container matColumnDef="pageUrl">
-      <mat-header-cell *matHeaderCellDef> Page URL </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.pageUrl ? (item.pageUrl.urlCompact ? item.pageUrl.urlCompact : item.pageUrl.url) : ""}} </mat-cell>
+      <th mat-header-cell *matHeaderCellDef> Page URL </th>
+      <td mat-cell *matCellDef="let item"> {{item.pageUrl ? (item.pageUrl.urlCompact ? item.pageUrl.urlCompact : item.pageUrl.url) : ""}} </td>
     </ng-container>
     <ng-container matColumnDef="pageTitle">
-      <mat-header-cell *matHeaderCellDef> Page Title </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.pageTitle ? (item.pageTitle.titleCompact ? item.pageTitle.titleCompact : item.pageTitle.title) : ""}} </mat-cell>
+      <th mat-header-cell *matHeaderCellDef> Page Title </th>
+      <td mat-cell *matCellDef="let item"> {{item.pageTitle ? (item.pageTitle.titleCompact ? item.pageTitle.titleCompact : item.pageTitle.title) : ""}} </td>
     </ng-container>
     <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{ getCountryRegionCity(item.ipAddress) }} </mat-cell>
+      <th mat-header-cell *matHeaderCellDef>Country / Region / City </th>
+      <td mat-cell *matCellDef="let item"> {{ getCountryRegionCity(item.ipAddress) }} </td>
     </ng-container>
     <ng-container matColumnDef="ipAddress">
-      <mat-header-cell colspan="1" *matHeaderCellDef></mat-header-cell>
-      <mat-cell colspan="1" *matCellDef="let item"> {{item.ipAddress.ipV4Address}} </mat-cell>
+      <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>IP Address</th>
+      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.ipAddress.ipV4Address}} </td>
     </ng-container>
     <ng-container matColumnDef="seTerm">
-      <mat-header-cell colspan="1" *matHeaderCellDef></mat-header-cell>
-      <mat-cell colspan="1" *matCellDef="let item"> {{item.seTerm}} </mat-cell>
+      <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>Search terms</th>
+      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.seTerm}} </td>
     </ng-container>
     <ng-container matColumnDef="cameFrom">
-      <mat-header-cell colspan="2" *matHeaderCellDef></mat-header-cell>
-      <mat-cell colspan="2" *matCellDef="let item"> {{item.cameFrom ? (item.cameFrom.shortCameFrom ? item.cameFrom.shortCameFrom : item.cameFrom.cameFrom) : ""}} </mat-cell>
+      <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef>Referrer</th>
+      <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.cameFrom ? (item.cameFrom.shortCameFrom ? item.cameFrom.shortCameFrom : item.cameFrom.cameFrom) : ""}} </td>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="['visitDatetime', 'pageUrl', 'pageTitle', 'city']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city'];" class="light-border"></mat-row>
-    <mat-row *matRowDef="let row; columns: ['ipAddress', 'seTerm', 'cameFrom']; when: isSecondRow">
-    </mat-row>
-  </mat-table>
+    <tr mat-header-row *matHeaderRowDef="['visitDatetime', 'pageUrl', 'pageTitle', 'city']"></tr>
+    <tr mat-header-row *matHeaderRowDef="['ipAddress', 'seTerm', 'cameFrom']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city']; let i = index" [class.darker-background]="i % 4 == 0"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['ipAddress', 'seTerm', 'cameFrom']; let i = index; when: isSecondRow" [class.darker-background]="(i-1) % 4 == 0"></tr>
+
+  </table>
 </div>
