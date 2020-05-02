@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-//import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { loadFlatvisits, loadFlatvisitsSuccess, loadFlatvisitsFailure } from '../actions/flatvisit.actions';
 
 
@@ -19,7 +19,7 @@ export class FlatVisitsEffects {
     switchMap(() =>
       this.http.get(
         //environment.apiUrl +
-        '/api/visits').pipe(
+        environment.baseHref + 'api/visits').pipe(
         // If successful, dispatch success action with result
         map((data: any[]) =>
           loadFlatvisitsSuccess({ data })
