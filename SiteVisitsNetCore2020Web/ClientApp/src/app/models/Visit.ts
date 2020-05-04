@@ -4,6 +4,7 @@ import { PageUrlVariation } from './PageUrlVariation';
 import { PageTitle } from './PageTitle';
 import { PageTitleVariation } from './PageTitleVariation';
 import { Referrer } from './Referrer';
+import { ExtractedTerm } from './ExtractedTerm';
 
 export class Visit {
     id: string;
@@ -12,7 +13,8 @@ export class Visit {
     seTerm: string;
     logFileName: string;
     visitType: string;
-    ipAddress: IpAddress;
+  ipAddress: IpAddress;
+  extractedTerms: Array<ExtractedTerm>;
     pageUrl: PageUrl;
     pageUrlVariation: PageUrlVariation;
     pageTitle: PageTitle;
@@ -35,7 +37,8 @@ export class Visit {
     pageUrlVariation: PageUrlVariation,
     pageTitle: PageTitle,
     pageTitleVariation: PageTitleVariation,
-    cameFrom: Referrer}) {
+    cameFrom: Referrer,
+    extractedTerms: Array<ExtractedTerm>}) {
     this.id = options.id;
     //let vDateTime = new Date(options.visitDatetime);
     //this.visitDatetime = options.visitDatetime;
@@ -43,6 +46,7 @@ export class Visit {
     this.id = options.id;
     this.numberOfTimes = options.numberOfTimes;
     this.seTerm = options.seTerm;
+    this.extractedTerms = options.extractedTerms;
     this.logFileName = options.logFileName;
     this.visitType = options.visitType;
     this.ipAddress = new IpAddress(options.ipAddress);

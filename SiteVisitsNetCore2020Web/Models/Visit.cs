@@ -13,6 +13,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public string LogFileName { get; set; }
         public string VisitType { get; set; }
         public virtual IpAddress IpAddress { get; set; }
+        public virtual List<ExtractedTerm> ExtractedTerms { get; set; }
         public virtual PageUrl PageUrl { get; set; }
         public virtual PageUrlVariation PageUrlVariation { get; set; }
         public virtual PageTitle PageTitle { get; set; }

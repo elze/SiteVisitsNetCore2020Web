@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { of } from 'rxjs';
 import { HalfRow } from './HalfRow';
 import { IpAddress } from '../models/IpAddress';
+import { FlatVisitRowOdd } from './FlatVisitRowOdd';
 
 @Component({
   selector: 'app-flat-visits',

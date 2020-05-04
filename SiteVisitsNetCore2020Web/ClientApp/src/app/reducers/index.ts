@@ -54,6 +54,7 @@ function populateVisits(rawVisits: Array<any>): HalfRow[] {
     let ro = new FlatVisitRowOdd({
       id: v.id,
       seTerm: v.seTerm,
+      extractedTerms: v.extractedTerms,
       visitType: v.visitType,
       ipAddress: v.ipAddress,
       cameFrom: v.cameFrom
