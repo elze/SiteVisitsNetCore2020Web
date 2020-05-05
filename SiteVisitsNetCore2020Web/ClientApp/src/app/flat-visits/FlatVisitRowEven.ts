@@ -10,6 +10,7 @@ export class FlatVisitRowEven implements HalfRow {
   visitDatetime: Date;
   numberOfTimes: number;
   ipAddress: IpAddress;
+  location: string;
   pageUrl: PageUrl;
   pageUrlVariation: PageUrlVariation;
   pageTitle: PageTitle;
@@ -28,10 +29,25 @@ export class FlatVisitRowEven implements HalfRow {
     this.id = options.id;
     this.numberOfTimes = options.numberOfTimes;
     this.ipAddress = new IpAddress(options.ipAddress);
+    this.location = this.getCountryRegionCity(this.ipAddress);
     this.pageUrl = new PageUrl(options.pageUrl);
     this.pageUrlVariation = new PageUrlVariation(options.pageUrlVariation);
     this.pageTitle = new PageTitle(options.pageTitle);
     this.pageTitleVariation = new PageTitleVariation(options.pageTitleVariation);
   }
+
+  public getCountryRegionCity(ipAddress: IpAddress): string {
+    if (ipAddress) {
+      const locationElements = [
+        ipAddress.country && ipAddress.country.name ? ipAddress.country.name : null,
+        ipAddress.region && ipAddress.region.name ? ipAddress.region.name : null,
+        ipAddress.city && ipAddress.city.name ? ipAddress.city.name : null];
+      const location = locationElements.filter(el => el != null).join(" / ");
+
+      return location; 
+    }
+    return "";
+  }
+
 
 }
