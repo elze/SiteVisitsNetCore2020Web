@@ -35,6 +35,7 @@
     <None Remove="ClientApp\src\app\flat-visits\HalfRow.ts" />
     <None Remove="ClientApp\src\app\models\ExtractedTerm.ts" />
     <None Remove="ClientApp\src\app\models\FlatVisitRowEven.ts" />
+    <None Remove="ClientApp\src\app\reducers\flat-visits.reducer.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\flat-visits\FlatVisitRowOdd.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\flat-visits\HalfRow.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\ExtractedTerm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reducers\flat-visits.reducer.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
