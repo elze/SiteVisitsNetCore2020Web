@@ -14,7 +14,7 @@ export class FlatVisitsEffects {
     private http: HttpClient) { }
 
   @Effect()
-  public loadCustomers$ = createEffect(() => this.actions$.pipe(
+  public loadVisits$ = createEffect(() => this.actions$.pipe(
     ofType(loadFlatvisits),
     switchMap(() =>
       this.http.get(

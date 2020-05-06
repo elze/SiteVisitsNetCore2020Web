@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { FlatVisitsEffects } from './flat-visits.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('FlatVisitsEffects', () => {
   let actions$: Observable<any>;
@@ -10,6 +11,7 @@ describe('FlatVisitsEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       providers: [
         FlatVisitsEffects,
         provideMockActions(() => actions$)

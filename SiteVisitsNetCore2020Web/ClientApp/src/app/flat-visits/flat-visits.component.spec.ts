@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AppModule } from '../app.module';
 import { FlatVisitsComponent } from './flat-visits.component';
 
 describe('FlatVisitsComponent', () => {
@@ -8,7 +8,8 @@ describe('FlatVisitsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlatVisitsComponent ]
+      imports: [AppModule]
+      //declarations: [FlatVisitsComponent],
     })
     .compileComponents();
   }));
