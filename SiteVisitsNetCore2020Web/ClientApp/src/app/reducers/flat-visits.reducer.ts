@@ -30,11 +30,11 @@ const initialVisitState: FlatVisitState = {
 };
 
 function populateVisits(rawVisits: Array<any>): HalfRow[] {
-  let visits = new Array<Visit>();
-  let rows = new Array<HalfRow>();
+  const visits = new Array<Visit>();
+  const rows = new Array<HalfRow>();
   rawVisits.map(rv => {
-    let v = new Visit(rv);
-    let re = new FlatVisitRowEven({
+    const v = new Visit(rv);
+    const re = new FlatVisitRowEven({
       id: v.id, visitDatetime: v.visitDatetime,
       numberOfTimes: v.numberOfTimes,
       ipAddress: v.ipAddress,
@@ -68,9 +68,19 @@ function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
 
 export const _reducer = createReducer(
   initialVisitState,
+  /**
   on(loadFlatvisitsSuccess, (state, { data }) => ({
     flatVisitsDataSourceData: dataSourceFromAction(data)
   }))
+  ***/
+
+  on(loadFlatvisitsSuccess, (state, { data }) => {
+    return Object.assign({}, state, {
+        flatVisitsDataSourceData: dataSourceFromAction(data)
+      })
+        
+  })
+
 );
 
 export function vReducer(state, action) {
