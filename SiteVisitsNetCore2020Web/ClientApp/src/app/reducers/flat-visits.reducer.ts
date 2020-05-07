@@ -13,23 +13,24 @@ import { FlatVisitRowEven } from '../flat-visits/FlatVisitRowEven';
 import { FlatVisitRowOdd } from '../flat-visits/FlatVisitRowOdd';
 import { Visit } from '../models/Visit';
 
-import { loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
+import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
 
 export interface FlatVisitState {
   //flatVisitsDataSourceData: Array<Visit>;
   flatVisitsDataSourceData: Array<HalfRow>;
-  //error: boolean;
-  //loading: boolean;
+  loading: boolean;
+  error: string | null;
 }
 
-const initialVisitState: FlatVisitState = {
+export const initialVisitState: FlatVisitState = {
   //flatVisitsDataSourceData: new Array<Visit>(),
   flatVisitsDataSourceData: new Array<HalfRow>(),
-  //error: false,
-  //loading: true
+  loading: true,
+  error: null
 };
 
 function populateVisits(rawVisits: Array<any>): HalfRow[] {
+//function populateVisits(rawVisits: { [id: number]: any }): HalfRow[] {
   const visits = new Array<Visit>();
   const rows = new Array<HalfRow>();
   rawVisits.map(rv => {
@@ -68,17 +69,26 @@ function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
 
 export const _reducer = createReducer(
   initialVisitState,
-  /**
-  on(loadFlatvisitsSuccess, (state, { data }) => ({
-    flatVisitsDataSourceData: dataSourceFromAction(data)
-  }))
-  ***/
+  on(loadFlatvisits, (state) => {
+    return Object.assign({}, state, {
+      loading: true,
+      error: null
+    })
+  }),
 
   on(loadFlatvisitsSuccess, (state, { data }) => {
     return Object.assign({}, state, {
-        flatVisitsDataSourceData: dataSourceFromAction(data)
-      })
-        
+      flatVisitsDataSourceData: dataSourceFromAction(data),
+      loading: false,
+      error: null
+    })
+  }),
+
+  on(loadFlatvisitsFailure, (state, { response }) => {
+    return Object.assign({}, state, {
+      error: response.error,
+      loading: false
+    })
   })
 
 );

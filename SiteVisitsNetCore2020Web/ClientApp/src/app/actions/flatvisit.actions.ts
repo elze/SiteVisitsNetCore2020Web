@@ -11,5 +11,5 @@ export const loadFlatvisitsSuccess = createAction(
 
 export const loadFlatvisitsFailure = createAction(
   '[Flatvisit] Load Flatvisits Failure',
-  props<{ error: any }>()
+  props<{ response: any }>()
 );

@@ -1,4 +1,7 @@
 <p>Page visits</p>
+<mat-error *ngIf="error$ | async as errorMessage">
+  {{ errorMessage }}
+</mat-error>
 <div style="padding: 32px" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="visitDatetime">

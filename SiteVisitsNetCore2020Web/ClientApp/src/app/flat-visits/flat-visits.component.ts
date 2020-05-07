@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 import { Visit } from '../models/Visit';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectVisits } from '../reducers';
+import { AppState, selectVisits, selectVisitsError } from '../reducers';
 import { loadFlatvisits } from '../actions/flatvisit.actions';
 import { Subscription } from 'rxjs';
 import { of } from 'rxjs';
@@ -24,7 +24,7 @@ export class FlatVisitsComponent implements OnInit {
   //public noData: Visit[] = [<Visit>{}];
   public noData: HalfRow[] = [];
   public loading: boolean;
-  public error$: Observable<boolean>;
+  public error$: Observable<string>;
   private subscription: Subscription = new Subscription();
 
   isSecondRow = (index, item) => item.cameFrom;
@@ -48,7 +48,7 @@ export class FlatVisitsComponent implements OnInit {
     this.visitsStore.pipe(select(selectVisits)).subscribe(rows => {
       this.dataSource = new MatTableDataSource(rows.length ? rows : this.noData);
     });
-
+    this.error$ = this.visitsStore.select(selectVisitsError);
   }
 
   private initializeData(visits: Visit[]): void {

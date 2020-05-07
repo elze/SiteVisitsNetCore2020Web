@@ -25,8 +25,8 @@ export class FlatVisitsEffects {
           loadFlatvisitsSuccess({ data })
         ),
         // If request fails, dispatch failed action
-        catchError(error =>
-          of(loadFlatvisitsFailure({ error }))
+          catchError(response =>
+          of(loadFlatvisitsFailure({ response }))
         )
       ) // end of inner pipe
     ) // end of switchMap

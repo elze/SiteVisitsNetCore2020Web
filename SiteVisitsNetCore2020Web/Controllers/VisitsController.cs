@@ -27,13 +27,16 @@ namespace SiteVisitsNetCore2020Web.Controllers
         public async Task<ActionResult<IEnumerable<Visit>>> GetVisit()
         {
             return await _context.Visit
-                //.Where(v => !string.IsNullOrEmpty(v.SeTerm))
+                //.Where(v => !string.IsNullOrEmpty(v.SeTerm) && !v.SeTerm.Contains("Encrypted Search") 
+                //|| v.ExtractedTerms.Count > 0
+                //)
                 .Include(v => v.IpAddress)
                     .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
                 .Include(v => v.IpAddress)
                     .ThenInclude(i => i.Isp)
                 //.Include(v => v.IpAddress)
-                 //   .ThenInclude(i => i.Visitor)
+                //   .ThenInclude(i => i.Visitor)
+                .Include(v => v.ExtractedTerms)
                 .Include(v => v.PageUrl)
                 .Include(v => v.PageUrlVariation)
                 .Include(v => v.PageTitle)
