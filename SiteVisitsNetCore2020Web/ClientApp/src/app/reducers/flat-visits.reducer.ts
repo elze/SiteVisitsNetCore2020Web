@@ -29,11 +29,13 @@ export const initialVisitState: FlatVisitState = {
   error: null
 };
 
-function populateVisits(rawVisits: Array<any>): HalfRow[] {
+//function populateVisits(rawVisits: Array<any>): HalfRow[] {
 // The below doesn't work, because type  { [id: number]: any } does not have map function
 //function populateVisits(rawVisits: { [id: number]: any }): HalfRow[] {
+function populateVisits(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]> {
   const visits = new Array<Visit>();
-  const rows = new Array<HalfRow>();
+  //const rows = new Array<HalfRow>();
+  const rows = new Array<[FlatVisitRowEven, FlatVisitRowOdd]>();
   rawVisits.map(rv => {
     const v = new Visit(rv);
     const re = new FlatVisitRowEven({
@@ -45,7 +47,7 @@ function populateVisits(rawVisits: Array<any>): HalfRow[] {
       pageTitle: v.pageTitle,
       pageTitleVariation: v.pageTitleVariation
     });
-    rows.push(re);
+    //rows.push(re);
     let ro = new FlatVisitRowOdd({
       id: v.id,
       seTerm: v.seTerm,
@@ -54,7 +56,7 @@ function populateVisits(rawVisits: Array<any>): HalfRow[] {
       ipAddress: v.ipAddress,
       cameFrom: v.cameFrom
     });
-    rows.push(ro);
+    rows.push([re, ro]);
   });
   console.log("populateVisits: visits = ");
   console.log(JSON.stringify(visits));
@@ -62,7 +64,8 @@ function populateVisits(rawVisits: Array<any>): HalfRow[] {
   return rows;
 }
 
-export function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
+//export function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
+export function dataSourceFromAction(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]>{
   const data = populateVisits(rawVisits);
   return data;
 }

@@ -27,7 +27,7 @@ export class FlatVisitsComponent implements OnInit {
   public error$: Observable<string>;
   private subscription: Subscription = new Subscription();
 
-  isSecondRow = (index, item) => item.cameFrom;
+  isSecondRow = (index, item) => item[1].cameFrom;
 
   constructor(public visitsStore: Store<AppState>) {
     /**
@@ -51,9 +51,11 @@ export class FlatVisitsComponent implements OnInit {
     this.error$ = this.visitsStore.select(selectVisitsError);
   }
 
+  /**
   private initializeData(visits: Visit[]): void {
     this.dataSource = new MatTableDataSource(visits.length ? visits : this.noData);
   }
+  ***/
 
   public ngOnDestroy(): void { }
 
