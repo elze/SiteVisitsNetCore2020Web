@@ -30,6 +30,7 @@ export const initialVisitState: FlatVisitState = {
 };
 
 function populateVisits(rawVisits: Array<any>): HalfRow[] {
+// The below doesn't work, because type  { [id: number]: any } does not have map function
 //function populateVisits(rawVisits: { [id: number]: any }): HalfRow[] {
   const visits = new Array<Visit>();
   const rows = new Array<HalfRow>();
@@ -61,7 +62,7 @@ function populateVisits(rawVisits: Array<any>): HalfRow[] {
   return rows;
 }
 
-function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
+export function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
   const data = populateVisits(rawVisits);
   return data;
 }

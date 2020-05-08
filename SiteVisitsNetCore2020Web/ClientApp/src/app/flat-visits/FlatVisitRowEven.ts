@@ -26,7 +26,6 @@ export class FlatVisitRowEven implements HalfRow {
   }) {
     this.id = options.id;
     this.visitDatetime = options.visitDatetime;
-    this.id = options.id;
     this.numberOfTimes = options.numberOfTimes;
     this.ipAddress = new IpAddress(options.ipAddress);
     this.location = this.getCountryRegionCity(this.ipAddress);
