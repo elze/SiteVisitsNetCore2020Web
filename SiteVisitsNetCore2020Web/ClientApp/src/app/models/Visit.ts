@@ -10,7 +10,8 @@ export class Visit {
     id: string;
     visitDatetime: Date;
     numberOfTimes: number;
-    seTerm: string;
+  seTerm: string;
+  location: string;
     logFileName: string;
     visitType: string;
   ipAddress: IpAddress;
@@ -19,7 +20,8 @@ export class Visit {
     pageUrlVariation: PageUrlVariation;
     pageTitle: PageTitle;
     pageTitleVariation: PageTitleVariation;
-    cameFrom: Referrer;
+  cameFrom: Referrer;
+  combinedTerms: string;
     /****
         public virtual Browser Browser { get; set; }
         public virtual Device Device { get; set; }
@@ -50,12 +52,41 @@ export class Visit {
     this.logFileName = options.logFileName;
     this.visitType = options.visitType;
     this.ipAddress = new IpAddress(options.ipAddress);
+    this.location = this.getCountryRegionCity(this.ipAddress);
     this.pageUrl = new PageUrl(options.pageUrl);
     this.pageUrlVariation = new PageUrlVariation(options.pageUrlVariation);
     this.pageTitle = new PageTitle(options.pageTitle);
     this.pageTitleVariation = new PageTitleVariation(options.pageTitleVariation);
     this.cameFrom = new Referrer(options.cameFrom);
-
+    this.combinedTerms = this.getCombinedTerms();
   }
+
+  public getCombinedTerms(): string {
+    let combinedTerms = "";
+    if (this.extractedTerms && this.extractedTerms.length > 0) {
+      const extractedTermsValues = this.extractedTerms.map(x => x.term);
+      combinedTerms = extractedTermsValues.join(", ");
+      if (!extractedTermsValues.includes(this.seTerm)) {
+        combinedTerms += ", " + this.seTerm;
+      }
+    }
+    else
+      combinedTerms = this.seTerm;
+    return combinedTerms;
+  }
+
+  public getCountryRegionCity(ipAddress: IpAddress): string {
+    if (ipAddress) {
+      const locationElements = [
+        ipAddress.country && ipAddress.country.name ? ipAddress.country.name : null,
+        ipAddress.region && ipAddress.region.name ? ipAddress.region.name : null,
+        ipAddress.city && ipAddress.city.name ? ipAddress.city.name : null];
+      const location = locationElements.filter(el => el != null).join(" / ");
+
+      return location;
+    }
+    return "";
+  }
+
 }
 

@@ -6,31 +6,31 @@
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
     <ng-container matColumnDef="visitDatetime">
       <th mat-header-cell *matHeaderCellDef> Visit date/time </th>
-      <td mat-cell *matCellDef="let item"> {{item[0].visitDatetime ? item[0].visitDatetime.toLocaleString("en-US") : "" }}</td>
+      <td mat-cell *matCellDef="let item"> {{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</td>
     </ng-container>
     <ng-container matColumnDef="pageUrl">
       <th mat-header-cell *matHeaderCellDef> Page URL </th>
-      <td mat-cell *matCellDef="let item"> {{item[0].pageUrl ? (item[0].pageUrl.urlCompact ? item[0].pageUrl.urlCompact : item[0].pageUrl.url) : ""}}</td>
+      <td mat-cell *matCellDef="let item"> {{item.pageUrl ? (item.pageUrl.urlCompact ? item.pageUrl.urlCompact : item.pageUrl.url) : ""}}</td>
     </ng-container>
     <ng-container matColumnDef="pageTitle">
       <th mat-header-cell *matHeaderCellDef> Page Title </th>
-      <td mat-cell *matCellDef="let item"> {{item[0].pageTitle ? (item[0].pageTitle.titleCompact ? item[0].pageTitle.titleCompact : item[0].pageTitle.title) : ""}}</td>
+      <td mat-cell *matCellDef="let item"> {{item.pageTitle ? (item.pageTitle.titleCompact ? item.pageTitle.titleCompact : item.pageTitle.title) : ""}}</td>
     </ng-container>
     <ng-container matColumnDef="city">
       <th mat-header-cell *matHeaderCellDef>Country / Region / City </th>
-      <td mat-cell *matCellDef="let item"> {{ item[0].location }} </td>
+      <td mat-cell *matCellDef="let item"> {{ item.location }} </td>
     </ng-container>
     <ng-container matColumnDef="ipAddress">
       <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>IP Address</th>
-      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item[1].ipAddress.ipV4Address}}</td>
+      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.ipAddress.ipV4Address}}</td>
     </ng-container>
     <ng-container matColumnDef="seTerm">
       <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>Search terms</th>
-      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item[1].combinedTerms}} </td>
+      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.combinedTerms}} </td>
     </ng-container>
     <ng-container matColumnDef="cameFrom">
       <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef>Referrer</th>
-      <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item[1].cameFrom ? (item[1].cameFrom.shortCameFrom ? item[1].cameFrom.shortCameFrom : item[1].cameFrom.cameFrom) : ""}}</td>
+      <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.cameFrom ? (item.cameFrom.shortCameFrom ? item.cameFrom.shortCameFrom : item.cameFrom.cameFrom) : ""}}</td>
     </ng-container>
     <tr mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>
     <tr mat-row *matRowDef="let row; columns: ['ipAddress', 'seTerm', 'cameFrom']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>

@@ -241,24 +241,45 @@ describe('FlatVisitsReducer', () => {
 
       //spyOn(fromFlatVisits, 'dataSourceFromAction');
 
-      expect(state.flatVisitsDataSourceData.length).toEqual(data.length * 2);
+      expect(state.flatVisitsDataSourceData.length).toEqual(data.length);
 
-      const row0: FlatVisitRowEven = <FlatVisitRowEven>state.flatVisitsDataSourceData[0];
+      const row0 = state.flatVisitsDataSourceData[0];
       expect(row0.id).toEqual(visit0id);
       expect(row0.ipAddress.city.name).toEqual(visit0City);
       expect(row0.ipAddress.region.name).toEqual(visit0Region);
       expect(row0.ipAddress.country.name).toEqual(visit0Country);
       const location = visit0Country + " / " + visit0Region + " / " + visit0City;
       expect(row0.location).toEqual(location);
+      expect(row0.extractedTerms[0].term).toEqual(visit0extractedTerm0);
+      expect(row0.extractedTerms[1].term).toEqual(visit0extractedTerm1);
+      expect(row0.combinedTerms).toEqual("24, watermelon+ship, ");
+
 
       expect(row0.pageUrl.url).toEqual(visit0PageUrlUrl);
       expect(row0.pageUrl.urlCompact).toEqual(visit0PageUrlCompact);
       expect(row0.pageTitle.title).toEqual(visit0PageTitleTitle);
+      expect(row0.cameFrom.cameFrom).toEqual(visit0CameFrom);
+      expect(row0.cameFrom.shortCameFrom).toEqual(visit0ShortCameFrom);
+      
 
-      const row1: FlatVisitRowOdd = <FlatVisitRowOdd>state.flatVisitsDataSourceData[1];
-      expect(row1.id).toEqual(visit0id);
-      expect(row1.extractedTerms[0].term).toEqual(visit0extractedTerm0);
-      expect(row1.extractedTerms[1].term).toEqual(visit0extractedTerm1);
+      const row1 = state.flatVisitsDataSourceData[1];
+      expect(row1.id).toEqual(visit1id);
+      expect(row1.seTerm).toEqual(visit1seTerm);
+
+      const location1 = visit1Country + " / " + visit1Region + " / " + visit1City;
+      expect(row1.location).toEqual(location1);
+
+
+      expect(row1.pageUrl.url).toEqual(visit1PageUrlUrl);
+      expect(row1.pageUrl.urlCompact).toEqual(visit1PageUrlCompact);
+      expect(row1.pageTitle.title).toEqual(visit1PageTitleTitle);
+      expect(row1.cameFrom.cameFrom).toEqual(visit1CameFrom);
+      expect(row1.cameFrom.shortCameFrom).toEqual(visit1ShortCameFrom);
+
+
+      expect(row1.id).toEqual(visit1id);
+      expect(row1.combinedTerms).toEqual(row1.seTerm);
+
     });
   });
 

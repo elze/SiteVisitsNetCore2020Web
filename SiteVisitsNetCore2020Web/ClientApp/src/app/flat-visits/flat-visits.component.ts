@@ -29,19 +29,7 @@ export class FlatVisitsComponent implements OnInit {
 
   isSecondRow = (index, item) => item[1].cameFrom;
 
-  constructor(public visitsStore: Store<AppState>) {
-    /**
-    this.subscription.add(this.visitsStore.pipe(
-      select('loading'))
-      .subscribe(loading => {
-        if (loading) {
-          this.dataSource = new MatTableDataSource(this.noData);
-        }
-        this.loading = loading;
-      }));
-    this.error$ = this.store.pipe(select(selectCustomerError));
-    ***/
-  }
+  constructor(public visitsStore: Store<AppState>) {  }
 
   public ngOnInit(): void {
     this.loadVisits();

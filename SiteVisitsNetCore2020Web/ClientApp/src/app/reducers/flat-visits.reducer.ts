@@ -16,25 +16,26 @@ import { Visit } from '../models/Visit';
 import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
 
 export interface FlatVisitState {
-  //flatVisitsDataSourceData: Array<Visit>;
-  flatVisitsDataSourceData: Array<HalfRow>;
+  flatVisitsDataSourceData: Array<Visit>;
+  //flatVisitsDataSourceData: Array<HalfRow>;
   loading: boolean;
   error: string | null;
 }
 
 export const initialVisitState: FlatVisitState = {
-  //flatVisitsDataSourceData: new Array<Visit>(),
-  flatVisitsDataSourceData: new Array<HalfRow>(),
+  flatVisitsDataSourceData: new Array<Visit>(),
+  //flatVisitsDataSourceData: new Array<HalfRow>(),
   loading: true,
   error: null
 };
 
-//function populateVisits(rawVisits: Array<any>): HalfRow[] {
+function populateVisits(rawVisits: Array<any>): Array<Visit> {
 // The below doesn't work, because type  { [id: number]: any } does not have map function
 //function populateVisits(rawVisits: { [id: number]: any }): HalfRow[] {
-function populateVisits(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]> {
-  const visits = new Array<Visit>();
+//function populateVisits(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]> {
+  const visits: Array<Visit> = rawVisits.map(rv => new Visit(rv));
   //const rows = new Array<HalfRow>();
+  /**
   const rows = new Array<[FlatVisitRowEven, FlatVisitRowOdd]>();
   rawVisits.map(rv => {
     const v = new Visit(rv);
@@ -58,14 +59,15 @@ function populateVisits(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVis
     });
     rows.push([re, ro]);
   });
+   */
   console.log("populateVisits: visits = ");
   console.log(JSON.stringify(visits));
-  //return visits;
-  return rows;
+  return visits;
+  //return rows;
 }
 
-//export function dataSourceFromAction(rawVisits: Array<any>): Array<HalfRow> {
-export function dataSourceFromAction(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]>{
+export function dataSourceFromAction(rawVisits: Array<any>): Array<Visit> {
+//export function dataSourceFromAction(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]>{
   const data = populateVisits(rawVisits);
   return data;
 }
