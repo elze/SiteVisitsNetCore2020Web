@@ -17,14 +17,12 @@ import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '..
 
 export interface FlatVisitState {
   flatVisitsDataSourceData: Array<Visit>;
-  //flatVisitsDataSourceData: Array<HalfRow>;
   loading: boolean;
   error: string | null;
 }
 
 export const initialVisitState: FlatVisitState = {
   flatVisitsDataSourceData: new Array<Visit>(),
-  //flatVisitsDataSourceData: new Array<HalfRow>(),
   loading: true,
   error: null
 };
@@ -32,38 +30,10 @@ export const initialVisitState: FlatVisitState = {
 function populateVisits(rawVisits: Array<any>): Array<Visit> {
 // The below doesn't work, because type  { [id: number]: any } does not have map function
 //function populateVisits(rawVisits: { [id: number]: any }): HalfRow[] {
-//function populateVisits(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]> {
   const visits: Array<Visit> = rawVisits.map(rv => new Visit(rv));
-  //const rows = new Array<HalfRow>();
-  /**
-  const rows = new Array<[FlatVisitRowEven, FlatVisitRowOdd]>();
-  rawVisits.map(rv => {
-    const v = new Visit(rv);
-    const re = new FlatVisitRowEven({
-      id: v.id, visitDatetime: v.visitDatetime,
-      numberOfTimes: v.numberOfTimes,
-      ipAddress: v.ipAddress,
-      pageUrl: v.pageUrl,
-      pageUrlVariation: v.pageUrlVariation,
-      pageTitle: v.pageTitle,
-      pageTitleVariation: v.pageTitleVariation
-    });
-    //rows.push(re);
-    let ro = new FlatVisitRowOdd({
-      id: v.id,
-      seTerm: v.seTerm,
-      extractedTerms: v.extractedTerms,
-      visitType: v.visitType,
-      ipAddress: v.ipAddress,
-      cameFrom: v.cameFrom
-    });
-    rows.push([re, ro]);
-  });
-   */
   console.log("populateVisits: visits = ");
   console.log(JSON.stringify(visits));
   return visits;
-  //return rows;
 }
 
 export function dataSourceFromAction(rawVisits: Array<any>): Array<Visit> {
@@ -72,16 +42,29 @@ export function dataSourceFromAction(rawVisits: Array<any>): Array<Visit> {
   return data;
 }
 
-
 export const _reducer = createReducer(
   initialVisitState,
+/**
+
   on(loadFlatvisits, (state) => {
     return Object.assign({}, state, {
       loading: true,
       error: null
     })
   }),
+   */
 
+  on(loadFlatvisits, (state) => {
+    return {
+      ...state, 
+      loading: true,
+      error: null
+  }
+  }),
+
+
+
+  /**
   on(loadFlatvisitsSuccess, (state, { data }) => {
     return Object.assign({}, state, {
       flatVisitsDataSourceData: dataSourceFromAction(data),
@@ -89,13 +72,44 @@ export const _reducer = createReducer(
       error: null
     })
   }),
+  ***/
 
+  /**
+  on(loadFlatvisitsSuccess, (state, { data }) => {
+    return Object.assign({}, state, {
+      flatVisitsDataSourceData: dataSourceFromAction(data),
+      loading: false,
+      error: null
+    })
+  }),
+  ***/
+
+  on(loadFlatvisitsSuccess, (state, { data }) => {
+    return {
+      ...state,
+      flatVisitsDataSourceData: dataSourceFromAction(data),
+      loading: false,
+      error: null
+    }
+  }),
+
+  /**
   on(loadFlatvisitsFailure, (state, { response }) => {
     return Object.assign({}, state, {
       error: response.error,
       loading: false
     })
   })
+  ***/
+
+  on(loadFlatvisitsFailure, (state, { response }) => {
+    return {
+      ...state,
+      error: response.error,
+      loading: false
+    }
+  })
+
 
 );
 
