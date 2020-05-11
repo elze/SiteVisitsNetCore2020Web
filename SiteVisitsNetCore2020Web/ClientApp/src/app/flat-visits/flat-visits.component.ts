@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { HalfRow } from './HalfRow';
 import { IpAddress } from '../models/IpAddress';
 import { FlatVisitRowOdd } from './FlatVisitRowOdd';
+import { VisitFlat } from '../models/VisitFlat';
 
 @Component({
   selector: 'app-flat-visits',
@@ -20,9 +21,11 @@ export class FlatVisitsComponent implements OnInit {
 
   private meow: string;
   //public dataSource: MatTableDataSource<Visit>;
-  public dataSource: MatTableDataSource<HalfRow>;
+  //public dataSource: MatTableDataSource<HalfRow>;
+  public dataSource: MatTableDataSource<VisitFlat>;
   //public noData: Visit[] = [<Visit>{}];
-  public noData: HalfRow[] = [];
+  public noData: VisitFlat[] = [];
+  //public noData: HalfRow[] = [];
   public loading: boolean;
   public error$: Observable<string>;
   private subscription: Subscription = new Subscription();

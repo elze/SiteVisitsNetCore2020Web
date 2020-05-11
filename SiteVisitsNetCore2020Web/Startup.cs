@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SiteVisitsNetCore2020Web.Data;
 using SiteVisitsNetCore2020Web.Exceptions;
+using SiteVisitsNetCore2020Web.Services;
 
 namespace SiteVisitsNetCore2020Web
 {
@@ -33,6 +34,7 @@ namespace SiteVisitsNetCore2020Web
 
             services.AddDbContext<SiteVisitsNetCore2020WebContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SiteVisitsNetCore2020WebContext")));
+            services.AddTransient<IVisitsService, VisitsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

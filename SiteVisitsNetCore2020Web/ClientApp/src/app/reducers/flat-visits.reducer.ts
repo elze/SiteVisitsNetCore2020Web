@@ -14,15 +14,29 @@ import { FlatVisitRowOdd } from '../flat-visits/FlatVisitRowOdd';
 import { Visit } from '../models/Visit';
 
 import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
+import { VisitFlat } from '../models/VisitFlat';
 
-export interface FlatVisitState {
-  flatVisitsDataSourceData: Array<Visit>;
+export interface VisitState {
+  visitsDataSourceData: Array<Visit>;
   loading: boolean;
   error: string | null;
 }
 
-export const initialVisitState: FlatVisitState = {
-  flatVisitsDataSourceData: new Array<Visit>(),
+export const initialVisitState: VisitState = {
+  visitsDataSourceData: new Array<Visit>(),
+  loading: true,
+  error: null
+};
+
+
+export interface FlatVisitState {
+  flatVisitsDataSourceData: Array<VisitFlat>;
+  loading: boolean;
+  error: string | null;
+}
+
+export const initialFlatVisitState: FlatVisitState = {
+  flatVisitsDataSourceData: new Array<VisitFlat>(),
   loading: true,
   error: null
 };
@@ -36,14 +50,14 @@ function populateVisits(rawVisits: Array<any>): Array<Visit> {
   return visits;
 }
 
-export function dataSourceFromAction(rawVisits: Array<any>): Array<Visit> {
+export function dataSourceFromAction(rawVisits: Array<any>): Array<VisitFlat> {
 //export function dataSourceFromAction(rawVisits: Array<any>): Array<[FlatVisitRowEven, FlatVisitRowOdd]>{
-  const data = populateVisits(rawVisits);
+  const data: Array<VisitFlat> = rawVisits.map(rv => new VisitFlat(rv));
   return data;
 }
 
 export const _reducer = createReducer(
-  initialVisitState,
+  initialFlatVisitState,
 /**
 
   on(loadFlatvisits, (state) => {
