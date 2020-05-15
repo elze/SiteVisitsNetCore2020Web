@@ -1,11 +1,5 @@
 import * as fromFlatVisits from './flat-visits.reducer';
 import * as fromActions from '../actions/flatvisit.actions';
-import { HalfRow } from '../flat-visits/HalfRow';
-import { FlatVisitRowEven } from '../flat-visits/FlatVisitRowEven';
-import { FlatVisitRowOdd } from '../flat-visits/FlatVisitRowOdd';
-import { Visit } from '../models/Visit';
-
-import { TestBed } from '@angular/core/testing';
 
 
 describe('FlatVisitsReducer', () => {

@@ -31,8 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\flat-visits\FlatVisitRowOdd.ts" />
-    <None Remove="ClientApp\src\app\flat-visits\HalfRow.ts" />
     <None Remove="ClientApp\src\app\models\ExtractedTerm.ts" />
     <None Remove="ClientApp\src\app\models\FlatVisitRowEven.ts" />
     <None Remove="ClientApp\src\app\models\VisitFlat.ts" />
@@ -41,9 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\FlatVisitRowEven.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\FlatVisitRowOdd.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\flat-visits\HalfRow.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\ExtractedTerm.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\VisitFlat.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reducers\flat-visits.reducer.spec.ts" />
