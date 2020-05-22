@@ -2,11 +2,16 @@ export class VisitFlat {
   id: string;
   visitDatetime: Date;
   numberOfTimes: number;
+  city: string;
+  region: string;
+  country: string;
+  postalCode: string;
   location: string;
   logFileName: string;
   visitType: string;
   ipAddress: string;
-  extractedTerms: Array<string>;
+  isp: string;
+  //extractedTerms: Array<string>;
   pageUrl: string;
   //pageUrlVariation: string;
   pageTitle: string;
@@ -26,6 +31,11 @@ export class VisitFlat {
     logFileName: string,
     visitType: string,
     ipAddress: string,
+    isp: string,
+    city: string,
+    region: string,
+    country: string,
+    postalCode: string,
     location: string,
     pageUrl: string,
     pageTitle: string,
@@ -39,7 +49,13 @@ export class VisitFlat {
     this.logFileName = options.logFileName;
     this.visitType = options.visitType;
     this.ipAddress = options.ipAddress;
+    this.isp = options.isp;
+    this.city = options.city;
+    this.region = options.region;
+    this.country = options.country;
+    this.postalCode = options.postalCode;
     this.location = options.location;
+    //this.extractedTerms = options.extractedTerms;
     this.pageUrl = options.pageUrl;
     this.pageTitle = options.pageTitle;
     this.cameFrom = options.cameFrom;

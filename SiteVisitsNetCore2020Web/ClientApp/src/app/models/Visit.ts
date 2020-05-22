@@ -5,12 +5,18 @@ import { PageTitle } from './PageTitle';
 import { PageTitleVariation } from './PageTitleVariation';
 import { Referrer } from './Referrer';
 import { ExtractedTerm } from './ExtractedTerm';
+import { Browser } from './Browser';
+import { Device } from './Device';
+import { SearchEngine } from './SearchEngine';
 
 export class Visit {
     id: string;
     visitDatetime: Date;
-    numberOfTimes: number;
-  seTerm: string;
+  numberOfTimes: number;
+  browser: Browser;
+  cameFrom: Referrer;
+  combinedTerms: string;
+  device: Device;
   location: string;
     logFileName: string;
     visitType: string;
@@ -20,17 +26,14 @@ export class Visit {
     pageUrlVariation: PageUrlVariation;
     pageTitle: PageTitle;
     pageTitleVariation: PageTitleVariation;
-  cameFrom: Referrer;
-  combinedTerms: string;
-    /****
-        public virtual Browser Browser { get; set; }
-        public virtual Device Device { get; set; }
-        public virtual SearchEngine SearchEngine { get; set; }
-        ***/
+  searchEngine: SearchEngine;
+  seTerm: string;
 
   constructor(options: {
     id: string, visitDatetime: string,
     numberOfTimes: number,
+    browser: Browser,
+    device: Device,
     seTerm: string,
     logFileName: string,
     visitType: string,
@@ -40,12 +43,16 @@ export class Visit {
     pageTitle: PageTitle,
     pageTitleVariation: PageTitleVariation,
     cameFrom: Referrer,
-    extractedTerms: Array<ExtractedTerm>}) {
+    extractedTerms: Array<ExtractedTerm>,
+    searchEngine: SearchEngine;
+  }) {
     this.id = options.id;
     //let vDateTime = new Date(options.visitDatetime);
     //this.visitDatetime = options.visitDatetime;
     this.visitDatetime = new Date(options.visitDatetime);
     this.id = options.id;
+    this.browser = options.browser;
+    this.device = options.device;
     this.numberOfTimes = options.numberOfTimes;
     this.seTerm = options.seTerm;
     this.extractedTerms = options.extractedTerms;
@@ -59,6 +66,7 @@ export class Visit {
     this.pageTitleVariation = new PageTitleVariation(options.pageTitleVariation);
     this.cameFrom = new Referrer(options.cameFrom);
     this.combinedTerms = this.getCombinedTerms();
+    this.searchEngine = new SearchEngine(options.searchEngine);
   }
 
   public getCombinedTerms(): string {

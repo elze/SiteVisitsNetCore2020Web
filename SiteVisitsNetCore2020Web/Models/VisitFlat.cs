@@ -10,7 +10,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public Guid Id { get; set; }
         public DateTime VisitDatetime { get; set; }
 
-        public string IpAddress;
+        public string IpAddress { get; set; }
         public int NumberOfTimes { get; set; }
         public string Isp { get; set; }
         public string City { get; set; }

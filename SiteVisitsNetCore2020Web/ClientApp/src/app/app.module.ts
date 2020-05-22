@@ -19,6 +19,10 @@ import { FlatVisitsComponent } from './flat-visits/flat-visits.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { FlatVisitsEffects } from './flat-visits/flat-visits.effects';
+import { VisitSessionEffects } from './visit-session/visit-session.effects';
+import { VisitSessionComponent } from './visit-session/visit-session.component';
+import { VisitSessionBlockComponent } from './visit-session-block/visit-session-block.component';
+import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,10 @@ import { FlatVisitsEffects } from './flat-visits/flat-visits.effects';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    FlatVisitsComponent
+    FlatVisitsComponent,
+    VisitSessionComponent,
+    VisitSessionBlockComponent,
+    WeatherForecastComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,11 +45,14 @@ import { FlatVisitsEffects } from './flat-visits/flat-visits.effects';
     MatPaginatorModule,
     MatTableModule,
     RouterModule.forRoot([
+      { path: 'visit-session/:id', component: VisitSessionComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
+      { path: 'weather-forecast/:id', component: WeatherForecastComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'flat-visits', component: FlatVisitsComponent },
-    ]),
+      { path: "**", component: HomeComponent },
+    ], { enableTracing: true }),
     StoreModule.forRoot(reducers, {
       metaReducers, 
       runtimeChecks: {
@@ -52,7 +62,7 @@ import { FlatVisitsEffects } from './flat-visits/flat-visits.effects';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
-    EffectsModule.forRoot([FlatVisitsEffects])
+    EffectsModule.forRoot([FlatVisitsEffects, VisitSessionEffects])
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: environment.baseHref }],
   bootstrap: [AppComponent]

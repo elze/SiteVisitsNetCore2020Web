@@ -39,8 +39,8 @@ namespace SiteVisitsNetCore2020Web.Controllers
                     .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
                 .Include(v => v.IpAddress)
                     .ThenInclude(i => i.Isp)
-                .Include(v => v.IpAddress)
-                   .ThenInclude(i => i.Visitor)
+                //.Include(v => v.IpAddress)
+                  // .ThenInclude(i => i.Visitor)
                 .Include(v => v.ExtractedTerms)
                 .Include(v => v.PageUrl)
                 .Include(v => v.PageUrlVariation)
@@ -66,8 +66,49 @@ namespace SiteVisitsNetCore2020Web.Controllers
                 PageTitle = _visitsService.GetPageTitle(v),
                 PageUrl = _visitsService.GetPageUrl(v)
             });
-            //return flatVisits.ToListAsync();
-            return flatVisits.ToList();
+            return await flatVisits.ToListAsync();
+            //return flatVisits.ToList();
+        }
+
+        // GET: api/Visits/session/5
+        [HttpGet("session/{id}")]
+        //public async Task<ActionResult<Visit>> GetVisitSession(Guid id)
+        //public async Task<ActionResult<IEnumerable<IGrouping<Tuple<Device, Browser>, Visit>>>> GetVisitSession(Guid id)
+        //public async Task<ActionResult<Dictionary<string, Dictionary<string, List<Visit>>>>> GetVisitSession(Guid id)
+        public async Task<ActionResult<Dictionary<string, Dictionary<string, List<Visit>>>>> GetVisitSession(Guid id)
+        {
+            var visit = await _context.Visit.Include(v => v.IpAddress)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (visit == null)
+            {
+                return NotFound();
+            }
+            //List<Visit> sessionVisits = _visitsService.GetVisitSession(visit);
+            //IEnumerable<IGrouping<Tuple<Device, Browser>, Visit>> sessionVisits = await _visitsService.GetVisitSession(visit);
+            Dictionary<string, Dictionary<string, List<Visit>>> sessionVisits = await _visitsService.GetVisitSession(visit);
+
+            //var sessionVisitsList = sessionVisits.ToDictionary(g => g.Key.Item1.OperatingSystem, g => g.ToList()); 
+            //return Ok(sessionVisitsList);
+            return Ok(sessionVisits); 
+        }
+
+        // GET: api/Visits/sessionvisits/5
+        [HttpGet("sessionvisits/{id}")]
+        //public async Task<ActionResult<Dictionary<Tuple<string, string>, List<Visit>>>> GetVisitSessionOneLevelGrouping(Guid id)
+        public async Task<ActionResult<List<VisitSessionBlock>>> GetVisitSessionOneLevelGrouping(Guid id)
+        {
+            var visit = await _context.Visit.Include(v => v.IpAddress)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (visit == null)
+            {
+                return NotFound();
+            }
+            //Dictionary<Tuple<string, string>, List<Visit>> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
+            List<VisitSessionBlock> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
+            //var sessionVisitViewModels = sessionVisits.Select(v => )
+            return Ok(sessionVisits);
         }
 
         // GET: api/Visits/5

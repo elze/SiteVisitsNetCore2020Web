@@ -35,5 +35,18 @@ namespace SiteVisitsNetCore2020Web.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("{id}")]
+        public async Task<WeatherForecast> GetById(int id)
+        {
+            var rng = new Random();
+            return new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(id),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            };
+        }
+
     }
 }

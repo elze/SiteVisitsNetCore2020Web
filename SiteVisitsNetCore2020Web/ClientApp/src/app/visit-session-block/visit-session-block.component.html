@@ -1,14 +1,11 @@
-<p>Page visits</p>
-<mat-error *ngIf="error$ | async as errorMessage">
-  {{ errorMessage }}
-</mat-error>
+<p>visit-session-block works!</p>
+<div>Device: {{ device }}</div>
+<div>Browser: {{ browser }}</div>
 <div style="padding: 32px" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
     <ng-container matColumnDef="visitDatetime">
-      <th mat-header-cell *matHeaderCellDef>
-        Visit date/time
-      </th>
-      <td mat-cell *matCellDef="let item"> <a [routerLink]="['/visit-session', item.id]">{{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</a></td>
+      <th mat-header-cell *matHeaderCellDef> Visit date/time </th>
+      <td mat-cell *matCellDef="let item"> {{item.visit.visitDatetime ? item.visit.visitDatetime.toLocaleString("en-US") : "" }}</td>
     </ng-container>
     <ng-container matColumnDef="pageUrl">
       <th mat-header-cell *matHeaderCellDef> Page URL </th>

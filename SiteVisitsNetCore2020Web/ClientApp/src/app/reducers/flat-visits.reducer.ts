@@ -4,24 +4,8 @@ import {
   on
 } from '@ngrx/store';
 
-import { Visit } from '../models/Visit';
 import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
 import { VisitFlat } from '../models/VisitFlat';
-
-/**
-export interface VisitState {
-  visitsDataSourceData: Array<Visit>;
-  loading: boolean;
-  error: string | null;
-}
-
-export const initialVisitState: VisitState = {
-  visitsDataSourceData: new Array<Visit>(),
-  loading: true,
-  error: null
-};
- */
-
 
 export interface FlatVisitState {
   flatVisitsDataSourceData: Array<VisitFlat>;
@@ -111,7 +95,7 @@ export const _reducer = createReducer(
 
 );
 
-export function vReducer(state, action) {
+export function fvReducer(state, action) {
   return _reducer(state, action)
 }
 

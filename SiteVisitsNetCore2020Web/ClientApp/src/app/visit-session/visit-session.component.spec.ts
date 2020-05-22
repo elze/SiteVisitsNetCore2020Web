@@ -1,34 +1,34 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { AppModule } from '../app.module';
-import { FlatVisitsComponent } from './flat-visits.component';
+import { VisitSessionComponent } from './visit-session.component';
 
-describe('FlatVisitsComponent', () => {
-  let component: FlatVisitsComponent;
-  let fixture: ComponentFixture<FlatVisitsComponent>;
+describe('VisitSessionComponent', () => {
+  let component: VisitSessionComponent;
+  let fixture: ComponentFixture<VisitSessionComponent>;
 
-  //let store: MockStore;
   const initialState = {
-    visits: {
-      flatVisitsDataSourceData: [],
+    visitSessionBlocks: {
+      dataSourceData: [],
       loading: true,
       error: null
     }
   };
 
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      //declarations: [ VisitSessionComponent ]
       imports: [AppModule],
-      //declarations: [FlatVisitsComponent],
       providers: [
-        provideMockStore({ initialState  })
-        ]
+        provideMockStore({ initialState })
+      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FlatVisitsComponent);
+    fixture = TestBed.createComponent(VisitSessionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

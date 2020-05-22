@@ -1,5 +1,6 @@
 import * as fromFlatVisits from './flat-visits.reducer';
 import * as fromActions from '../actions/flatvisit.actions';
+import { VisitFlat } from '../models/VisitFlat';
 
 
 describe('FlatVisitsReducer', () => {
@@ -283,7 +284,7 @@ describe('FlatVisitsReducer', () => {
    it('should return the default state', () => {
      const { initialFlatVisitState } = fromFlatVisits;
       const action = {};
-      const state = fromFlatVisits.vReducer(undefined, action);
+      const state = fromFlatVisits.fvReducer(undefined, action);
 
      expect(state).toBe(initialFlatVisitState);
     });
@@ -293,7 +294,7 @@ describe('FlatVisitsReducer', () => {
     it('should set loading to true', () => {
       const { initialFlatVisitState } = fromFlatVisits;
       const action = fromActions.loadFlatvisits();
-      const state = fromFlatVisits.vReducer(initialFlatVisitState, action);
+      const state = fromFlatVisits.fvReducer(initialFlatVisitState, action);
       expect(state.loading).toEqual(true);
       expect(state.flatVisitsDataSourceData).toEqual([]);
     });
@@ -305,7 +306,7 @@ describe('FlatVisitsReducer', () => {
       const { initialFlatVisitState } = fromFlatVisits;
       const previousState = { ...initialFlatVisitState, loading: true };
       const action = fromActions.loadFlatvisitsFailure({ response: { error: errorMessage } });
-      const state = fromFlatVisits.vReducer(previousState, action);
+      const state = fromFlatVisits.fvReducer(previousState, action);
       expect(state.error).toEqual(errorMessage);
       expect(state.flatVisitsDataSourceData).toEqual(initialFlatVisitState.flatVisitsDataSourceData);
       expect(state.loading).toBeFalsy();
@@ -345,7 +346,7 @@ describe('FlatVisitsReducer', () => {
       const visit1CameFrom = "http://www.bing.com/images/search?q=harry potter&view=detail&id=F6C3CA013DC5FD3ECA2070C7D3CF9B5545E79FCC&first=211&qpvt=harry potter&FORM=IDFRIR";
       const visit1ShortCameFrom = `q=${visit1seTerm}`;
       const data = [
-        {
+        new VisitFlat({
           "id": visit0id,
           "visitDatetime": visit0DateTime,
           "numberOfTimes": 0,
@@ -356,15 +357,17 @@ describe('FlatVisitsReducer', () => {
           "region": visit0Region,
           "country": visit0Country,
           "location": visit0Country + " / " + visit0Region + " / " + visit0City,
+          "postalCode": "78323",
           "isp": "Windstream Communications",
-          "visitor": null,
-          "ipAddressRelations": null,
+          "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
+          //"ipAddressRelations": null,
           "pageUrl": visit0PageUrlCompact,
           "pageTitle": visit0PageTitleTitle,
           "cameFrom": visit0ShortCameFrom,
+          //"extractedTerms": visit0extractedTerm1,
           "combinedTerms": visit0combinedTerms
-        },
-        {
+        }),
+        new VisitFlat({
           "id": visit1id,
           "visitDatetime": visit1Datetime,
           "numberOfTimes": 0,
@@ -374,23 +377,22 @@ describe('FlatVisitsReducer', () => {
           "city": visit1City,
           "region": visit1Region,
           "country": visit1Country,
+          "postalCode": "78323",
           "location": visit1location,
           "isp": "Sri Lanka Telecom",
-          "visitor": null,
-          "ipAddressRelations": null,
+          "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
+          //"ipAddressRelations": null,
           "pageUrl": visit1PageUrlCompact,
           "pageTitle": visit1PageTitleTitle,
           "cameFrom": visit1ShortCameFrom,
-          "combinedTerms": visit1seTerm,   
-          "browser": null,
-          "device": null,
-          "searchEngine": null
-        }
+          "combinedTerms": visit1seTerm
+          //"extractedTerms": null
+        })
       ];
 
       const { initialFlatVisitState } = fromFlatVisits;
       const action = fromActions.loadFlatvisitsSuccess({ data });
-      const state = fromFlatVisits.vReducer(initialFlatVisitState, action);
+      const state = fromFlatVisits.fvReducer(initialFlatVisitState, action);
       expect(state.flatVisitsDataSourceData.length).toEqual(data.length);
 
       const row0 = state.flatVisitsDataSourceData[0];
