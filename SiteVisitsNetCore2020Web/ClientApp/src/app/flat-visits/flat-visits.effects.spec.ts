@@ -3,7 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 
 import { FlatVisitsEffects } from './flat-visits.effects';
-//import { VisitFlat } from '../models/VisitFlat';
+import { VisitFlat } from '../models/VisitFlat';
 import { FlatVisitDataService } from './flat-visit-data.service';
 //import { loadFlatvisits } from '../actions/flatvisit.actions';
 
@@ -11,7 +11,6 @@ describe('FlatVisitsEffects', () => {
   let actions$: Observable<any>;
   let effects: FlatVisitsEffects;
 
-  /**
   const flatVisits = new Array<VisitFlat>();
   flatVisits.push(
     new VisitFlat({
@@ -73,7 +72,6 @@ describe('FlatVisitsEffects', () => {
       "seTerm": "",
       "visitType": "page view"
     }));
-     */
 
   //let flatVisitDataServiceSpy: jasmine.SpyObj<FlatVisitDataService>;
 
@@ -93,11 +91,13 @@ describe('FlatVisitsEffects', () => {
      */
 
     //const spy = jasmine.createSpyObj('FlatVisitDataService', ['GetFlatVisits']);
+
     const spy = jasmine.createSpyObj('FlatVisitDataService', {
       'GetFlatVisits': function () {
         return of(flatVisits);
       }
     });
+
     //spy.GetFlatVisits().
 
     TestBed.configureTestingModule({
