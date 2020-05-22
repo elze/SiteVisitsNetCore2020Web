@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 
 import { loadFlatvisits, loadFlatvisitsFailure, loadFlatvisitsSuccess } from '../actions/flatvisit.actions';
-import { VisitFlat } from '../models/VisitFlat';
+import { VisitFlat } from '../viewmodels/VisitFlat';
 
 export interface FlatVisitState {
   flatVisitsDataSourceData: Array<VisitFlat>;

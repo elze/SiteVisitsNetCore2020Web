@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
+//import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisits, selectVisitsError, selectVisitSessionBlocks } from '../reducers';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
 import { loadSessionvisits } from '../actions/sessionvisit.actions';
-import { switchMap } from 'rxjs/operators';
+//import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-visit-session',

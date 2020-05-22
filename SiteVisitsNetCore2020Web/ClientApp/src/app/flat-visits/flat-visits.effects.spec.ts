@@ -3,7 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 
 import { FlatVisitsEffects } from './flat-visits.effects';
-import { VisitFlat } from '../models/VisitFlat';
+import { VisitFlat } from '../viewmodels/VisitFlat';
 import { FlatVisitDataService } from './flat-visit-data.service';
 //import { loadFlatvisits } from '../actions/flatvisit.actions';
 

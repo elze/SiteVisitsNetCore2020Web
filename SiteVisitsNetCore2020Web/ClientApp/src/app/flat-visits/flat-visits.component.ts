@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisits, selectVisitsError } from '../reducers';
 import { loadFlatvisits } from '../actions/flatvisit.actions';
-import { Subscription } from 'rxjs';
-import { VisitFlat } from '../models/VisitFlat';
+//import { Subscription } from 'rxjs';
+import { VisitFlat } from '../viewmodels/VisitFlat';
 
 @Component({
   selector: 'app-flat-visits',
@@ -14,7 +14,6 @@ import { VisitFlat } from '../models/VisitFlat';
 })
 export class FlatVisitsComponent implements OnInit {
 
-  private meow: string;
   public dataSource: MatTableDataSource<VisitFlat>;
   public noData: VisitFlat[] = [];
   public loading: boolean;

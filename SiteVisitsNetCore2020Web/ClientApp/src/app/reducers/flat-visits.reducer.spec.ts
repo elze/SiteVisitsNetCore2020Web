@@ -1,6 +1,6 @@
 import * as fromFlatVisits from './flat-visits.reducer';
 import * as fromActions from '../actions/flatvisit.actions';
-import { VisitFlat } from '../models/VisitFlat';
+import { VisitFlat } from '../viewmodels/VisitFlat';
 
 
 describe('FlatVisitsReducer', () => {

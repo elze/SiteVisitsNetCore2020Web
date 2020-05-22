@@ -21,7 +21,6 @@ export class VisitSessionBlockComponent implements OnInit {
   ngOnInit() {
     console.log(`VisitSessionBlockComponent ngOnInit`);
     // The higher level component, VisitSessionComponent, will load the visits
-    //this.loadVisits();
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((rows: Array<VisitSessionBlock>) => {
       console.log(`VisitSessionBlockComponent ngOnInit: we are inside this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe`);
       const visitSessionBlock = rows.find(vsb => vsb.browser === this.browser && vsb.device === this.device);

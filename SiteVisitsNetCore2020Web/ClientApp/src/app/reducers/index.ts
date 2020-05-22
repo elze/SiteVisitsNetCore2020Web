@@ -5,7 +5,6 @@ import {
 import { environment } from '../../environments/environment';
 
 import { FlatVisitState, fvReducer } from './flat-visits.reducer';
-//import { VisitSessionBlockState, vsbReducer } from './visit-session-block.reducer';
 import { VisitSessionState, vsReducer } from './visit-session.reducer';
 
 

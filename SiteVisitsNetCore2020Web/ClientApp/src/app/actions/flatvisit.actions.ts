@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { VisitFlat } from '../models/VisitFlat';
+import { VisitFlat } from '../viewmodels/VisitFlat';
 
 export const loadFlatvisits = createAction(
   '[Flatvisit] Load Flatvisits'

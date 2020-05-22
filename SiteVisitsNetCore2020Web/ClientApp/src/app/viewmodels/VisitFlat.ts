@@ -11,7 +11,6 @@ export class VisitFlat {
   visitType: string;
   ipAddress: string;
   isp: string;
-  //extractedTerms: Array<string>;
   pageUrl: string;
   //pageUrlVariation: string;
   pageTitle: string;
@@ -40,7 +39,6 @@ export class VisitFlat {
     pageUrl: string,
     pageTitle: string,
     cameFrom: string,
-    //extractedTerms: Array<string>
     combinedTerms: string
   }) {
     this.id = options.id;
@@ -55,7 +53,6 @@ export class VisitFlat {
     this.country = options.country;
     this.postalCode = options.postalCode;
     this.location = options.location;
-    //this.extractedTerms = options.extractedTerms;
     this.pageUrl = options.pageUrl;
     this.pageTitle = options.pageTitle;
     this.cameFrom = options.cameFrom;
