@@ -24,8 +24,10 @@ namespace SiteVisitsNetCore2020Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(options =>
-    options.Filters.Add(new SqlExceptionFilter()));
+            services.AddControllersWithViews(options => {
+                options.Filters.Add(new SqlExceptionFilter());
+                options.Filters.Add(new SqlExceptionFilter());
+                }); 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

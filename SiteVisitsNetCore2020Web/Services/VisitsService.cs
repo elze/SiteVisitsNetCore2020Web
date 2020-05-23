@@ -39,11 +39,6 @@ namespace SiteVisitsNetCore2020Web.Services
         {
             string location = "";
             List<string> locationElements = new List<string>() {
-                    /**
-        !string.IsNullOrEmpty(ipAddress.Country?.Name) ? ipAddress.Country.Name : null,
-        !string.IsNullOrEmpty(ipAddress.Region?.Name) ? ipAddress.Region.Name : null,
-        !string.IsNullOrEmpty(ipAddress.City?.Name) ? ipAddress.City.Name : null
-    ***/
     ipAddress?.Country?.Name, ipAddress?.Region?.Name, ipAddress?.City?.Name
             };
 
@@ -54,10 +49,6 @@ namespace SiteVisitsNetCore2020Web.Services
         public string GetCameFrom(Visit visit)
         {
             var cameFromDisplay = visit.CameFrom?.ShortCameFrom ?? visit.CameFrom?.CameFrom;
-
-            //string shortCameFrom = visit.CameFrom?.ShortCameFrom;
-            //var cameFromDisplay = !string.IsNullOrEmpty(shortCameFrom) ? shortCameFrom : visit.CameFrom?.CameFrom;
-
             return cameFromDisplay;
         }
 
@@ -131,8 +122,6 @@ namespace SiteVisitsNetCore2020Web.Services
             return sessionVisits;
         }
 
-        //public List<Visit> GetVisitSession(Visit visit)
-        //public async Task<IEnumerable<IGrouping<Tuple<Device, Browser>, Visit>>> GetVisitSession(Visit visit)
         public async Task<Dictionary<string, Dictionary<string, List<Visit>>>> GetVisitSession(Visit visit)            
         {
             List<string> ipAddresses = GetIpAddresses(visit);
@@ -167,7 +156,6 @@ namespace SiteVisitsNetCore2020Web.Services
 
 
             var sessionVisitsGrouped = sessionVisits
-            //.GroupBy(v => new Tuple<Device, Browser> (v.Device, v.Browser));
 
             .GroupBy(v => new { v.Device, v.Browser })
             .GroupBy(v => v.Key.Device);
@@ -179,20 +167,13 @@ namespace SiteVisitsNetCore2020Web.Services
                 dSessionVisits[grouping.Key.OperatingSystem] = new Dictionary<string, List<Visit>>();
                 foreach (var g in grouping.ToList())
                 {
-                    //dSessionVisits[grouping.Key.OperatingSystem][g.Key.Browser.Name]
-                    //dSessionVisits[grouping.Key.OperatingSystem] = g.ToDictionary(x => x.Browser.Name, x => x.ToList())
                     dSessionVisits[grouping.Key.OperatingSystem][g.Key.Browser.Name] = g.ToList();
                 }
             }
 
-            //var dSessionVisits = sessionVisitsGrouped.ToLookup(result => result.Key.OperatingSystem, )
-            //return sessionVisits;
-            //return sessionVisitsGrouped;
             return dSessionVisits;
         }
 
-        //public async Task<Dictionary<string, Dictionary<string, List<Visit>>>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
-        //public async Task<Dictionary<Tuple<string, string>, List<Visit>>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
         public async Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
         {
             List<string> ipAddresses = GetIpAddresses(visit);
@@ -230,7 +211,7 @@ namespace SiteVisitsNetCore2020Web.Services
             List<Visit> precedingSessionVisits = precedingVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
             // since the 0th element is the same as the 0th element of subsequentSessionVisits and is the visit object that was passed into this function.
             precedingSessionVisits.RemoveAt(0);
-            var sessionVisits = precedingVisits.Concat(subsequentVisits);
+            var sessionVisits = precedingSessionVisits.Concat(subsequentSessionVisits);
             //.ToList();
 
             var sessionVisitsGrouped = sessionVisits
@@ -242,12 +223,10 @@ namespace SiteVisitsNetCore2020Web.Services
             List<VisitSessionBlock> visitSessionBlocks = new List<VisitSessionBlock>();
             foreach (var grouping in sessionVisitsGrouped)
             {
-                //dSessionVisits[new Tuple<string, string>(grouping.Key.Item1.OperatingSystem, grouping.Key.Item2.Name)]
-                //  = grouping.ToList();
                 visitSessionBlocks.Add(new VisitSessionBlock
                 {
-                    Browser = grouping.Key.Item2.Name,
-                    Device = grouping.Key.Item1.OperatingSystem,
+                    Browser = grouping.Key.Item2?.Name,
+                    Device = grouping.Key.Item1?.OperatingSystem,
                     Visits = grouping.ToList().Select(v => new ViewModels.VisitViewModel
                     {
                         Visit = v,
@@ -259,13 +238,6 @@ namespace SiteVisitsNetCore2020Web.Services
                     }).ToList()
                 });
             }
-
-            //List<VisitSessionBlock> visitSessionBlocks = new List<VisitSessionBlock>();
-
-            //var dSessionVisits = sessionVisitsGrouped.ToLookup(result => result.Key.OperatingSystem, )
-            //return sessionVisits;
-            //return sessionVisitsGrouped;
-            //return dSessionVisits;
             return visitSessionBlocks;
         }
 
