@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisits, selectVisitsError, selectVisitSessionBlocks } from '../reducers';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
@@ -16,6 +17,7 @@ export class VisitSessionBlockComponent implements OnInit {
   @Input() browser: string;
   @Input() device: string;
   public noData: VisitViewModel[] = [];
+  public error$: Observable<string>;
   constructor(public visitsStore: Store<AppState>) { }
 
   ngOnInit() {

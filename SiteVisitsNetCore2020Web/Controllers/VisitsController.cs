@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SiteVisitsNetCore2020Web.Data;
+using SiteVisitsNetCore2020Web.Exceptions;
 using SiteVisitsNetCore2020Web.Models;
 using SiteVisitsNetCore2020Web.Services;
 
 namespace SiteVisitsNetCore2020Web.Controllers
 {
     //[Route("visitsnc3ng/api/[controller]")]
+    [ApiExceptionFilter]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitsController : ControllerBase

@@ -20,7 +20,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const selectVisits = (state: AppState) => state.visits.flatVisitsDataSourceData;
-export const selectVisitsError = (state: AppState) => state.visits.error;
+export const selectVisitsError = (state: AppState) => state.visitSessionBlocks.error;
 
 export const selectVisitSessionBlocks = (state: AppState) => state.visitSessionBlocks.dataSourceData;
 
