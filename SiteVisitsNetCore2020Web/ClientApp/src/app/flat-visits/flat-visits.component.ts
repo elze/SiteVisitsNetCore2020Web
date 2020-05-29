@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+//import { MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisits, selectVisitsError } from '../reducers';
@@ -19,12 +20,15 @@ export class FlatVisitsComponent implements OnInit {
   public loading: boolean;
   public error$: Observable<string>;
 
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+
   constructor(public visitsStore: Store<AppState>) {  }
 
   public ngOnInit(): void {
     this.loadVisits();
     this.visitsStore.pipe(select(selectVisits)).subscribe(rows => {
       this.dataSource = new MatTableDataSource(rows.length ? rows : this.noData);
+      this.dataSource.paginator = this.paginator;
     });
     this.error$ = this.visitsStore.select(selectVisitsError);
   }
