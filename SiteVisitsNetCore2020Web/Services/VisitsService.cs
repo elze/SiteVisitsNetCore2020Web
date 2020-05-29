@@ -5,6 +5,7 @@ using SiteVisitsNetCore2020Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace SiteVisitsNetCore2020Web.Services
@@ -12,10 +13,14 @@ namespace SiteVisitsNetCore2020Web.Services
     public class VisitsService: IVisitsService
     {
         public static readonly int MinutesBetweenVisits = 30;
-        private readonly SiteVisitsNetCore2020WebContext _context;
-        public VisitsService(SiteVisitsNetCore2020WebContext context)
+        //private readonly SiteVisitsNetCore2020WebContext _context;
+        private readonly IEntityHelper _entityHelper;
+        public VisitsService(
+            //SiteVisitsNetCore2020WebContext context, 
+            IEntityHelper entityHelper)
         {
-            _context = context;
+            //_context = context;
+            _entityHelper = entityHelper;
         }
 
         public string GetCombinedTerms(string seTerm, List<ExtractedTerm> extractedTerms)
@@ -102,6 +107,7 @@ namespace SiteVisitsNetCore2020Web.Services
             return false;
         }
 
+        /**
         public List<Visit> GetVisitSessionAllVisits(Visit visit)
         {
             List<string> ipAddresses = GetIpAddresses(visit);
@@ -134,12 +140,9 @@ namespace SiteVisitsNetCore2020Web.Services
 
             List<Visit> subsequentSessionVisits = subsequentVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
 
-            /**
-            List <Visit> subsequentSessionVisits = subsequentVisits.Aggregate(new List<Visit> { visit },
-                (accVisits, nextVisit) =>
+            //List <Visit> subsequentSessionVisits = subsequentVisits.Aggregate(new List<Visit> { visit },
+              //  (accVisits, nextVisit) =>
     VisitsBelongToSameSession(accVisits, nextVisit) ? accVisits.Append(nextVisit).ToList() : accVisits.ToList());
-            //.ToList();
-            ***/
 
             var precedingVisits = _context.Visit
                 .Include(v => v.Device)
@@ -173,49 +176,80 @@ namespace SiteVisitsNetCore2020Web.Services
 
             return dSessionVisits;
         }
+            ***/
+
+        public async Task<List<Visit>> GetSubsequentSessionVisits(Visit visit, List<string> ipAddresses)
+        {
+            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2;
+            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
+
+            var subsequentVisitsFromContext = await _entityHelper.GetVisitSubset(
+                //visit, ipAddresses, (d1, d2) => d1 >= d2);
+                visit, ipAddresses);
+
+            var subsequentVisits = subsequentVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime >= visit.VisitDatetime)
+    .OrderBy(v => v.VisitDatetime).ToList();
+            List<Visit> subsequentSessionVisits = subsequentVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
+            return subsequentSessionVisits;
+        }
+
+        public async Task<List<Visit>> GetPrecedingSessionVisits(Visit visit, List<string> ipAddresses)
+        {
+            var precedingVisitsFromContext = await _entityHelper.GetVisitSubset(
+                //visit, ipAddresses, (d1, d2) => d1 <= d2);
+                visit, ipAddresses
+                //lessThan
+                );
+            var precedingVisits = precedingVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime <= visit.VisitDatetime)
+    .OrderBy(v => v.VisitDatetime).ToList();
+            precedingVisits.Reverse();
+            List<Visit> precedingSessionVisits = precedingVisits.TakeWhile((v, i) => VisitsNotTooDistant(precedingVisits, v, i)).ToList();
+            // since the 0th element is the same as the 0th element of subsequentSessionVisits and is the visit object that was passed into this function.
+            precedingSessionVisits.RemoveAt(0);
+            precedingSessionVisits.Reverse();
+            return precedingSessionVisits;
+        }
 
         public async Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
         {
             List<string> ipAddresses = GetIpAddresses(visit);
-            var subsequentVisits = await _context.Visit
-                .Include(v => v.Device)
-                .Include(v => v.Browser)
-                .Include(v => v.IpAddress)
-                    .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
-                .Include(v => v.ExtractedTerms)
-                .Include(v => v.PageUrl)
-                .Include(v => v.PageUrlVariation)
-                .Include(v => v.PageTitle)
-                .Include(v => v.PageTitleVariation)
-                .Include(v => v.CameFrom)
-                .Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime >= visit.VisitDatetime)
-                .OrderBy(v => v.VisitDatetime)
-                .ToListAsync();
+            Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2;
+            Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
 
+            /**
+            var subsequentVisitsFromContext = await _entityHelper.GetVisitSubset(
+                //visit, ipAddresses, (d1, d2) => d1 >= d2);
+                visit, ipAddresses
+                //greaterThan
+                );
+
+            var subsequentVisits = subsequentVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime >= visit.VisitDatetime)
+    .OrderBy(v => v.VisitDatetime).ToList();
+
+            
             List<Visit> subsequentSessionVisits = subsequentVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
-
-            var precedingVisits = _context.Visit
-                .Include(v => v.Device)
-                .Include(v => v.Browser)
-                .Include(v => v.IpAddress)
-                    .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
-                .Include(v => v.ExtractedTerms)
-                .Include(v => v.PageUrl)
-                .Include(v => v.PageUrlVariation)
-                .Include(v => v.PageTitle)
-                .Include(v => v.PageTitleVariation)
-                .Include(v => v.CameFrom)
-                .Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime <= visit.VisitDatetime)
-                .OrderByDescending(v => v.VisitDatetime)
-                .ToList();
-            List<Visit> precedingSessionVisits = precedingVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
+            
+            var precedingVisitsFromContext = await _entityHelper.GetVisitSubset(
+                //visit, ipAddresses, (d1, d2) => d1 <= d2);
+                visit, ipAddresses
+                //lessThan
+                );
+            var precedingVisits = precedingVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime <= visit.VisitDatetime)
+    .OrderBy(v => v.VisitDatetime).ToList();
+            precedingVisits.Reverse();
+            List <Visit> precedingSessionVisits = precedingVisits.TakeWhile((v, i) => VisitsNotTooDistant(subsequentVisits, v, i)).ToList();
             // since the 0th element is the same as the 0th element of subsequentSessionVisits and is the visit object that was passed into this function.
             precedingSessionVisits.RemoveAt(0);
+            precedingSessionVisits.Reverse();
             var sessionVisits = precedingSessionVisits.Concat(subsequentSessionVisits);
             //.ToList();
+    ***/
 
+            List<Visit> subsequentSessionVisits = await GetSubsequentSessionVisits(visit, ipAddresses);
+            List<Visit> precedingSessionVisits = await GetPrecedingSessionVisits(visit, ipAddresses);
+            var sessionVisits = precedingSessionVisits.Concat(subsequentSessionVisits);
             var sessionVisitsGrouped = sessionVisits
-            .GroupBy(v => new Tuple<Device, Browser> (v.Device, v.Browser));
+            .GroupBy(v => new Tuple<Device, Browser>(v.Device, v.Browser));
 
 
             Dictionary<Tuple<string, string>, List<Visit>> dSessionVisits =

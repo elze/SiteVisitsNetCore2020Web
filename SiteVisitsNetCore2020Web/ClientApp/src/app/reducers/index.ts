@@ -20,8 +20,10 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const selectVisits = (state: AppState) => state.visits.flatVisitsDataSourceData;
-export const selectVisitsError = (state: AppState) => state.visitSessionBlocks.error;
+export const selectVisitsError = (state: AppState) => state.visits.error;
 
 export const selectVisitSessionBlocks = (state: AppState) => state.visitSessionBlocks.dataSourceData;
+export const selectVisitSessionBlocksLoading = (state: AppState) => state.visitSessionBlocks.loading;
+export const selectVisitSessionBlocksError = (state: AppState) => state.visitSessionBlocks.error;
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

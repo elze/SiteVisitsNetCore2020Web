@@ -72,6 +72,7 @@ namespace SiteVisitsNetCore2020Web.Controllers
             //return flatVisits.ToList();
         }
 
+        /**
         // GET: api/Visits/session/5
         [HttpGet("session/{id}")]
         //public async Task<ActionResult<Visit>> GetVisitSession(Guid id)
@@ -94,6 +95,7 @@ namespace SiteVisitsNetCore2020Web.Controllers
             //return Ok(sessionVisitsList);
             return Ok(sessionVisits); 
         }
+    ***/
 
         // GET: api/Visits/sessionvisits/5
         [HttpGet("sessionvisits/{id}")]

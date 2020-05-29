@@ -3,7 +3,7 @@ import { ActivatedRoute} from '@angular/router';
 //import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectVisits, selectVisitsError, selectVisitSessionBlocks } from '../reducers';
+import { AppState, selectVisitSessionBlocks, selectVisitSessionBlocksError, selectVisitSessionBlocksLoading } from '../reducers';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
 import { loadSessionvisits } from '../actions/sessionvisit.actions';
 //import { switchMap } from 'rxjs/operators';
@@ -30,7 +30,12 @@ export class VisitSessionComponent implements OnInit {
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((rows: Array<VisitSessionBlock>) => {
       this.visitSessionBlocks = rows;
     });
-    this.error$ = this.visitsStore.select(selectVisitsError);
+    this.error$ = this.visitsStore.select(selectVisitSessionBlocksError);
+    this.visitsStore.pipe(select(selectVisitSessionBlocksLoading)).subscribe((loading: boolean) => {
+      if (loading) {
+        this.visitSessionBlocks = [];
+      }
+    });
 
   }
 

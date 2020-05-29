@@ -26,7 +26,7 @@ namespace SiteVisitsNetCore2020Web
         {
             services.AddControllersWithViews(options => {
                 options.Filters.Add(new SqlExceptionFilter());
-                options.Filters.Add(new SqlExceptionFilter());
+                //options.Filters.Add(new SqlExceptionFilter());
                 }); 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -36,7 +36,8 @@ namespace SiteVisitsNetCore2020Web
 
             services.AddDbContext<SiteVisitsNetCore2020WebContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SiteVisitsNetCore2020WebContext")));
-            services.AddTransient<IVisitsService, VisitsService>();
+            services.AddScoped<IEntityHelper, EntityHelper>();
+            services.AddScoped<IVisitsService, VisitsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
