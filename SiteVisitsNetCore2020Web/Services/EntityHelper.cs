@@ -17,13 +17,7 @@ namespace SiteVisitsNetCore2020Web.Services
             _context = context;
         }
 
-        public async Task<List<Visit>> GetVisitSubset(
-            //SiteVisitsNetCore2020WebContext context, 
-            Visit visit,
-            //List<string> ipAddresses, Predicate<Visit> comparison)
-            List<string> ipAddresses
-            //Func<DateTime, DateTime, bool> comparison
-            )
+        public async Task<List<Visit>> GetVisitSubset(Visit visit, List<string> ipAddresses)
         {
             var subsequentVisits = await _context.Visit
                 .Include(v => v.Device)
@@ -36,10 +30,6 @@ namespace SiteVisitsNetCore2020Web.Services
                 .Include(v => v.PageTitle)
                 .Include(v => v.PageTitleVariation)
                 .Include(v => v.CameFrom).ToListAsync();
-            //.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime >= visit.VisitDatetime)
-            //var subsequentVisits = subsequentVisits1.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && comparison(v.VisitDatetime, visit.VisitDatetime))
-              //  .OrderBy(v => v.VisitDatetime).ToList();
-                //.ToListAsync();
             return subsequentVisits;
         }
     }

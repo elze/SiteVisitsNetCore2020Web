@@ -9,10 +9,6 @@ namespace SiteVisitsNetCore2020Web.Services
 {
     public interface IEntityHelper
     {
-        Task<List<Visit>> GetVisitSubset(//SiteVisitsNetCore2020WebContext context, 
-            Visit visit,
-            List<string> ipAddresses
-            //Func<DateTime, DateTime, bool> comparison
-            );
+        Task<List<Visit>> GetVisitSubset(Visit visit, List<string> ipAddresses);
     }
 }
