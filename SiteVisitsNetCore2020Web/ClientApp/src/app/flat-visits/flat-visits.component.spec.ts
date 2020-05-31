@@ -8,13 +8,15 @@ describe('FlatVisitsComponent', () => {
   let fixture: ComponentFixture<FlatVisitsComponent>;
 
   //let store: MockStore;
+
   const initialState = {
-    visits: {
-      flatVisitsDataSourceData: [],
+    paginatedVisits: {
+      result: { totalCount: 0, visits: [] },
       loading: true,
       error: null
     }
-  };
+  }
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

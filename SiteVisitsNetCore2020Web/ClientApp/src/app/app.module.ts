@@ -23,6 +23,7 @@ import { VisitSessionEffects } from './visit-session/visit-session.effects';
 import { VisitSessionComponent } from './visit-session/visit-session.component';
 import { VisitSessionBlockComponent } from './visit-session-block/visit-session-block.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
+import { PaginatedFlatVisitsEffects } from './flat-visits/flat-visits-paginated.effects';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
       { path: 'counter', component: CounterComponent },
       { path: 'weather-forecast/:id', component: WeatherForecastComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'flat-visits/:pageNum/size/:pageSize', component: FlatVisitsComponent },
       { path: 'flat-visits', component: FlatVisitsComponent },
       { path: "**", component: HomeComponent },
     ], { enableTracing: true }),
@@ -62,7 +64,7 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
-    EffectsModule.forRoot([FlatVisitsEffects, VisitSessionEffects])
+    EffectsModule.forRoot([FlatVisitsEffects, PaginatedFlatVisitsEffects, VisitSessionEffects])
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: environment.baseHref }],
   bootstrap: [AppComponent]

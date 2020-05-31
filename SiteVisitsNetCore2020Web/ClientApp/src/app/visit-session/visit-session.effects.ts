@@ -10,7 +10,6 @@ import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
 export class VisitSessionEffects {
 
   constructor(private actions$: Actions,
-    //private http: HttpClient
     public visitSessionDataService: VisitSessionDataService) { }
 
   public loadVisits$ = createEffect(() => this.actions$.pipe(

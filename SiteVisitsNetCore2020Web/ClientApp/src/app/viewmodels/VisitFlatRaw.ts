@@ -1,6 +1,6 @@
-export class VisitFlat {
+export class VisitFlatRaw {
   id: string;
-  visitDatetime: Date;
+  visitDatetime: string;
   numberOfTimes: number;
   city: string;
   region: string;
@@ -42,7 +42,7 @@ export class VisitFlat {
     combinedTerms: string
   }) {
     this.id = options.id;
-    this.visitDatetime = new Date(options.visitDatetime);
+    this.visitDatetime = options.visitDatetime;
     this.numberOfTimes = options.numberOfTimes;
     this.logFileName = options.logFileName;
     this.visitType = options.visitType;

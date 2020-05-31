@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 //import { MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs/internal/Observable';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectVisits, selectVisitsError } from '../reducers';
+import { AppState, selectVisits, selectVisitsError, selectPaginatedVisits, selectPaginatedVisitsError } from '../reducers';
 import { loadFlatvisits } from '../actions/flatvisit.actions';
 //import { Subscription } from 'rxjs';
 import { VisitFlat } from '../viewmodels/VisitFlat';
+import { loadPaginatedFlatVisits } from '../actions/paginatedflatvisit.actions';
+import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 
 @Component({
   selector: 'app-flat-visits',
@@ -15,26 +18,78 @@ import { VisitFlat } from '../viewmodels/VisitFlat';
 })
 export class FlatVisitsComponent implements OnInit {
 
-  public dataSource: MatTableDataSource<VisitFlat>;
+  //public dataSource: MatTableDataSource<VisitFlat>;
+  public dataSource: VisitFlat[];
+  public resultsLength: number;
   public noData: VisitFlat[] = [];
   public loading: boolean;
   public error$: Observable<string>;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  currentPage: number;
+  pageSize: number;
 
-  constructor(public visitsStore: Store<AppState>) {  }
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  pageEvent: PageEvent;
+
+  constructor(public visitsStore: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   public ngOnInit(): void {
-    this.loadVisits();
-    this.visitsStore.pipe(select(selectVisits)).subscribe(rows => {
-      this.dataSource = new MatTableDataSource(rows.length ? rows : this.noData);
-      this.dataSource.paginator = this.paginator;
+    /**
+    this.route.params.subscribe(
+      params => {
+        console.log(`this.route.params: = ${JSON.stringify(params)}`);
+        this.visitsStore.dispatch(loadPaginatedFlatVisits({ pageNum: params.pageNum, pageSize: params.pageSize }));
+        if (params.pageSize) {
+          this.paginator.pageSize = params.pageSize;
+        }
+        if (params.pageIndex) {
+          this.paginator.pageIndex = params.pageIndex;
+        }
+      })
+        **/
+
+    //this.loadVisits();
+    //this.visitsStore.pipe(select(selectVisits)).subscribe(rows => {
+    this.visitsStore.pipe(select(selectPaginatedVisits)).subscribe((visitsResult: PaginatedFlatVisitsResult) => {
+      //this.dataSource = new MatTableDataSource(rows.length ? rows : this.noData);
+      //this.dataSource.paginator = this.paginator;
+      this.dataSource = visitsResult.visits;
+      this.resultsLength = visitsResult.totalCount;
     });
-    this.error$ = this.visitsStore.select(selectVisitsError);
+    //this.error$ = this.visitsStore.select(selectVisitsError);
+    this.error$ = this.visitsStore.select(selectPaginatedVisitsError);
   }
 
+  ngAfterViewInit() {
+    this.route.params.subscribe(
+      params => {
+        console.log(`this.route.params: = ${JSON.stringify(params)}`);
+        this.visitsStore.dispatch(loadPaginatedFlatVisits({ pageNum: params.pageNum, pageSize: params.pageSize }));
+        if (params.pageSize) {
+          this.paginator.pageSize = params.pageSize;
+        }
+        if (params.pageNum) {
+          this.paginator.pageIndex = params.pageNum;
+        }
+      })
+  }
   public ngOnDestroy(): void { }
 
+  public handlePage(e: PageEvent) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    //this.iterator();
+
+    console.log(`e.pageIndex = ${e.pageIndex}`);
+    console.log(`e.pageSize = ${e.pageSize}`);
+    //this.router.navigate(['/flat-visits', { pageNum: this.currentPage, pageSize: this.pageSize }]);
+    this.router.navigate([`/flat-visits/${this.currentPage}/size/${this.pageSize}`]);
+  }
+
+  /**
   public retry(): void {
     this.loadVisits();
   }
@@ -42,5 +97,5 @@ export class FlatVisitsComponent implements OnInit {
   private loadVisits(): void {
     this.visitsStore.dispatch(loadFlatvisits());
   }
-
+   */
 }

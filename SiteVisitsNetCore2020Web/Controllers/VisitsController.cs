@@ -9,6 +9,7 @@ using SiteVisitsNetCore2020Web.Data;
 using SiteVisitsNetCore2020Web.Exceptions;
 using SiteVisitsNetCore2020Web.Models;
 using SiteVisitsNetCore2020Web.Services;
+using SiteVisitsNetCore2020Web.ViewModels;
 
 namespace SiteVisitsNetCore2020Web.Controllers
 {
@@ -27,48 +28,11 @@ namespace SiteVisitsNetCore2020Web.Controllers
             _visitsService = visitsService;
         }
 
-        // GET: api/Visits
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Visit>>> GetVisit()
-        //public async Task<ActionResult<IEnumerable<VisitFlat>>> GetVisit()
-        public async Task<List<VisitFlat>> GetVisit()
+        public async Task<ActionResult<List<VisitFlat>>> GetFlatVisits()
         {
-            var visits = _context.Visit
-                //.Where(v => !string.IsNullOrEmpty(v.SeTerm) && !v.SeTerm.Contains("Encrypted Search") 
-                //|| v.ExtractedTerms.Count > 0
-                //)
-                .Include(v => v.IpAddress)
-                    .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
-                .Include(v => v.IpAddress)
-                    .ThenInclude(i => i.Isp)
-                //.Include(v => v.IpAddress)
-                  // .ThenInclude(i => i.Visitor)
-                .Include(v => v.ExtractedTerms)
-                .Include(v => v.PageUrl)
-                .Include(v => v.PageUrlVariation)
-                .Include(v => v.PageTitle)
-                .Include(v => v.PageTitleVariation)
-                .Include(v => v.CameFrom)
-                .OrderByDescending(v => v.VisitDatetime);
-            //.ToListAsync();
-            //return visits;
-
-            var flatVisits = visits.Select(v => new VisitFlat
-            {
-                Id = v.Id,
-                VisitDatetime = v.VisitDatetime,
-                NumberOfTimes = v.NumberOfTimes,
-                IpAddress = v.IpAddress.IpV4Address,
-                City = v.IpAddress.City != null ? v.IpAddress.City.Name : "",
-                Region = v.IpAddress.Region != null ? v.IpAddress.Region.Name : "",
-                Country = v.IpAddress.Country != null ? v.IpAddress.Country.Name : "",
-                Location = _visitsService.GetLocation(v.IpAddress),
-                CombinedTerms = _visitsService.GetCombinedTerms(v.SeTerm, v.ExtractedTerms),
-                CameFrom = _visitsService.GetCameFrom(v),
-                PageTitle = _visitsService.GetPageTitle(v),
-                PageUrl = _visitsService.GetPageUrl(v)
-            });
-            return await flatVisits.ToListAsync();
+            var flatVisits = await _visitsService.GetFlatVisits();
+            return Ok(flatVisits);
         }
 
         // GET: api/Visits/sessionvisits/5
@@ -84,6 +48,13 @@ namespace SiteVisitsNetCore2020Web.Controllers
             }
             List<VisitSessionBlock> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
             return Ok(sessionVisits);
+        }
+
+        [HttpGet("visitspage/{pageNum}/{pageSize}")]
+        public async Task<ActionResult<PaginatedFlatVisitsResult>> GetVisitsPage(int pageNum, int pageSize)
+        {
+            var flatVisits = await _visitsService.GetFlatVisitsPage(pageNum, pageSize);
+            return Ok(flatVisits);
         }
 
         // GET: api/Visits/5

@@ -29,7 +29,6 @@ describe('FlatVisitsEffects', () => {
       "cameFrom": "q=mayan souveiners",
       "combinedTerms": "mayan souveiners",
       "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
-      "seTerm": "",
       "visitType": "page view"
     }));
   flatVisits.push(
@@ -49,7 +48,6 @@ describe('FlatVisitsEffects', () => {
       "cameFrom": "/pic.geekitude.com/v/2007/2007Cruise/mayanRuins/CIMG8162MayanSouvenirsInShop.jpg",
       "combinedTerms": "",
       "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
-      "seTerm": "",
       "visitType": "page view"
     }));
   flatVisits.push(
@@ -69,7 +67,6 @@ describe('FlatVisitsEffects', () => {
       "cameFrom": "q=mayan souveiners",
       "combinedTerms": "mayan souveiners",
       "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
-      "seTerm": "",
       "visitType": "page view"
     }));
 

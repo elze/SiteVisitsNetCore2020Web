@@ -20,8 +20,6 @@ export class VisitSessionComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    //this.route.paramMap.pipe(
-      //switchMap(
     this.route.params.subscribe(
       params => {
         console.log(`this.route.params: = ${JSON.stringify(params)}`);

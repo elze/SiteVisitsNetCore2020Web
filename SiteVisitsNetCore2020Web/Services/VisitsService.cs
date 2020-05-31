@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using SiteVisitsNetCore2020Web.Data;
 using SiteVisitsNetCore2020Web.Models;
+using SiteVisitsNetCore2020Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SiteVisitsNetCore2020Web.Services
 {
-    public class VisitsService: IVisitsService
+    public class VisitsService : IVisitsService
     {
         public static readonly int MinutesBetweenVisits = 30;
         private readonly IEntityHelper _entityHelper;
@@ -19,7 +20,7 @@ namespace SiteVisitsNetCore2020Web.Services
             _entityHelper = entityHelper;
         }
 
-        public string GetCombinedTerms(string seTerm, List<ExtractedTerm> extractedTerms)
+        public static string GetCombinedTerms(string seTerm, List<ExtractedTerm> extractedTerms)
         {
             string combinedTerms = "";
             if (extractedTerms != null && extractedTerms.Count > 0)
@@ -36,7 +37,7 @@ namespace SiteVisitsNetCore2020Web.Services
             return combinedTerms;
         }
 
-        public string GetLocation(IpAddress ipAddress)
+        public static string GetLocation(IpAddress ipAddress)
         {
             string location = "";
             List<string> locationElements = new List<string>() {
@@ -47,13 +48,13 @@ namespace SiteVisitsNetCore2020Web.Services
             return location;
         }
 
-        public string GetCameFrom(Visit visit)
+        public static string GetCameFrom(Visit visit)
         {
             var cameFromDisplay = visit.CameFrom?.ShortCameFrom ?? visit.CameFrom?.CameFrom;
             return cameFromDisplay;
         }
 
-        public string GetPageUrl(Visit visit)
+        public static string GetPageUrl(Visit visit)
         {
             //string urlVariationCompact = visit.PageUrlVariation?.UrlVariationCompact;
 
@@ -66,7 +67,7 @@ namespace SiteVisitsNetCore2020Web.Services
             return urlVariationCompact;
         }
 
-        public string GetPageTitle(Visit visit)
+        public static string GetPageTitle(Visit visit)
         {
             string titleVariationCompact = visit.PageTitleVariation?.TitleVariationCompact ?? visit.PageTitleVariation?.TitleVariation;
 
@@ -102,6 +103,28 @@ namespace SiteVisitsNetCore2020Web.Services
             }
             return false;
         }
+
+        public async Task<List<VisitFlat>> GetFlatVisits()
+        {
+            var visits = _entityHelper.GetFlatVisits();
+            var flatVisits = visits.Select(v => new VisitFlat
+            {
+                Id = v.Id,
+                VisitDatetime = v.VisitDatetime,
+                NumberOfTimes = v.NumberOfTimes,
+                IpAddress = v.IpAddress.IpV4Address,
+                City = v.IpAddress.City != null ? v.IpAddress.City.Name : "",
+                Region = v.IpAddress.Region != null ? v.IpAddress.Region.Name : "",
+                Country = v.IpAddress.Country != null ? v.IpAddress.Country.Name : "",
+                Location = GetLocation(v.IpAddress),
+                CombinedTerms = GetCombinedTerms(v.SeTerm, v.ExtractedTerms),
+                CameFrom = GetCameFrom(v),
+                PageTitle = GetPageTitle(v),
+                PageUrl = GetPageUrl(v)
+            });
+            return await flatVisits.ToListAsync();
+        }
+
         public async Task<List<Visit>> GetSubsequentSessionVisits(Visit visit, List<string> ipAddresses)
         {
             var subsequentVisitsFromContext = await _entityHelper.GetVisitSubset(
@@ -160,6 +183,32 @@ namespace SiteVisitsNetCore2020Web.Services
             }
             return visitSessionBlocks;
         }
-
+        public async Task<PaginatedFlatVisitsResult> GetFlatVisitsPage(int pageNum, int pageSize)
+        {
+            int totalVisitCount = await _entityHelper.GetVisitCount();
+            var visits = _entityHelper.GetFlatVisitsPage(pageNum, pageSize);
+            var flatVisits = visits.Select(v => new VisitFlat
+            {
+                Id = v.Id,
+                VisitDatetime = v.VisitDatetime,
+                NumberOfTimes = v.NumberOfTimes,
+                IpAddress = v.IpAddress.IpV4Address,
+                Isp = v.IpAddress.Isp.Name,
+                City = v.IpAddress.City != null ? v.IpAddress.City.Name : "",
+                Region = v.IpAddress.Region != null ? v.IpAddress.Region.Name : "",
+                Country = v.IpAddress.Country != null ? v.IpAddress.Country.Name : "",
+                Location = GetLocation(v.IpAddress),
+                CombinedTerms = GetCombinedTerms(v.SeTerm, v.ExtractedTerms),
+                CameFrom = GetCameFrom(v),
+                PageTitle = GetPageTitle(v),
+                PageUrl = GetPageUrl(v)
+            });
+            PaginatedFlatVisitsResult paginatedFlatVisitsResult = new PaginatedFlatVisitsResult
+            {
+                TotalCount = totalVisitCount,
+                visits = await flatVisits.ToListAsync()
+            };
+            return paginatedFlatVisitsResult;
+        }
     }
 }
