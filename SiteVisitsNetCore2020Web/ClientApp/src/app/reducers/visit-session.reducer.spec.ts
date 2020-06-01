@@ -23,7 +23,7 @@ describe('VisitSessionReducer', () => {
       const action = fromActions.loadSessionvisits({ id: "uiwhuh" });
       const state = fromVisitSession.vsReducer(initialVisitSessionState, action);
       expect(state.loading).toEqual(true);
-      expect(state.dataSourceData).toEqual([]);
+      expect(state.dataSourceData.visitSessionBlocks).toEqual([]);
     });
   });
 
@@ -40,7 +40,7 @@ describe('VisitSessionReducer', () => {
     });
   });
 
-  describe('loadFlatvisitsSuccess', () => {
+  describe('loadSessionvisitsSuccess', () => {
     it('should return something interesting', () => {
 
       const browser = "Safari";
@@ -241,11 +241,11 @@ describe('VisitSessionReducer', () => {
       });
 
       const { initialVisitSessionState } = fromVisitSession;
-      const action = fromActions.loadSessionvisitsSuccess({ data });
+      const action = fromActions.loadSessionvisitsSuccess({ data: { isp: "Spectrum", visitSessionBlocks: data } });
       const state = fromVisitSession.vsReducer(initialVisitSessionState, action);
-      expect(state.dataSourceData.length).toEqual(data.length);
+      expect(state.dataSourceData.visitSessionBlocks.length).toEqual(data.length);
 
-      const row0 = state.dataSourceData[0];
+      const row0 = state.dataSourceData.visitSessionBlocks[0];
       expect(row0.browser).toEqual(browser);
       expect(row0.device).toEqual(device);
       expect(row0.visits[0].location).toEqual(location0);

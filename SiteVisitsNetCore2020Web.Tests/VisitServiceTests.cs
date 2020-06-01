@@ -479,7 +479,7 @@ namespace SiteVisitsNetCore2020Web.Tests
               )).ReturnsAsync(new List<Visit> { visit0, visit1, visit2, visit3 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             var visitSession = await visitsService.GetVisitSessionByDeviceAndBrowserPair(visit2);
-            Assert.Equal(visit2.IpAddress.Isp.Name, visitSession.Isp);
+            Assert.Equal(visit2.IpAddress.Isp?.Name, visitSession.Isp);
             var visitSessionBlocks = visitSession.VisitSessionBlocks;
             Assert.Single(visitSessionBlocks);
             Assert.Equal(browser.Name, visitSessionBlocks[0].Browser);

@@ -375,7 +375,9 @@ describe('VisitSessionBlockComponent', () => {
 
   const initialState = {
     visitSessionBlocks: {
-      dataSourceData: visitSessionBlocks,
+      dataSourceData: {
+        isp: "Spectrum", visitSessionBlocks: visitSessionBlocks
+      },
       loading: true,
       error: null
     }
