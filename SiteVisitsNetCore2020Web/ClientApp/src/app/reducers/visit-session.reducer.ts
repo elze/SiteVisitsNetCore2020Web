@@ -6,24 +6,32 @@ import {
 
 import { loadSessionvisits, loadSessionvisitsFailure, loadSessionvisitsSuccess } from '../actions/sessionvisit.actions';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
+import { VisitSession } from '../viewmodels/VisitSession';
 
 export interface VisitSessionState {
-  dataSourceData: Array<VisitSessionBlock>;
+  //dataSourceData: Array<VisitSessionBlock>;
+  dataSourceData: VisitSession,
   loading: boolean;
   error: string | null;
 }
 
 export const initialVisitSessionState: VisitSessionState = {
-  dataSourceData: new Array<VisitSessionBlock>(),
+  //dataSourceData: new Array<VisitSessionBlock>(),
+  dataSourceData: {
+    isp: "", visitSessionBlocks: []
+  },
   loading: true,
   error: null
 };
 
 
-export function populateVisitSessionBlocks(rawVisits: Array<VisitSessionBlock>): Array<VisitSessionBlock> {
+/**
+//export function populateVisitSessionBlocks(rawVisits: Array<VisitSessionBlock>): Array<VisitSessionBlock> {
+function populateVisitSessionBlocks(rawVisitSession: VisitSession): VisitSession {
   const data: Array<VisitSessionBlock> = rawVisits.map(rv => new VisitSessionBlock(rv));
   return data;
 }
+**/
 
 export const _reducer = createReducer(
   initialVisitSessionState,
@@ -39,7 +47,9 @@ export const _reducer = createReducer(
   on(loadSessionvisitsSuccess, (state, { data }) => {
     return {
       ...state,
-      dataSourceData: populateVisitSessionBlocks(data),
+      //dataSourceData: populateVisitSessionBlocks(data),
+      //dataSourceData: { isp: data.isp, visitSessionBlocks: data.visitSessionBlocks },
+      dataSourceData: data,
       loading: false,
       error: null
     }

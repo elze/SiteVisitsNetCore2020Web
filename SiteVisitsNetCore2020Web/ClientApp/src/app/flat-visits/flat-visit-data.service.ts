@@ -21,7 +21,7 @@ export class FlatVisitDataService {
   //public GetPaginatedFlatVisits(pageNum: number, pageSize: number): Observable<any> {
     if (!pageNum || !pageSize) {
       pageNum = 0;
-      pageSize = 10;
+      pageSize = 50;
     }
     return this.http.get<PaginatedFlatVisitsResultRaw>(environment.baseHref + `api/visits/visitspage/${pageNum}/${pageSize}`);
     /**

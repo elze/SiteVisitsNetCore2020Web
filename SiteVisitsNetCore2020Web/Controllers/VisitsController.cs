@@ -37,7 +37,8 @@ namespace SiteVisitsNetCore2020Web.Controllers
 
         // GET: api/Visits/sessionvisits/5
         [HttpGet("sessionvisits/{id}")]
-        public async Task<ActionResult<List<VisitSessionBlock>>> GetVisitSessionOneLevelGrouping(Guid id)
+        //public async Task<ActionResult<List<VisitSessionBlock>>> GetVisitSessionOneLevelGrouping(Guid id)
+        public async Task<ActionResult<VisitSession>> GetVisitSessionOneLevelGrouping(Guid id)
         {
             var visit = await _context.Visit.Include(v => v.IpAddress)
                 .FirstOrDefaultAsync(v => v.Id == id);
@@ -46,8 +47,10 @@ namespace SiteVisitsNetCore2020Web.Controllers
             {
                 return NotFound();
             }
-            List<VisitSessionBlock> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
-            return Ok(sessionVisits);
+            //List<VisitSessionBlock> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
+            VisitSession visitSession = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
+            //return Ok(sessionVisits);
+            return Ok(visitSession);
         }
 
         [HttpGet("visitspage/{pageNum}/{pageSize}")]

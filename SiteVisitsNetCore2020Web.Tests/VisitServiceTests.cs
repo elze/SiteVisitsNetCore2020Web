@@ -1,9 +1,11 @@
 using Moq;
 using SiteVisitsNetCore2020Web.Models;
 using SiteVisitsNetCore2020Web.Services;
+using SiteVisitsNetCore2020Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -423,10 +425,7 @@ namespace SiteVisitsNetCore2020Web.Tests
         public async Task GetSubsequentSessionVisits_ShouldReturnVisitsFromSessionLaterThanGivenVisit()
         {
             _mockEntityHelper = new Mock<IEntityHelper>();
-            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2 ;
-            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
             _mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress }
-              //greaterThan
               )).ReturnsAsync(new List<Visit> { visit0, visit1, visit2, visit3 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             List<Visit> subsequentSessionVisits = await visitsService.GetSubsequentSessionVisits(visit2, new List<string> { ipAddress });
@@ -438,10 +437,7 @@ namespace SiteVisitsNetCore2020Web.Tests
         public async Task GetPrecedingSessionVisitsSessionVisits_ShouldReturnVisitsFromSessionEarlierThanGivenVisit()
         {
             _mockEntityHelper = new Mock<IEntityHelper>();
-            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2 ;
-            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
             _mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress }
-              //greaterThan
               )).ReturnsAsync(new List<Visit> { visit0, visit1, visit2, visit3 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             List<Visit> precedingSessionVisits = await visitsService.GetPrecedingSessionVisits(visit2, new List<string> { ipAddress });
@@ -454,10 +450,7 @@ namespace SiteVisitsNetCore2020Web.Tests
         public async Task GetPrecedingSessionVisitsSessionVisits_ShouldNotReturnVisitsOlderThanCertainTime()
         {
             _mockEntityHelper = new Mock<IEntityHelper>();
-            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2 ;
-            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
             _mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress }
-              //greaterThan
               )).ReturnsAsync(new List<Visit> { visit03, visit02, visit01, visit0, visit1, visit2, visit3 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             List<Visit> precedingSessionVisits = await visitsService.GetPrecedingSessionVisits(visit2, new List<string> { ipAddress });
@@ -469,10 +462,7 @@ namespace SiteVisitsNetCore2020Web.Tests
         public async Task GetSubsequentSessionVisits_ShouldNotReturnVisitsNewerThanCertainTime()
         {
             _mockEntityHelper = new Mock<IEntityHelper>();
-            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2 ;
-            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
             _mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress }
-              //greaterThan
               )).ReturnsAsync(new List<Visit> { visit03, visit02, visit01, visit0, visit1, visit2, visit3, visit4, visit5, visit6 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             List<Visit> subsequentSessionVisits = await visitsService.GetSubsequentSessionVisits(visit2, new List<string> { ipAddress });
@@ -485,20 +475,12 @@ namespace SiteVisitsNetCore2020Web.Tests
         public async Task GetVisitSessionByDeviceAndBrowserPair_ShouldReturnAllVisitsFromSession()
         {
             _mockEntityHelper = new Mock<IEntityHelper>();
-            //Func<DateTime, DateTime, bool> greaterThan = (d1, d2) => d1 >= d2 ;
-            //Func<DateTime, DateTime, bool> lessThan = (d1, d2) => d1 <= d2;
             _mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress }
-              //greaterThan
               )).ReturnsAsync(new List<Visit> { visit0, visit1, visit2, visit3 });
-            //It.IsAny<Func<DateTime, DateTime, bool>>())).ReturnsAsync(new List<Visit> { visit2, visit3 });
-            //_mockEntityHelper.Setup(s => s.GetVisitSubset(visit2, new List<string> { ipAddress },
-            //lessThan)).ReturnsAsync(new List<Visit> { visit0, visit1, visit2});
-
-            //GetVisitSessionByDeviceAndBrowserPair
-
-            //_mockCsvImporterService.Setup(s => s.ReadCsvFileToDictionaryList(csvFileName)).Returns(csvData);
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
-            var visitSessionBlocks = await visitsService.GetVisitSessionByDeviceAndBrowserPair(visit2);
+            var visitSession = await visitsService.GetVisitSessionByDeviceAndBrowserPair(visit2);
+            Assert.Equal(visit2.IpAddress.Isp.Name, visitSession.Isp);
+            var visitSessionBlocks = visitSession.VisitSessionBlocks;
             Assert.Single(visitSessionBlocks);
             Assert.Equal(browser.Name, visitSessionBlocks[0].Browser);
             Assert.Equal(device.OperatingSystem, visitSessionBlocks[0].Device);
@@ -535,7 +517,31 @@ namespace SiteVisitsNetCore2020Web.Tests
             Assert.Equal(cameFrom3, visitSessionBlocks[0].Visits[3].CameFrom);
             Assert.Null(visitSessionBlocks[0].Visits[3].CombinedTerms);
             Assert.Equal(visit3, visitSessionBlocks[0].Visits[3].Visit);
-
         }
+
+        /***
+        [Fact]
+        public async Task GetGetFlatVisitsPage_ShouldReturnVisitsInAGivenRange()
+        {
+            _mockEntityHelper = new Mock<IEntityHelper>();
+            _mockEntityHelper.Setup(s => s.GetVisitCount()).ReturnsAsync(10);
+
+            //IQueryable listOppLineData = Enumerable.Empty<Visit>().AsQueryable();
+            //var visits = new List<Visit> { visit03, visit02, visit01, visit0, visit1, visit2, visit3, visit4, visit5, visit6 };
+            var visits = new List<Visit> { visit0, visit1, visit2 };
+            int totalCount = 236;
+            IQueryable<Visit> visitsQ = visits.AsQueryable();
+
+            _mockEntityHelper.Setup(s => s.GetFlatVisitsPage(3, 5)).Returns(visitsQ);
+            VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
+            PaginatedFlatVisitsResult paginatedFlatVisitsResult = await visitsService.GetFlatVisitsPage(3, 5);
+            Assert.Equal(totalCount, paginatedFlatVisitsResult.TotalCount);
+            //foreach (var v in paginatedFlatVisitsResult.visits) { 
+            Assert.Equal(visit0.Id, paginatedFlatVisitsResult.visits[0].Id);
+            Assert.Equal(visit1.Id, paginatedFlatVisitsResult.visits[1].Id);
+            Assert.Equal(visit2.Id, paginatedFlatVisitsResult.visits[2].Id);
+        }
+        ***/
+
     }
 }

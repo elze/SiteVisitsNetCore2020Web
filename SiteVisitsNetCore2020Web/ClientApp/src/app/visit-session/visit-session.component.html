@@ -1,7 +1,7 @@
-<p>visit-session works!</p>
 <mat-error *ngIf="error$ | async as errorMessage">
   {{ errorMessage }}
 </mat-error>
-<li *ngFor="let visitSessionBlock of visitSessionBlocks">
+<p>ISP: <b>{{ isp }}</b> </p>
+<li class="visitSessionBlock" *ngFor="let visitSessionBlock of visitSessionBlocks">
   <app-visit-session-block [browser]="visitSessionBlock.browser" [device]="visitSessionBlock.device"></app-visit-session-block>
 </li>

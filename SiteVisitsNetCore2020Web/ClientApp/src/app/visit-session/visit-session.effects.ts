@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { loadSessionvisits, loadSessionvisitsSuccess, loadSessionvisitsFailure } from '../actions/sessionvisit.actions';
 import { VisitSessionDataService } from './visit-session-data.service';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
+import { VisitSession } from '../viewmodels/VisitSession';
 
 @Injectable()
 export class VisitSessionEffects {
@@ -19,7 +20,8 @@ export class VisitSessionEffects {
       this.visitSessionDataService.GetVisitSession(loadAction.id).pipe(
         tap(ev => console.log(`VisitSessionEffects loadAction.id = ${loadAction.id}`)),
         // If successful, dispatch success action with result
-        map((data: VisitSessionBlock[]) => {
+        //map((data: VisitSessionBlock[]) => {
+        map((data: VisitSession) => {
           console.log(`VisitSessionEffects: we are in map, loadAction.id = ${loadAction.id}`);
           return loadSessionvisitsSuccess({ data })
         }

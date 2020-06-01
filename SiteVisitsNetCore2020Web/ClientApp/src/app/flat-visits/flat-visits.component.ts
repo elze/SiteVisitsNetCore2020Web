@@ -25,7 +25,7 @@ export class FlatVisitsComponent implements OnInit {
   public loading: boolean;
   public error$: Observable<string>;
 
-  currentPage: number;
+  pageNum: number;
   pageSize: number;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -34,7 +34,9 @@ export class FlatVisitsComponent implements OnInit {
   constructor(public visitsStore: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+
+  }
 
   public ngOnInit(): void {
     /**
@@ -67,26 +69,34 @@ export class FlatVisitsComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         console.log(`this.route.params: = ${JSON.stringify(params)}`);
-        this.visitsStore.dispatch(loadPaginatedFlatVisits({ pageNum: params.pageNum, pageSize: params.pageSize }));
         if (params.pageSize) {
           this.paginator.pageSize = params.pageSize;
+          this.pageSize = params.pageSize;
+        }
+        else {
+          this.pageSize = 50;
         }
         if (params.pageNum) {
           this.paginator.pageIndex = params.pageNum;
+          this.pageNum = params.pageNum;
         }
+        else {
+          this.pageNum = 0;
+        }
+        this.visitsStore.dispatch(loadPaginatedFlatVisits({ pageNum: params.pageNum, pageSize: params.pageSize }));
       })
   }
   public ngOnDestroy(): void { }
 
   public handlePage(e: PageEvent) {
-    this.currentPage = e.pageIndex;
+    this.pageNum = e.pageIndex;
     this.pageSize = e.pageSize;
     //this.iterator();
 
     console.log(`e.pageIndex = ${e.pageIndex}`);
     console.log(`e.pageSize = ${e.pageSize}`);
     //this.router.navigate(['/flat-visits', { pageNum: this.currentPage, pageSize: this.pageSize }]);
-    this.router.navigate([`/flat-visits/${this.currentPage}/size/${this.pageSize}`]);
+    this.router.navigate([`/flat-visits/${this.pageNum}/size/${this.pageSize}`]);
   }
 
   /**

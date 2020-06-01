@@ -10,7 +10,8 @@ namespace SiteVisitsNetCore2020Web.Services
     public interface IVisitsService
     {
         Task<List<VisitFlat>> GetFlatVisits();
-        Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit);
+        //Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit);
+        Task<VisitSession> GetVisitSessionByDeviceAndBrowserPair(Visit visit);
         Task<PaginatedFlatVisitsResult> GetFlatVisitsPage(int pageNum, int pageSize);
     }
 }

@@ -127,8 +127,7 @@ namespace SiteVisitsNetCore2020Web.Services
 
         public async Task<List<Visit>> GetSubsequentSessionVisits(Visit visit, List<string> ipAddresses)
         {
-            var subsequentVisitsFromContext = await _entityHelper.GetVisitSubset(
-                visit, ipAddresses);
+            var subsequentVisitsFromContext = await _entityHelper.GetVisitSubset(visit, ipAddresses);
 
             var subsequentVisits = subsequentVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime >= visit.VisitDatetime)
     .OrderBy(v => v.VisitDatetime).ToList();
@@ -138,8 +137,7 @@ namespace SiteVisitsNetCore2020Web.Services
 
         public async Task<List<Visit>> GetPrecedingSessionVisits(Visit visit, List<string> ipAddresses)
         {
-            var precedingVisitsFromContext = await _entityHelper.GetVisitSubset(
-                visit, ipAddresses);
+            var precedingVisitsFromContext = await _entityHelper.GetVisitSubset(visit, ipAddresses);
             var precedingVisits = precedingVisitsFromContext.Where(v => ipAddresses.Contains(v.IpAddress.IpV4Address) && v.VisitDatetime <= visit.VisitDatetime)
     .OrderBy(v => v.VisitDatetime).ToList();
             precedingVisits.Reverse();
@@ -150,13 +148,20 @@ namespace SiteVisitsNetCore2020Web.Services
             return precedingSessionVisits;
         }
 
-        public async Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
+        public async Task<VisitSession> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
+        //public async Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
         {
             List<string> ipAddresses = GetIpAddresses(visit);
 
             List<Visit> subsequentSessionVisits = await GetSubsequentSessionVisits(visit, ipAddresses);
             List<Visit> precedingSessionVisits = await GetPrecedingSessionVisits(visit, ipAddresses);
             var sessionVisits = precedingSessionVisits.Concat(subsequentSessionVisits);
+            string isp = visit.IpAddress.Isp?.Name;
+            var diffIsp = sessionVisits.FirstOrDefault(v => v.IpAddress.Isp?.Name != isp);
+            if (diffIsp != null)
+            {
+                throw new Exception($"Found an ISP in this session, {diffIsp.IpAddress.Isp?.Name}, that's different from ISP of the sample visit, {isp}");
+            }
             var sessionVisitsGrouped = sessionVisits
             .GroupBy(v => new Tuple<Device, Browser>(v.Device, v.Browser));
 
@@ -181,7 +186,13 @@ namespace SiteVisitsNetCore2020Web.Services
                     }).ToList()
                 });
             }
-            return visitSessionBlocks;
+            VisitSession visitSession = new VisitSession
+            {
+                Isp = isp,
+                VisitSessionBlocks = visitSessionBlocks
+            };
+            //return visitSessionBlocks;
+            return visitSession;
         }
         public async Task<PaginatedFlatVisitsResult> GetFlatVisitsPage(int pageNum, int pageSize)
         {

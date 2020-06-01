@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
+import { VisitSession } from '../viewmodels/VisitSession';
 
 export const loadSessionvisits = createAction(
   '[Sessionvisit] Load Sessionvisits',
@@ -8,7 +9,8 @@ export const loadSessionvisits = createAction(
 
 export const loadSessionvisitsSuccess = createAction(
   '[Sessionvisits] Load Sessionvisits Success',
-  props<{ data: Array<VisitSessionBlock> }>()
+  //props<{ data: Array<VisitSessionBlock> }>()
+  props<{ data: VisitSession }>()
 );
 
 export const loadSessionvisitsFailure = createAction(

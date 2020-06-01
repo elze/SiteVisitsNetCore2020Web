@@ -1,8 +1,6 @@
-<p>visit-session-block works!</p>
-
 <div>Device: {{ device }}</div>
 <div>Browser: {{ browser }}</div>
-<div style="padding: 32px" *ngIf="dataSource">
+<div class="visit-session-block" style="padding: 32px" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
     <ng-container matColumnDef="visitDatetime">
       <th mat-header-cell *matHeaderCellDef> Visit date/time </th>

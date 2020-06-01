@@ -29,6 +29,8 @@ namespace SiteVisitsNetCore2020Web.Services
                 .Include(v => v.Browser)
                 .Include(v => v.IpAddress)
                     .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
+                .Include(v => v.IpAddress)
+                    .ThenInclude(i => i.Isp)
                 .Include(v => v.ExtractedTerms)
                 .Include(v => v.PageUrl)
                 .Include(v => v.PageUrlVariation)
