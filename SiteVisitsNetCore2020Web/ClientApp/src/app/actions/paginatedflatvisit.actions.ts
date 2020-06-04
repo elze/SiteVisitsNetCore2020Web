@@ -1,6 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { VisitFlat } from '../viewmodels/VisitFlat';
-import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 import { PaginatedFlatVisitsResultRaw } from '../viewmodels/PaginatedFlatVisitsResultRaw';
 
 export const loadPaginatedFlatVisits = createAction(
@@ -10,8 +8,6 @@ export const loadPaginatedFlatVisits = createAction(
 
 export const loadPaginatedFlatVisitsSuccess = createAction(
   '[PaginatedFlatVisits] Load PaginatedFlatVisits Success',
-  //props < { data: VisitFlat[]  }>()
-  //props<{ data: PaginatedFlatVisitsResult }>()
   props<{ data: PaginatedFlatVisitsResultRaw }>()
 );
 

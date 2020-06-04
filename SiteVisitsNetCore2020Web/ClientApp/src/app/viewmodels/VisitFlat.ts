@@ -12,21 +12,13 @@ export class VisitFlat {
   ipAddress: string;
   isp: string;
   pageUrl: string;
-  //pageUrlVariation: string;
   pageTitle: string;
-  //pageTitleVariation: PageTitleVariation;
   cameFrom: string;
   combinedTerms: string;
-  /****
-      public virtual Browser Browser { get; set; }
-      public virtual Device Device { get; set; }
-      public virtual SearchEngine SearchEngine { get; set; }
-      ***/
 
   constructor(options: {
     id: string, visitDatetime: string,
     numberOfTimes: number,
-    //seTerm: string,
     logFileName: string,
     visitType: string,
     ipAddress: string,

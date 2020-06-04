@@ -16,11 +16,9 @@ export class VisitSessionEffects {
   public loadVisits$ = createEffect(() => this.actions$.pipe(
     ofType(loadSessionvisits),
     switchMap((loadAction) => 
-      //this.http.get(environment.baseHref + `api/Visits/sessionvisits/${loadAction.id}`).pipe(
       this.visitSessionDataService.GetVisitSession(loadAction.id).pipe(
         tap(ev => console.log(`VisitSessionEffects loadAction.id = ${loadAction.id}`)),
         // If successful, dispatch success action with result
-        //map((data: VisitSessionBlock[]) => {
         map((data: VisitSession) => {
           console.log(`VisitSessionEffects: we are in map, loadAction.id = ${loadAction.id}`);
           return loadSessionvisitsSuccess({ data })

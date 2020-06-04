@@ -325,10 +325,8 @@ describe('FlatVisitsReducer', () => {
       const visit0extractedTerm0 = "24";
       const visit0extractedTerm1 = "watermelon+ship";
       const visit0combinedTerms = visit0extractedTerm0 + ", " + visit0extractedTerm1;
-      const visit0PageUrlUrl = "http://pic.geekitude.com/v/2007/2007Cruise/?g2_page=2";
       const visit0PageUrlCompact = "2007/2007Cruise/?g2_page=2";
       const visit0PageTitleTitle = "Caribbean cruise, November 17-22, 2007";
-      const visit0CameFrom = "http://www.google.com/imgres?imgurl=http://pic.geekitude.com/d/4096-2/CIMG8380WatermellonFlowers.jpg&imgrefurl=http://pic.geekitude.com/v/2007/2007Cruise/%3Fg2_page%3D2&usg=__4xXwrOo2jN7QSz9qYgLjpXloZAA=&h=150&w=145&sz=5&hl=en&start=212&zoom=0&tbnid=xEWNlQBBaNYgRM:&tbnh=96&tbnw=93&ei=85j3Te6tLMHEgQfz9ciNDA&prev=/search%3Fq%3Dwatermelon%2Bship%26hl%3Den%26sa%3DX%26biw%3D1575%26bih%3D680%26rlz%3D1R2ADRA_enUS388%26tbm%3Disch&itbs=1&iact=rc&dur=514&page=10&ndsp=24&ved=1t:429,r:17,s:212&tx=34&ty=85";
       const visit0ShortCameFrom = "q = watermelon + ship ...p = 24 ... /www.google.com/imgres ? imgurl = http ://pic.geekitude.com/d/4096-2/CIMG8380WatermellonFlowers.jpg";
 
       const visit1id = "883b010b-61fe-4f30-9f47-7785b0daa868";
@@ -339,11 +337,8 @@ describe('FlatVisitsReducer', () => {
       const visit1Region = "Western";
       const visit1Country = "Sri Lanka";
       const visit1location = visit1Country + " / " + visit1Region + " / " + visit1City;
-      //const visit1location = "Sri Lanka / Western / Colombo";
-      const visit1PageUrlUrl = "http://gallery.geekitude.com/v/sf/readercon2006/CIMG3465HarryPotterLookalike.jpg.html";
       const visit1PageUrlCompact = "sf/readercon2006/CIMG3465HarryPotterLookalike.jpg.html";
       const visit1PageTitleTitle = "CIMG3465 Harry Potter look-alike";
-      const visit1CameFrom = "http://www.bing.com/images/search?q=harry potter&view=detail&id=F6C3CA013DC5FD3ECA2070C7D3CF9B5545E79FCC&first=211&qpvt=harry potter&FORM=IDFRIR";
       const visit1ShortCameFrom = `q=${visit1seTerm}`;
       const data = [
         new VisitFlat({
@@ -359,11 +354,9 @@ describe('FlatVisitsReducer', () => {
           "postalCode": "78323",
           "isp": "Windstream Communications",
           "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
-          //"ipAddressRelations": null,
           "pageUrl": visit0PageUrlCompact,
           "pageTitle": visit0PageTitleTitle,
           "cameFrom": visit0ShortCameFrom,
-          //"extractedTerms": visit0extractedTerm1,
           "combinedTerms": visit0combinedTerms
         }),
         new VisitFlat({
@@ -379,12 +372,10 @@ describe('FlatVisitsReducer', () => {
           "location": visit1location,
           "isp": "Sri Lanka Telecom",
           "logFileName": "forImport_StatCounter-Log-2721969_20110614.csv",
-          //"ipAddressRelations": null,
           "pageUrl": visit1PageUrlCompact,
           "pageTitle": visit1PageTitleTitle,
           "cameFrom": visit1ShortCameFrom,
           "combinedTerms": visit1seTerm
-          //"extractedTerms": null
         })
       ];
 
@@ -396,9 +387,6 @@ describe('FlatVisitsReducer', () => {
       const row0 = state.flatVisitsDataSourceData[0];
       expect(row0.id).toEqual(visit0id);
       expect(row0.ipAddress).toEqual(visit0IpV4Address);
-      //expect(row0.city).toEqual(visit0City);
-      //expect(row0.region).toEqual(visit0Region);
-      //expect(row0.country).toEqual(visit0Country);
       const location = visit0Country + " / " + visit0Region + " / " + visit0City;
       expect(row0.location).toEqual(location);
       expect(row0.combinedTerms).toEqual(visit0combinedTerms);

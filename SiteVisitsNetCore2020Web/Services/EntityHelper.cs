@@ -50,8 +50,8 @@ namespace SiteVisitsNetCore2020Web.Services
                 .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
             .Include(v => v.IpAddress)
                 .ThenInclude(i => i.Isp)
-            //.Include(v => v.IpAddress)
-            // .ThenInclude(i => i.Visitor)
+            .Include(v => v.IpAddress)
+              .ThenInclude(i => i.Visitor)
             .Include(v => v.ExtractedTerms)
             .Include(v => v.PageUrl)
             .Include(v => v.PageUrlVariation)
@@ -59,13 +59,10 @@ namespace SiteVisitsNetCore2020Web.Services
             .Include(v => v.PageTitleVariation)
             .Include(v => v.CameFrom)
             .OrderByDescending(v => v.VisitDatetime);
-        //.ToListAsync();
-            //return await visits;
             return visits;
         }
 
 
-        //public async Task<List<Visit>> GetVisitsPage(int pageNum, int pageSize)
         public IQueryable<Visit> GetFlatVisitsPage(int pageNum, int pageSize)
         {
             int nToSkip = pageNum * pageSize;
@@ -77,8 +74,8 @@ namespace SiteVisitsNetCore2020Web.Services
                 .ThenInclude(i => i.City).ThenInclude(c => c.Region).ThenInclude(r => r.Country)
             .Include(v => v.IpAddress)
                 .ThenInclude(i => i.Isp)
-            //.Include(v => v.IpAddress)
-            // .ThenInclude(i => i.Visitor)
+            .Include(v => v.IpAddress)
+             .ThenInclude(i => i.Visitor)
             .Include(v => v.ExtractedTerms)
             .Include(v => v.PageUrl)
             .Include(v => v.PageUrlVariation)
@@ -87,9 +84,7 @@ namespace SiteVisitsNetCore2020Web.Services
             .Include(v => v.CameFrom)
             .OrderByDescending(v => v.VisitDatetime)
             .Skip(nToSkip)
-        .Take(pageSize);
-        //.ToListAsync();
-            //return await visits;
+            .Take(pageSize);
             return visits;
         }
 

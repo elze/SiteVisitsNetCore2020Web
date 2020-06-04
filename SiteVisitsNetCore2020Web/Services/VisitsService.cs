@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using SiteVisitsNetCore2020Web.Data;
 using SiteVisitsNetCore2020Web.Models;
 using SiteVisitsNetCore2020Web.ViewModels;
 using System;
@@ -149,7 +147,6 @@ namespace SiteVisitsNetCore2020Web.Services
         }
 
         public async Task<VisitSession> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
-        //public async Task<List<VisitSessionBlock>> GetVisitSessionByDeviceAndBrowserPair(Visit visit)
         {
             List<string> ipAddresses = GetIpAddresses(visit);
 
@@ -191,7 +188,6 @@ namespace SiteVisitsNetCore2020Web.Services
                 Isp = isp,
                 VisitSessionBlocks = visitSessionBlocks
             };
-            //return visitSessionBlocks;
             return visitSession;
         }
         public async Task<PaginatedFlatVisitsResult> GetFlatVisitsPage(int pageNum, int pageSize)

@@ -26,7 +26,6 @@ namespace SiteVisitsNetCore2020Web
         {
             services.AddControllersWithViews(options => {
                 options.Filters.Add(new SqlExceptionFilter());
-                //options.Filters.Add(new SqlExceptionFilter());
                 }); 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

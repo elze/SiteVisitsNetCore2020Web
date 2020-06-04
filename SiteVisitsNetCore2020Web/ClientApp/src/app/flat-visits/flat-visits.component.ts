@@ -39,29 +39,10 @@ export class FlatVisitsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    /**
-    this.route.params.subscribe(
-      params => {
-        console.log(`this.route.params: = ${JSON.stringify(params)}`);
-        this.visitsStore.dispatch(loadPaginatedFlatVisits({ pageNum: params.pageNum, pageSize: params.pageSize }));
-        if (params.pageSize) {
-          this.paginator.pageSize = params.pageSize;
-        }
-        if (params.pageIndex) {
-          this.paginator.pageIndex = params.pageIndex;
-        }
-      })
-        **/
-
-    //this.loadVisits();
-    //this.visitsStore.pipe(select(selectVisits)).subscribe(rows => {
     this.visitsStore.pipe(select(selectPaginatedVisits)).subscribe((visitsResult: PaginatedFlatVisitsResult) => {
-      //this.dataSource = new MatTableDataSource(rows.length ? rows : this.noData);
-      //this.dataSource.paginator = this.paginator;
       this.dataSource = visitsResult.visits;
       this.resultsLength = visitsResult.totalCount;
     });
-    //this.error$ = this.visitsStore.select(selectVisitsError);
     this.error$ = this.visitsStore.select(selectPaginatedVisitsError);
   }
 
@@ -91,21 +72,9 @@ export class FlatVisitsComponent implements OnInit {
   public handlePage(e: PageEvent) {
     this.pageNum = e.pageIndex;
     this.pageSize = e.pageSize;
-    //this.iterator();
 
     console.log(`e.pageIndex = ${e.pageIndex}`);
     console.log(`e.pageSize = ${e.pageSize}`);
-    //this.router.navigate(['/flat-visits', { pageNum: this.currentPage, pageSize: this.pageSize }]);
     this.router.navigate([`/flat-visits/${this.pageNum}/size/${this.pageSize}`]);
   }
-
-  /**
-  public retry(): void {
-    this.loadVisits();
-  }
-
-  private loadVisits(): void {
-    this.visitsStore.dispatch(loadFlatvisits());
-  }
-   */
 }

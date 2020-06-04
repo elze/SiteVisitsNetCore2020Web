@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { VisitFlat } from '../viewmodels/VisitFlat';
-import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 import { PaginatedFlatVisitsResultRaw } from '../viewmodels/PaginatedFlatVisitsResultRaw';
 
 @Injectable({
@@ -18,17 +17,11 @@ export class FlatVisitDataService {
   }
 
   public GetPaginatedFlatVisits(pageNum: number, pageSize: number): Observable<PaginatedFlatVisitsResultRaw> {
-  //public GetPaginatedFlatVisits(pageNum: number, pageSize: number): Observable<any> {
     if (!pageNum || !pageSize) {
       pageNum = 0;
       pageSize = 50;
     }
     return this.http.get<PaginatedFlatVisitsResultRaw>(environment.baseHref + `api/visits/visitspage/${pageNum}/${pageSize}`);
-    /**
-    const fvObjects = this.http.get(environment.baseHref + `api/visits/visitspage/${pageNum}/${pageSize}`);
-    const flatVisits = fvObjects.forEach((o: any) => new VisitFlat(o));
-    return flatVisits;
-     */
   }
 
 }

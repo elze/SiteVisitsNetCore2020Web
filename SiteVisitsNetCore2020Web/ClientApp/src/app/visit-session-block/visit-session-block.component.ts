@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectVisits, selectVisitsError, selectVisitSessionBlocks } from '../reducers';
-import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
+import { AppState, selectVisitSessionBlocks } from '../reducers';
 import { VisitViewModel } from '../viewmodels/VisitViewModel';
 import { VisitSession } from '../viewmodels/VisitSession';
 
@@ -24,16 +23,11 @@ export class VisitSessionBlockComponent implements OnInit {
   ngOnInit() {
     console.log(`VisitSessionBlockComponent ngOnInit`);
     // The higher level component, VisitSessionComponent, will load the visits
-    //this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((rows: Array<VisitSessionBlock>) => {
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
       console.log(`VisitSessionBlockComponent ngOnInit: we are inside this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe`);
       const visitSessionBlock = visitSession.visitSessionBlocks.find(vsb => vsb.browser === this.browser && vsb.device === this.device);
       this.dataSource = new MatTableDataSource(visitSessionBlock.visits.length ? visitSessionBlock.visits : this.noData);
     });
-
-    // Errors will be handled at the higher level, the VisitSessionComponent level
-    //this.error$ = this.visitsStore.select(selectVisitsError);
-
   }
 
 }

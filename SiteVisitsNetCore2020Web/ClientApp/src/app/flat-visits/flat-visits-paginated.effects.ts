@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-//import { loadFlatvisits, loadFlatvisitsSuccess, loadFlatvisitsFailure } from '../actions/flatvisit.actions';
 import { FlatVisitDataService } from './flat-visit-data.service';
-import { VisitFlat } from '../viewmodels/VisitFlat';
 import { loadPaginatedFlatVisits, loadPaginatedFlatVisitsSuccess, loadPaginatedFlatVisitsFailure } from '../actions/paginatedflatvisit.actions';
-import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 import { PaginatedFlatVisitsResultRaw } from '../viewmodels/PaginatedFlatVisitsResultRaw';
 
 
@@ -25,7 +22,6 @@ export class PaginatedFlatVisitsEffects {
       this.flatVisitDataService.GetPaginatedFlatVisits(loadAction.pageNum, loadAction.pageSize).pipe(
         // If successful, dispatch success action with result
         tap(ev => console.log(`PaginatedFlatVisits called this.http.get`)),
-        //map((data: PaginatedFlatVisitsResult) => {
         map((data: PaginatedFlatVisitsResultRaw) => {
           console.log(`PaginatedFlatVisitsEffects: we are in map`);
           return loadPaginatedFlatVisitsSuccess({ data })

@@ -1,6 +1,5 @@
 import * as fromVisitSession from './visit-session.reducer';
 import * as fromActions from '../actions/sessionvisit.actions';
-import { VisitFlat } from '../viewmodels/VisitFlat';
 import { Browser } from '../models/Browser';
 import { Device } from '../models/Device';
 import { Visit } from '../models/Visit';

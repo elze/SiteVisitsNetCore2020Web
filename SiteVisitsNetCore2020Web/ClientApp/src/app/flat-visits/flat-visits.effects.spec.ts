@@ -70,32 +70,12 @@ describe('FlatVisitsEffects', () => {
       "visitType": "page view"
     }));
 
-  //let flatVisitDataServiceSpy: jasmine.SpyObj<FlatVisitDataService>;
-
   beforeEach(() => {
-    /**
-    let flatVisitDataService = {
-      GetFlatVisits: function () {
-        return of(flatVisits);
-      }
-    } as FlatVisitDataService;
-
-    class MockFlatVisitDataService extends FlatVisitDataService {
-      GetFlatVisits() {
-        return of(flatVisits);
-      }
-    }
-     */
-
-    //const spy = jasmine.createSpyObj('FlatVisitDataService', ['GetFlatVisits']);
-
     const spy = jasmine.createSpyObj('FlatVisitDataService', {
       'GetFlatVisits': function () {
         return of(flatVisits);
       }
     });
-
-    //spy.GetFlatVisits().
 
     TestBed.configureTestingModule({
       providers: [

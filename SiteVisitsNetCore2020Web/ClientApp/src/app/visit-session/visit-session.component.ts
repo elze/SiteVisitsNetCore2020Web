@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-//import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisitSessionBlocks, selectVisitSessionBlocksError, selectVisitSessionBlocksLoading } from '../reducers';
 import { VisitSessionBlock } from '../viewmodels/VisitSessionBlock';
 import { loadSessionvisits } from '../actions/sessionvisit.actions';
 import { VisitSession } from '../viewmodels/VisitSession';
-//import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-visit-session',
@@ -27,7 +25,6 @@ export class VisitSessionComponent implements OnInit {
         console.log(`this.route.params: = ${JSON.stringify(params)}`);
       this.visitsStore.dispatch(loadSessionvisits({ id: params.id }));
     })
-    //this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((rows: Array<VisitSessionBlock>) => {
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
       this.isp = visitSession.isp;
       this.visitSessionBlocks = visitSession.visitSessionBlocks;

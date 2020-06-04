@@ -13,7 +13,6 @@ using SiteVisitsNetCore2020Web.ViewModels;
 
 namespace SiteVisitsNetCore2020Web.Controllers
 {
-    //[Route("visitsnc3ng/api/[controller]")]
     [ApiExceptionFilter]
     [Route("api/[controller]")]
     [ApiController]
@@ -37,7 +36,6 @@ namespace SiteVisitsNetCore2020Web.Controllers
 
         // GET: api/Visits/sessionvisits/5
         [HttpGet("sessionvisits/{id}")]
-        //public async Task<ActionResult<List<VisitSessionBlock>>> GetVisitSessionOneLevelGrouping(Guid id)
         public async Task<ActionResult<VisitSession>> GetVisitSessionOneLevelGrouping(Guid id)
         {
             var visit = await _context.Visit.Include(v => v.IpAddress)
@@ -47,9 +45,7 @@ namespace SiteVisitsNetCore2020Web.Controllers
             {
                 return NotFound();
             }
-            //List<VisitSessionBlock> sessionVisits = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
             VisitSession visitSession = await _visitsService.GetVisitSessionByDeviceAndBrowserPair(visit);
-            //return Ok(sessionVisits);
             return Ok(visitSession);
         }
 
