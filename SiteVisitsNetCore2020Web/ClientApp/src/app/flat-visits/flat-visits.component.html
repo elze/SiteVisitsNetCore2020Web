@@ -1,51 +1,64 @@
 <p>Page visits</p>
-<mat-error *ngIf="error$ | async as errorMessage">
-  {{ errorMessage }}
-</mat-error>
-<div style="padding: 32px" *ngIf="dataSource">
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
-    <ng-container matColumnDef="visitDatetime">
-      <th mat-header-cell *matHeaderCellDef>
-        Visit date/time
-      </th>
-      <td mat-cell *matCellDef="let item"> <a [routerLink]="['/visit-session', item.id]">{{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</a></td>
-    </ng-container>
-    <ng-container matColumnDef="pageUrl">
-      <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef> Page URL </th>
-      <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.pageUrl}}</td>
-    </ng-container>
-    <ng-container matColumnDef="pageTitle">
-      <th mat-header-cell *matHeaderCellDef> Page Title </th>
-      <td mat-cell *matCellDef="let item"> {{item.pageTitle}}</td>
-    </ng-container>
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef>Country / Region / City </th>
-      <td mat-cell *matCellDef="let item"> {{ item.location }} </td>
-    </ng-container>
-    <ng-container matColumnDef="ipAddress">
-      <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>IP Address</th>
-      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.ipAddress}}</td>
-    </ng-container>
-    <ng-container matColumnDef="isp">
-      <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>ISP</th>
-      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.isp}}</td>
-    </ng-container>
-    <ng-container matColumnDef="seTerm">
-      <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>Search terms</th>
-      <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.combinedTerms}} </td>
-    </ng-container>
-    <ng-container matColumnDef="cameFrom">
-      <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef>Referrer</th>
-      <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.cameFrom}}</td>
-    </ng-container>
-    <tr mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['ipAddress', 'isp', 'seTerm', 'cameFrom']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>
-    <tr mat-header-row *matHeaderRowDef="['visitDatetime', 'pageUrl', 'pageTitle', 'city']"></tr>
-    <tr mat-header-row *matHeaderRowDef="['ipAddress', 'isp', 'seTerm', 'cameFrom']"></tr>
-  </table>
-</div>
-<mat-paginator [length]="resultsLength"
-               [pageSize]="50"
-               [pageSizeOptions]="[10, 25, 50, 100]"
-               (page)="handlePage($event)">
-</mat-paginator>
+<p>For more explanation of this app, go to Home.<p>
+<p>
+  It is build from a skeleton ASP.NET Core / WebAPI / Angular 8 app that Visual Studio 2019 creates for you, and it still has the two component VS creates: Counter and FetchData.
+  I didn't delete them because when everything breaks, they provide me a useful reference to determine what level things are broken at.
+  This is a reverse chronological list of page visits. In this view, each visit contains only the basic information, hence we call them flat visits.
+  You may notice that Page URL and Referrer (or Came From) fields display the information as concisely as possible.
+  For example, Page URL leaves out the domain name, because I already know it. I'm only interested in the remaining page path.
+  Similarly, Came From, wherever possible, fishes out just the relevant nuggets from the referrer string
+  (if a visitor came to the page from a search engine, those strings can be extremely long and cumbersome to display).
+</p>
+<p>You can page through the visits by clicking on the paginator arrows at the bottom of the page, but also by editing the URL directly,
+  for example, http://elzecode.com/visitsnc3ng/flat-visits/2/size/25 </p>
+
+  <mat-error *ngIf="error$ | async as errorMessage">
+    {{ errorMessage }}
+  </mat-error>
+  <div style="padding: 32px" *ngIf="dataSource">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+      <ng-container matColumnDef="visitDatetime">
+        <th mat-header-cell *matHeaderCellDef>
+          Visit date/time
+        </th>
+        <td mat-cell *matCellDef="let item"> <a [routerLink]="['/visit-session', item.id]">{{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</a></td>
+      </ng-container>
+      <ng-container matColumnDef="pageUrl">
+        <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef> Page URL </th>
+        <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.pageUrl}}</td>
+      </ng-container>
+      <ng-container matColumnDef="pageTitle">
+        <th mat-header-cell *matHeaderCellDef> Page Title </th>
+        <td mat-cell *matCellDef="let item"> {{item.pageTitle}}</td>
+      </ng-container>
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>Country / Region / City </th>
+        <td mat-cell *matCellDef="let item"> {{ item.location }} </td>
+      </ng-container>
+      <ng-container matColumnDef="ipAddress">
+        <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>IP Address</th>
+        <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.ipAddress}}</td>
+      </ng-container>
+      <ng-container matColumnDef="isp">
+        <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>ISP</th>
+        <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.isp}}</td>
+      </ng-container>
+      <ng-container matColumnDef="seTerm">
+        <th mat-header-cell [attr.colspan]="1" *matHeaderCellDef>Search terms</th>
+        <td mat-cell [attr.colspan]="1" *matCellDef="let item"> {{item.combinedTerms}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cameFrom">
+        <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef>Referrer</th>
+        <td mat-cell [attr.colspan]="2" *matCellDef="let item"> {{item.cameFrom}}</td>
+      </ng-container>
+      <tr mat-row *matRowDef="let row; columns: ['visitDatetime', 'pageUrl', 'pageTitle', 'city']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['ipAddress', 'isp', 'seTerm', 'cameFrom']; let i = dataIndex" [class.darker-background]="i % 2 == 0"></tr>
+      <tr mat-header-row *matHeaderRowDef="['visitDatetime', 'pageUrl', 'pageTitle', 'city']"></tr>
+      <tr mat-header-row *matHeaderRowDef="['ipAddress', 'isp', 'seTerm', 'cameFrom']"></tr>
+    </table>
+  </div>
+  <mat-paginator [length]="resultsLength"
+                 [pageSize]="50"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
+                 (page)="handlePage($event)">
+  </mat-paginator>
