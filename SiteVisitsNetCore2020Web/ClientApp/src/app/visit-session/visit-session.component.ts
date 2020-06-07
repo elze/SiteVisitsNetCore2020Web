@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectVisitSessionBlocks, selectVisitSessionBlocksError, selectVisitSessionBlocksLoading } from '../reducers';
@@ -16,17 +17,20 @@ export class VisitSessionComponent implements OnInit {
   visitSessionBlocks: Array<VisitSessionBlock>;
   public error$: Observable<string>;
   public isp: string;
+  public title = 'Visit session';
   constructor(public visitsStore: Store<AppState>,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private titleService: Title) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        console.log(`this.route.params: = ${JSON.stringify(params)}`);
+        console.log(`this.route.params: = ${JSON.stringify(params)}`);        
       this.visitsStore.dispatch(loadSessionvisits({ id: params.id }));
     })
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
       this.isp = visitSession.isp;
+      this.setDocTitle(this.isp);
       this.visitSessionBlocks = visitSession.visitSessionBlocks;
     });
     this.error$ = this.visitsStore.select(selectVisitSessionBlocksError);
@@ -35,7 +39,10 @@ export class VisitSessionComponent implements OnInit {
         this.visitSessionBlocks = [];
       }
     });
-
   }
 
+  setDocTitle(isp: string) {
+    const routeTitle = `Visit session for visitor from ${isp}`;
+    this.titleService.setTitle(routeTitle);
+  }
 }

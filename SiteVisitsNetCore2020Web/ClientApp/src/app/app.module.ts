@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { MatButtonModule, MatIconModule, MatInputModule, MatPaginatorModule, MatTableModule, } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -66,7 +66,7 @@ import { PaginatedFlatVisitsEffects } from './flat-visits/flat-visits-paginated.
     BrowserAnimationsModule,
     EffectsModule.forRoot([FlatVisitsEffects, PaginatedFlatVisitsEffects, VisitSessionEffects])
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: environment.baseHref }],
+  providers: [{ provide: APP_BASE_HREF, useValue: environment.baseHref }, Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

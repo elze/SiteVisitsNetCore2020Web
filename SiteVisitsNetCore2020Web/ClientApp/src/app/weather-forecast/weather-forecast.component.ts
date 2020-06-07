@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { WeatherForecast } from '../fetch-data/fetch-data.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { WeatherForecastDataService } from './weather-forecast-data.service';
@@ -11,9 +12,12 @@ import { WeatherForecastDataService } from './weather-forecast-data.service';
 export class WeatherForecastComponent implements OnInit {
 
   weatherForecast: WeatherForecast;
+  public title = 'Weather Forecast';
   constructor(
     private route: ActivatedRoute,
-    public weatherForecastDataService: WeatherForecastDataService) {
+    public weatherForecastDataService: WeatherForecastDataService,
+    private titleService: Title) {
+    this.titleService.setTitle("Weather Forecast");
   }
 
   ngOnInit() {

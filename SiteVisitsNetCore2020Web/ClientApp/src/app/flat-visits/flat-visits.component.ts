@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
-//import { MatPaginatorModule } from '@angular/material/paginator';
+import { Title } from '@angular/platform-browser';
+import { MatPaginator, PageEvent } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectVisits, selectVisitsError, selectPaginatedVisits, selectPaginatedVisitsError } from '../reducers';
-import { loadFlatvisits } from '../actions/flatvisit.actions';
+import { AppState, selectPaginatedVisits, selectPaginatedVisitsError } from '../reducers';
 //import { Subscription } from 'rxjs';
 import { VisitFlat } from '../viewmodels/VisitFlat';
 import { loadPaginatedFlatVisits } from '../actions/paginatedflatvisit.actions';
@@ -17,8 +16,6 @@ import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResu
   styleUrls: ['./flat-visits.component.scss']
 })
 export class FlatVisitsComponent implements OnInit {
-
-  //public dataSource: MatTableDataSource<VisitFlat>;
   public dataSource: VisitFlat[];
   public resultsLength: number;
   public noData: VisitFlat[] = [];
@@ -30,10 +27,13 @@ export class FlatVisitsComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   pageEvent: PageEvent;
+  title = 'Flat visits: chronologically displayed, basic info about page visits';
+
 
   constructor(public visitsStore: Store<AppState>,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
 
   }
@@ -73,8 +73,16 @@ export class FlatVisitsComponent implements OnInit {
     this.pageNum = e.pageIndex;
     this.pageSize = e.pageSize;
 
-    console.log(`e.pageIndex = ${e.pageIndex}`);
-    console.log(`e.pageSize = ${e.pageSize}`);
+    //console.log(`e.pageIndex = ${e.pageIndex}`);
+    //console.log(`e.pageSize = ${e.pageSize}`);
+    //const routeTitle = `Page ${this.pageNum}, size ${this.pageSize} of flat visits`;
+    //this.titleService.setTitle(routeTitle);
+    this.setDocTitle(this.pageNum, this.pageSize);
     this.router.navigate([`/flat-visits/${this.pageNum}/size/${this.pageSize}`]);
+  }
+
+  setDocTitle(pageNum: number, pageSize: number) {
+    const routeTitle = `Page ${pageNum}, size ${pageSize} of flat visits`;
+    this.titleService.setTitle(routeTitle);
   }
 }
