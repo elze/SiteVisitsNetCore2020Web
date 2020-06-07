@@ -1,6 +1,3 @@
-//import { VisitInner } from "./VisitInner";
-
-import { Visit } from "../models/Visit";
 import { VisitViewModel } from "./VisitViewModel";
 
 export class VisitSessionBlock {

@@ -4,7 +4,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FlatVisitDataService } from './flat-visit-data.service';
 import { loadPaginatedFlatVisits, loadPaginatedFlatVisitsSuccess, loadPaginatedFlatVisitsFailure } from '../actions/paginatedflatvisit.actions';
-import { PaginatedFlatVisitsResultRaw } from '../viewmodels/PaginatedFlatVisitsResultRaw';
+import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 
 
 @Injectable()
@@ -22,7 +22,7 @@ export class PaginatedFlatVisitsEffects {
       this.flatVisitDataService.GetPaginatedFlatVisits(loadAction.pageNum, loadAction.pageSize).pipe(
         // If successful, dispatch success action with result
         tap(ev => console.log(`PaginatedFlatVisits called this.http.get`)),
-        map((data: PaginatedFlatVisitsResultRaw) => {
+        map((data: PaginatedFlatVisitsResult) => {
           console.log(`PaginatedFlatVisitsEffects: we are in map`);
           return loadPaginatedFlatVisitsSuccess({ data })
         }

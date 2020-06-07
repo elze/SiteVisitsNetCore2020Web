@@ -35,7 +35,8 @@ export const _reducer = createReducer(
     return {
       ...state,
       result: {
-        totalCount: data.totalCount, visits: data.visits.map(v => new VisitFlat(v))
+        //totalCount: data.totalCount, visits: data.visits.map(v => new VisitFlat(v))
+        totalCount: data.totalCount, visits: data.visits
       },
       loading: false,
       error: null
