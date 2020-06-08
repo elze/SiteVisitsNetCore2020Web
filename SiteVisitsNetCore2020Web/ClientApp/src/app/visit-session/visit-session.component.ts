@@ -17,6 +17,9 @@ export class VisitSessionComponent implements OnInit {
   visitSessionBlocks: Array<VisitSessionBlock>;
   public error$: Observable<string>;
   public isp: string;
+  //public sampleIpAddress: string;
+  public sampleVisitDateTime: Date;
+
   public title = 'Visit session';
   constructor(public visitsStore: Store<AppState>,
     private route: ActivatedRoute,
@@ -25,12 +28,14 @@ export class VisitSessionComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        console.log(`this.route.params: = ${JSON.stringify(params)}`);        
+        console.log(`this.route.params: = ${JSON.stringify(params)}`);
+        this.sampleVisitDateTime = params.visitDateTime;
       this.visitsStore.dispatch(loadSessionvisits({ id: params.id }));
     })
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
       this.isp = visitSession.isp;
-      this.setDocTitle(this.isp);
+      //this.sampleIpAddress = visitSession.sampleIpAddress;
+      this.setDocTitle();
       this.visitSessionBlocks = visitSession.visitSessionBlocks;
     });
     this.error$ = this.visitsStore.select(selectVisitSessionBlocksError);
@@ -41,8 +46,8 @@ export class VisitSessionComponent implements OnInit {
     });
   }
 
-  setDocTitle(isp: string) {
-    const routeTitle = `Visit session for visitor from ${isp}`;
+  setDocTitle() {
+    const routeTitle = `Visit session for visitor from ${this.isp}, ${this.sampleVisitDateTime}`;
     this.titleService.setTitle(routeTitle);
   }
 }

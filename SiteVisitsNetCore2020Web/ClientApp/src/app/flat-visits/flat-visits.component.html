@@ -21,7 +21,7 @@
         <th mat-header-cell *matHeaderCellDef>
           Visit date/time
         </th>
-        <td mat-cell *matCellDef="let item"> <a [routerLink]="['/visit-session', item.id]">{{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</a></td>
+        <td mat-cell *matCellDef="let item"> <a [routerLink]="['/visit-session', item.id, item.visitDatetime.toISOString()]">{{item.visitDatetime ? item.visitDatetime.toLocaleString("en-US") : "" }}</a></td>
       </ng-container>
       <ng-container matColumnDef="pageUrl">
         <th mat-header-cell [attr.colspan]="2" *matHeaderCellDef> Page URL </th>
