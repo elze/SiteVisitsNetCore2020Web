@@ -183,9 +183,14 @@ namespace SiteVisitsNetCore2020Web.Services
                     }).ToList()
                 });
             }
+            //DateTime firstVisit = visitSessionBlocks[0].Visits[0].Visit.VisitDatetime;
+            DateTime sampleVisitDateTime = visit.VisitDatetime;
+            string sampleIpAddress = visit.IpAddress?.IpV4Address;
             VisitSession visitSession = new VisitSession
             {
                 Isp = isp,
+                SampleIpAddress = sampleIpAddress,
+                SampleVisitDateTime = sampleVisitDateTime,
                 VisitSessionBlocks = visitSessionBlocks
             };
             return visitSession;

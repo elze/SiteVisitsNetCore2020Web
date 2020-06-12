@@ -47,8 +47,6 @@
     <None Remove="ClientApp\src\app\reducers\visit-session.reducer.spec.ts" />
     <None Remove="ClientApp\src\app\reducers\visit-session.reducer.ts" />
     <None Remove="ClientApp\src\app\viewmodels\PaginatedFlatVisitsResult.ts" />
-    <None Remove="ClientApp\src\app\viewmodels\PaginatedFlatVisitsResultRaw.ts" />
-    <None Remove="ClientApp\src\app\viewmodels\VisitFlatRaw.ts" />
     <None Remove="ClientApp\src\app\viewmodels\VisitSession.ts" />
     <None Remove="ClientApp\src\app\visit-session\visit-session.effects.spec.ts" />
     <None Remove="ClientApp\src\app\visit-session\visit-session.effects.ts" />
@@ -64,9 +62,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\reducers\flat-visits-paginated.reducer.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reducers\visit-session.reducer.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\viewmodels\PaginatedFlatVisitsResult.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\PaginatedFlatVisitsResultRaw.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\viewmodels\VisitFlat.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\VisitFlatRaw.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\viewmodels\VisitSession.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\viewmodels\VisitSessionBlock.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\viewmodels\VisitViewModel.ts" />

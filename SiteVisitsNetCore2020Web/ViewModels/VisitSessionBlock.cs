@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SiteVisitsNetCore2020Web.Models
+namespace SiteVisitsNetCore2020Web.ViewModels
 {
     public class VisitSessionBlock
     {

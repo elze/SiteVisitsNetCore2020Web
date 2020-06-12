@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { WeatherForecast } from '../fetch-data/fetch-data.component';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { WeatherForecastDataService } from './weather-forecast-data.service';
 
 @Component({

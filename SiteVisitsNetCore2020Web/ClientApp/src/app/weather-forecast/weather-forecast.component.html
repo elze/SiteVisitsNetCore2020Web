@@ -1,4 +1,6 @@
-<p>{{ weatherForecast.date }}</p>
-<p>{{ weatherForecast.temperatureC }}</p>
-<p>{{ weatherForecast.temperatureF }}</p>
-<p>{{ weatherForecast.summary }}</p>
+<div *ngIf="weatherForecast">
+  <p>Date and time: <b>{{ weatherForecast.date.toLocaleString("en-US") }}</b></p>
+  <p>Temperature in Celsius: <b>{{ weatherForecast.temperatureC }}</b></p>
+  <p>Temperature in Fahrenheit: <b>{{ weatherForecast.temperatureF }}</b></p>
+  <p>Summary: <b>{{ weatherForecast.summary }}</b></p>
+</div>
