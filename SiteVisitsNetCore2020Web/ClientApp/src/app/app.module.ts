@@ -46,7 +46,7 @@ import { PaginatedFlatVisitsEffects } from './flat-visits/flat-visits-paginated.
     MatPaginatorModule,
     MatTableModule,
     RouterModule.forRoot([
-      { path: 'visit-session/:id', component: VisitSessionComponent },
+      { path: 'visit-session/:id/:visitDateTime', component: VisitSessionComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'weather-forecast/:id', component: WeatherForecastComponent },
