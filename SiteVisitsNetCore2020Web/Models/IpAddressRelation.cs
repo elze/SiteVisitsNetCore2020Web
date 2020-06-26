@@ -20,5 +20,8 @@ namespace SiteVisitsNetCore2020Web.Models
 
         public IpAddress IpAddress { get; set; }
         public int NumberOfTimes { get; set; }
+        public DateTime FirstOccurrence { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
     }
 }

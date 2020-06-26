@@ -15,5 +15,7 @@ namespace SiteVisitsNetCore2020Web.Models
         [Column(Order = 20)]
         public Guid VisitId { get; set; }
         public string Term { get; set; }
+        public DateTime FirstOccurrence { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

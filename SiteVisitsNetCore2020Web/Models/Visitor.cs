@@ -9,5 +9,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public int Id { get; set; }
         public string Label { get; set; }
         public string Note { get; set; }
+        public DateTime FirstOccurrence { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

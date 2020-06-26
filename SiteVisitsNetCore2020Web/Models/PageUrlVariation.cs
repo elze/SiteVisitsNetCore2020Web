@@ -12,6 +12,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public string UrlVariationCompact { get; set; }
         public DateTime FirstOccurrence { get; set; }
         public virtual PageUrl PageUrl { get; set; }
+        public DateTime DateCreated { get; set; }
         /**
         protected IAdapter adapter;
         public PageUrlVariation() { }

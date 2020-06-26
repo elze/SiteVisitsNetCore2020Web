@@ -12,5 +12,6 @@ namespace SiteVisitsNetCore2020Web.Models
         public string TitleCompact { get; set; }
         public DateTime FirstOccurrence { get; set; }
         public virtual PageUrl PageUrl { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

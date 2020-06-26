@@ -17,5 +17,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public virtual Isp Isp { get; set; }
         public virtual Visitor Visitor { get; set; }
         public virtual List<IpAddressRelation> IpAddressRelations { get; set; }
+        public DateTime FirstOccurrence { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

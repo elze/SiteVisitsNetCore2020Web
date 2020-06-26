@@ -22,5 +22,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public virtual Browser Browser { get; set; }
         public virtual Device Device { get; set; }
         public virtual SearchEngine SearchEngine { get; set; }
+        public DateTime FirstOccurrence { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }
