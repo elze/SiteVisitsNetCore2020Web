@@ -6,7 +6,8 @@ namespace SiteVisitsNetCore2020Web.Models
 {
     public class Visitor
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Label { get; set; }
         public string Note { get; set; }
         public DateTime FirstOccurrence { get; set; }

@@ -30,7 +30,8 @@ export class Visit {
   seTerm: string;
 
   constructor(options: {
-    id: string, visitDatetime: string,
+    id: string,
+    visitDatetime: string,
     numberOfTimes: number,
     browser: Browser,
     device: Device,

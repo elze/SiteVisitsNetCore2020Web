@@ -9,7 +9,7 @@ namespace SiteVisitsNetCore2020Web.Models
 
         public string IpAddress { get; set; }
         public int NumberOfTimes { get; set; }
-        public string Isp { get; set; }
+        public string Organization { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
         public string Country { get; set; }

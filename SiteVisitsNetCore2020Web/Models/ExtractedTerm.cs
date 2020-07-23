@@ -9,7 +9,8 @@ namespace SiteVisitsNetCore2020Web.Models
 {
     public class ExtractedTerm
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public Guid Id { get; set; }
         //[Key, ForeignKey("Visit")]
         [ForeignKey("Visit")]
         [Column(Order = 20)]

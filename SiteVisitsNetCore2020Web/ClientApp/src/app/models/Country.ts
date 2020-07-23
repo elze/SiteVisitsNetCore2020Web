@@ -1,9 +1,11 @@
 export class Country {
-    id: number;
+    //id: number;
+  id: string;
   name: string;
 
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     name: string
   }) {
     if (options) {

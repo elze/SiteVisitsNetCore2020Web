@@ -12,7 +12,7 @@ export class PaginatedFlatVisitsResult {
       logFileName: string,
       visitType: string,
       ipAddress: string,
-      isp: string,
+      organization: string,
       city: string,
       region: string,
       country: string,

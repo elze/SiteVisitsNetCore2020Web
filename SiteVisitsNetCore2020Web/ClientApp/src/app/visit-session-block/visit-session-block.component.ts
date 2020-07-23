@@ -26,7 +26,7 @@ export class VisitSessionBlockComponent implements OnInit {
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
       console.log(`VisitSessionBlockComponent ngOnInit: we are inside this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe`);
       const visitSessionBlock = visitSession.visitSessionBlocks.find(vsb => vsb.browser === this.browser && vsb.device === this.device);
-      this.dataSource = new MatTableDataSource(visitSessionBlock.visits.length ? visitSessionBlock.visits : this.noData);
+      this.dataSource = new MatTableDataSource(visitSessionBlock.visits && visitSessionBlock.visits.length ? visitSessionBlock.visits : this.noData);
     });
   }
 

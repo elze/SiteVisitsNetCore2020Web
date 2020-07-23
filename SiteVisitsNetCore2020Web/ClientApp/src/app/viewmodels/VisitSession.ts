@@ -1,14 +1,14 @@
 import { VisitSessionBlock } from "./VisitSessionBlock";
 
 export class VisitSession {
-  public isp: string;
+  public organization: string;
   sampleIpAddress: string;
   sampleVisitDateTime: Date;
 
   public visitSessionBlocks: Array<VisitSessionBlock>;
 
   constructor(options: {
-    isp: string,
+    organization: string,
     sampleIpAddress: string,
     sampleVisitDateTime: string,
 
@@ -18,7 +18,7 @@ export class VisitSession {
       visits: Array<any>
     }>
   }) {
-    this.isp = options.isp;
+    this.organization = options.organization;
     this.sampleIpAddress = options.sampleIpAddress;
     this.sampleVisitDateTime = new Date(options.sampleVisitDateTime);
     this.visitSessionBlocks = options.visitSessionBlocks.map(vsb => new VisitSessionBlock(vsb));

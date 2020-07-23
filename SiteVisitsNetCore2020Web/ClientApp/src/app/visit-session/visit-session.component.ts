@@ -16,7 +16,7 @@ import { VisitSession } from '../viewmodels/VisitSession';
 export class VisitSessionComponent implements OnInit {
   visitSessionBlocks: Array<VisitSessionBlock>;
   public error$: Observable<string>;
-  public isp: string;
+  public organization: string;
   //public sampleIpAddress: string;
   public sampleVisitDateTime: Date;
 
@@ -33,7 +33,7 @@ export class VisitSessionComponent implements OnInit {
       this.visitsStore.dispatch(loadSessionvisits({ id: params.id }));
     })
     this.visitsStore.pipe(select(selectVisitSessionBlocks)).subscribe((visitSession: VisitSession) => {
-      this.isp = visitSession.isp;
+      this.organization = visitSession.organization;
       //this.sampleIpAddress = visitSession.sampleIpAddress;
       this.setDocTitle();
       this.visitSessionBlocks = visitSession.visitSessionBlocks;
@@ -47,7 +47,7 @@ export class VisitSessionComponent implements OnInit {
   }
 
   setDocTitle() {
-    const routeTitle = `Visit session for visitor from ${this.isp}, ${this.sampleVisitDateTime}`;
+    const routeTitle = `Visit session for visitor from ${this.organization}, ${this.sampleVisitDateTime}`;
     this.titleService.setTitle(routeTitle);
   }
 }

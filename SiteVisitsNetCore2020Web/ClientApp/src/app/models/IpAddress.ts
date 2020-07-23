@@ -1,7 +1,7 @@
 import { City } from './City';
 import { Country } from './Country';
 import { Region } from './Region';
-import { Isp } from './Isp';
+import { Organization } from './Organization';
 import { Visitor } from './Visitor';
 
 export class IpAddress {    
@@ -12,7 +12,7 @@ export class IpAddress {
     city: City;
     region: Region;
     country: Country;
-    isp: Isp;
+  organization: Organization;
   visitor: Visitor
 
   constructor(options: {
@@ -22,7 +22,7 @@ export class IpAddress {
     city: City,
     region: Region,
     country: Country,
-    isp: Isp,
+    organization: Organization,
     visitor: Visitor
   }) {
     this.ipV4Address = options.ipV4Address;
@@ -31,7 +31,7 @@ export class IpAddress {
     this.city = new City(options.city);
     this.region = new Region(options.region);
     this.country = new Country(options.country);
-    this.isp = new Isp(options.isp);
+    this.organization = new Organization(options.organization);
     this.visitor = new Visitor(options.visitor);
   }
 }

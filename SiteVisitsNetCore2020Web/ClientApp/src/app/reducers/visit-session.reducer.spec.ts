@@ -46,10 +46,38 @@ describe('VisitSessionReducer', () => {
       const device = "MacOSX";
       const ipAddress0 = "70.244.202.70";
       const combinedTerms0 = "14, thistle + cafe + austin + texas";
+      const visitDatetime0 = "2011-06-14T03:20:06";
+      const visitDatetime1 = "2011-06-14T03:19:56";
+
+      const cityId0 = "d0af49d4-fb2c-4f40-afaa-4157210795a0";
+      const regionId0 = "7808031b-3390-4509-ba7e-fbfb806ae305";
+      const countryId0 = "b5a3fb8d-a413-498f-bbc8-c0929743526a"; // 247
+      const extractedTermId0 = "b81fd69d-b552-438c-a46c-ba77bfbc6809"; // 471
+      const extractedTermId1 = "2dc3a105-01ea-4f5e-bd72-984acdb79a5d"; // 472
+      const extractedTermId2 = "243d605b-c51d-4321-8838-8f3184135e1c"; // 469
+      const extractedTermId3 = "6601a98a-82fc-4873-bd8a-fd0d5188e90b"; // 470
+      const visitId0 = "9d72f183-2d34-4f62-8e46-b75cd8c782fe";
+      const visitId1 = "e69a0ab5-3645-42d8-876f-59a0081cfd37";
+      const browserId0 = "26eb2e19-7082-408b-b754-26ccacaa75b8"; //327
+      const cameFromId0 = "1c42fa69-8595-4175-bfc9-13b8cbf4452f"; // 1310
+      const deviceId0 = "9840f9cc-9137-47af-80f9-e88207a60792"; // 605
+
       const location0 = "United States / Texas / Austin";
       const pageUrl0 = "2008/socialMediaCamp2008/";
       const pageTitle0 = "Social Media Camp, July 30, 2008, Austin, Texas";
       const cameFrom0 = "q=thistle+cafe+austin+texas ... p=14 ... /www.google.com/imgres?imgurl=http://gallery.geekitude.com/d/5346-2/P1010375Everybody.jpg";
+
+      const pageTitleObj0 = {
+        "title": pageTitle0,
+        "titleCompact": null,
+        /**
+        "pageUrl": {
+          "url": "http://gallery.geekitude.com/v/2008/socialMediaCamp2008/",
+          "urlCompact": pageUrl0
+        }
+        **/
+      };
+
 
       const data = new Array<VisitSessionBlock>();
       data.push({
@@ -58,8 +86,8 @@ describe('VisitSessionReducer', () => {
         "visits": [
           {
             "visit": new Visit({
-              "id": "9d72f183-2d34-4f62-8e46-b75cd8c782fe",
-              "visitDatetime": "2011-06-14T03:20:06",
+              "id": visitId0,
+              "visitDatetime": visitDatetime0,
               "numberOfTimes": 0,
               "seTerm": "",
               "logFileName": "c:\\Users\\Elze\\Documents\\MyProjects\\DataImport\\FileExamplesForImport\\forImport_StatCounter-Log-2721969_20110614.csv",
@@ -69,71 +97,65 @@ describe('VisitSessionReducer', () => {
                 "numberOfTimes": 1,
                 "postalCode": "",
                 "city": {
-                  "id": 807,
+                  "id": cityId0,
                   "name": "Austin",
                   "region": {
-                    "id": 436,
+                    "id": regionId0,
                     "name": "Texas",
                     "country": {
-                      "id": 247,
+                      "id": countryId0,
                       "name": "United States"
                     }
                   }
                 },
                 "region": {
-                  "id": 436,
+                  "id": regionId0,
                   "name": "Texas",
                   "country": {
-                    "id": 247,
+                    "id": countryId0,
                     "name": "United States"
                   }
                 },
                 "country": {
-                  "id": 247,
+                  "id": countryId0,
                   "name": "United States"
                 },
-                "isp": null,
+                "organization": null,
                 "visitor": null,
                 //"ipAddressRelations": null
               },
               "extractedTerms": [
                 {
-                  "id": 471,
-                  "visitId": "9d72f183-2d34-4f62-8e46-b75cd8c782fe",
+                  "id": extractedTermId0,
+                  "visitId": visitId0,
                   "term": "14"
                 },
                 {
-                  "id": 472,
-                  "visitId": "9d72f183-2d34-4f62-8e46-b75cd8c782fe",
+                  "id": extractedTermId1,
+                  "visitId": visitId0,
                   "term": "thistle+cafe+austin+texas"
                 }
               ],
               "pageUrl": {
                 "url": "http://gallery.geekitude.com/v/2008/socialMediaCamp2008/",
-                "urlCompact": pageUrl0
+                "urlCompact": pageUrl0,
+                "pageTitle": pageTitleObj0
               },
               "pageUrlVariation": null,
-              "pageTitle": {
-                "title": pageTitle0,
-                "titleCompact": null,
-                "pageUrl": {
-                  "url": "http://gallery.geekitude.com/v/2008/socialMediaCamp2008/",
-                  "urlCompact": pageUrl0
-                }
-              },
+              "pageTitle": pageTitleObj0, 
               "pageTitleVariation": null,
               "cameFrom": {
-                "id": 1310,
+                "id": cameFromId0,
                 "cameFrom": "http://www.google.com/imgres?imgurl=http://gallery.geekitude.com/d/5346-2/P1010375Everybody.jpg&imgrefurl=http://gallery.geekitude.com/v/2008/socialMediaCamp2008/&usg=__Of1-TbyBYLodZlryD4b1L15goi8=&h=113&w=150&sz=6&hl=en&start=12&zoom=0&tbnid=SrlDKXf9S4004M:&tbnh=72&tbnw=96&ei=cBn3TY3sC8Lr0gHW--2oCw&prev=/search%3Fq%3Dthistle%2Bcafe%2Baustin%2Btexas%26um%3D1%26hl%3Den%26client%3Dsafari%26rls%3Den%26biw%3D1024%26bih%3D613%26tbm%3Disch&um=1&itbs=1&iact=hc&vpx=820&vpy=220&dur=19&hovh=72&hovw=96&tx=58&ty=54&page=2&ndsp=14&ved=1t:429,r:13,s:12&biw=1024&bih=613",
                 "shortCameFrom": cameFrom0
               },
               "browser": new Browser({
-                "id": 327,
+                "id": browserId0,
                 "name": browser,
                 "version": "5.0"
               }),
               "device": new Device({
-                "id": 605,
+                "id": deviceId0,
                 "operatingSystem": device,
                 "resolution": "1024x768"
               }),
@@ -148,8 +170,8 @@ describe('VisitSessionReducer', () => {
           },
           {
             "visit": new Visit({
-              "id": "e69a0ab5-3645-42d8-876f-59a0081cfd37",
-              "visitDatetime": "2011-06-14T03:19:56",
+              "id": visitId1,
+              "visitDatetime": visitDatetime1,
               "numberOfTimes": 0,
               "seTerm": "",
               "logFileName": "c:\\Users\\Elze\\Documents\\MyProjects\\DataImport\\FileExamplesForImport\\forImport_StatCounter-Log-2721969_20110614.csv",
@@ -159,71 +181,65 @@ describe('VisitSessionReducer', () => {
                 "numberOfTimes": 1,
                 "postalCode": "",
                 "city": {
-                  "id": 807,
+                  "id": cityId0,
                   "name": "Austin",
                   "region": {
-                    "id": 436,
+                    "id": regionId0,
                     "name": "Texas",
                     "country": {
-                      "id": 247,
+                      "id": countryId0,
                       "name": "United States"
                     }
                   }
                 },
                 "region": {
-                  "id": 436,
+                  "id": regionId0,
                   "name": "Texas",
                   "country": {
-                    "id": 247,
+                    "id": countryId0,
                     "name": "United States"
                   }
                 },
                 "country": {
-                  "id": 247,
+                  "id": countryId0,
                   "name": "United States"
                 },
-                "isp": null,
+                "organization": null,
                 "visitor": null
                 //"ipAddressRelations": null
               },
               "extractedTerms": [
                 {
-                  "id": 469,
-                  "visitId": "e69a0ab5-3645-42d8-876f-59a0081cfd37",
+                  "id": extractedTermId2,
+                  "visitId": visitId1,
                   "term": "14"
                 },
                 {
-                  "id": 470,
-                  "visitId": "e69a0ab5-3645-42d8-876f-59a0081cfd37",
+                  "id": extractedTermId3,
+                  "visitId": visitId1,
                   "term": "thistle+cafe+austin+texas"
                 }
               ],
               "pageUrl": {
                 "url": "http://gallery.geekitude.com/v/2008/socialMediaCamp2008/",
-                "urlCompact": pageUrl0
+                "urlCompact": pageUrl0,
+                "pageTitle": pageTitleObj0
               },
               "pageUrlVariation": null,
-              "pageTitle": {
-                "title": pageTitle0,
-                "titleCompact": null,
-                "pageUrl": {
-                  "url": "http://gallery.geekitude.com/v/2008/socialMediaCamp2008/",
-                  "urlCompact": pageUrl0
-                }
-              },
+              "pageTitle": pageTitleObj0,
               "pageTitleVariation": null,
               "cameFrom": {
-                "id": 1310,
+                "id": cameFromId0,
                 "cameFrom": "http://www.google.com/imgres?imgurl=http://gallery.geekitude.com/d/5346-2/P1010375Everybody.jpg&imgrefurl=http://gallery.geekitude.com/v/2008/socialMediaCamp2008/&usg=__Of1-TbyBYLodZlryD4b1L15goi8=&h=113&w=150&sz=6&hl=en&start=12&zoom=0&tbnid=SrlDKXf9S4004M:&tbnh=72&tbnw=96&ei=cBn3TY3sC8Lr0gHW--2oCw&prev=/search%3Fq%3Dthistle%2Bcafe%2Baustin%2Btexas%26um%3D1%26hl%3Den%26client%3Dsafari%26rls%3Den%26biw%3D1024%26bih%3D613%26tbm%3Disch&um=1&itbs=1&iact=hc&vpx=820&vpy=220&dur=19&hovh=72&hovw=96&tx=58&ty=54&page=2&ndsp=14&ved=1t:429,r:13,s:12&biw=1024&bih=613",
                 "shortCameFrom": cameFrom0
               },
               "browser": new Browser({
-                "id": 327,
+                "id": browserId0,
                 "name": browser,
                 "version": "5.0"
               }),
               "device": new Device({
-                "id": 605,
+                "id": deviceId0,
                 "operatingSystem": device,
                 "resolution": "1024x768"
               }),
@@ -240,7 +256,11 @@ describe('VisitSessionReducer', () => {
       });
 
       const { initialVisitSessionState } = fromVisitSession;
-      const action = fromActions.loadSessionvisitsSuccess({ data: { isp: "Spectrum", visitSessionBlocks: data } });
+      const action = fromActions.loadSessionvisitsSuccess({
+        data: {
+          organization: "Spectrum", sampleIpAddress: ipAddress0,
+          sampleVisitDateTime: new Date(visitDatetime1),
+          visitSessionBlocks: data } });
       const state = fromVisitSession.vsReducer(initialVisitSessionState, action);
       expect(state.dataSourceData.visitSessionBlocks.length).toEqual(data.length);
 

@@ -6,7 +6,8 @@ namespace SiteVisitsNetCore2020Web.Models
 {
     public class Browser
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
         public DateTime FirstOccurrence { get; set; }

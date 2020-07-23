@@ -3,16 +3,16 @@ import { PageUrl } from "./PageUrl";
 export class PageTitle {
     title: string;
   titleCompact: string;
-  pageUrl: PageUrl;
+  //pageUrl: PageUrl;
   constructor(options: {
     title: string,
     titleCompact: string,
-    pageUrl: PageUrl
+    //pageUrl: PageUrl
   }) {
     if (options) {
       this.title = options.title;
       this.titleCompact = options.titleCompact;
-      this.pageUrl = options.pageUrl;
+      //this.pageUrl = options.pageUrl;
     }
   }
 }

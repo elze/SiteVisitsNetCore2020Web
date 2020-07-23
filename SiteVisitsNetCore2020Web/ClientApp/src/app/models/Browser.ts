@@ -1,9 +1,11 @@
 export class Browser {
-  id: number;
+  //id: number;
+  id: string;
   name: string;
   version: string;
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     name: string,
     version: string
   }) {

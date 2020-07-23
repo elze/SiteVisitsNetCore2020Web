@@ -1,9 +1,11 @@
 export class Referrer {
-    id: number;
+  //id: number;
+  id: string;
     cameFrom: string;
   shortCameFrom: string;
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     cameFrom: string,
     shortCameFrom: string
   }) {

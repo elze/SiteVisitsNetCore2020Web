@@ -23,7 +23,7 @@ describe('WeatherForecastComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WeatherForecastComponent);
     component = fixture.componentInstance;
-    const weatherForecast = { date: '2020-05-19', temperatureC: 38, temperatureF: 100, summary: "Scorching" };
+    const weatherForecast = { id: 2, date: new Date('2020-05-19'), temperatureC: 38, temperatureF: 100, summary: "Scorching" };
     spyOn(component.weatherForecastDataService, 'GetForecast').and.returnValue(of(weatherForecast));
     fixture.detectChanges();
   });

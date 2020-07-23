@@ -5,7 +5,7 @@
   For now we chose it to mean that there is no less than 30 minute break between the first visit in this session,
   and this visitor's older visits, as well as no less than 30 minute break between the last visit in this session
   and this visitor's later visits. This time interval is configurable at the server level.</p>
-<p>ISP: <b>{{ isp }}</b> </p>
+<p>ISP: <b>{{ organization }}</b> </p>
 <li class="visitSessionBlock" *ngFor="let visitSessionBlock of visitSessionBlocks">
   <app-visit-session-block [browser]="visitSessionBlock.browser" [device]="visitSessionBlock.device"></app-visit-session-block>
 </li>

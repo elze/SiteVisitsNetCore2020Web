@@ -1,20 +1,16 @@
-export class SearchEngine {
+export class Organization {
   //id: number;
-  id: string;
+  public id: string;
   name: string;
-  host: string;
 
   constructor(options: {
     //id: number,
     id: string,
-    name: string,
-    host: string
+    name: string
   }) {
     if (options) {
       this.id = options.id;
       this.name = options.name;
-      this.host = options.host;
     }
   }
-    
 }

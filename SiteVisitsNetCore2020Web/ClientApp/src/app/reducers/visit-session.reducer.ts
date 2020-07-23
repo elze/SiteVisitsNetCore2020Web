@@ -15,7 +15,7 @@ export interface VisitSessionState {
 
 export const initialVisitSessionState: VisitSessionState = {
   dataSourceData: {
-    isp: "", visitSessionBlocks: [], sampleIpAddress: "",
+    organization: "", visitSessionBlocks: [], sampleIpAddress: "",
     sampleVisitDateTime: new Date()
   },
   loading: true,

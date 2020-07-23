@@ -12,6 +12,7 @@ namespace SiteVisitsNetCore2020Web.Models
         [Key]
         public string Url { get; set; }
         public string UrlCompact { get; set; }
+        public PageTitle PageTitle { get; set; }
         public DateTime FirstOccurrence { get; set; }
         public DateTime DateCreated { get; set; }
         public static string CanonicalUrl(string url)

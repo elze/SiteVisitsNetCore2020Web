@@ -9,7 +9,8 @@ namespace SiteVisitsNetCore2020Web.Models
 {
     public class IpAddressRelation
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public Guid Id { get; set; }
         [Column(Order = 10)]
         public string IpGroup { get; set; }
         public int RelationLevel { get; set; }

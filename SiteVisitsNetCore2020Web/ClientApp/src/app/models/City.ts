@@ -1,11 +1,13 @@
 import { Region } from './Region';
 
 export class City {
-    id: number;
-    name: string;
+    //id: number;
+  id: string;
+  name: string;
   region: Region;
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     name: string,
     region: Region
   }) {

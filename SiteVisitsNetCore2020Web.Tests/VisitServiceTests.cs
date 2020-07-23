@@ -54,18 +54,20 @@ namespace SiteVisitsNetCore2020Web.Tests
         string urlCompact = "2008/20080911ATHH/";
         string cameFrom1 = "http://pic.geekitude.com/v/2008/20080911ATHH/";
         string cameFrom3 = "http://sfragments.blogspot.com/2008/12/interesting-startups-at-austin-tech_11.html";
-        Browser browser = new Browser
-        {
-            Id = 308,
-            Name = "MSIE",
-            Version = "8.0"
-        };
-        Device device = new Device
-        {
-            Id = 594,
-            OperatingSystem = "Windows NT6.1",
-            Resolution = "1280x1024"
-        };
+        Guid browserId = new Guid("557718c8-6a50-47ae-2a87-08d8206247f6");
+        Guid deviceId = new Guid("0594edf1-1cfc-4d3d-2a88-08d8206247f6");
+        Guid extractedTermId1 = new Guid("315044bf-f962-4843-2a89-08d8206247f6");
+        Guid extractedTermId2 = new Guid("a751eb9c-d45c-48f2-2a8b-08d8206247f6");
+        Guid extractedTermId3 = new Guid("c49bf52a-f085-400f-0fa1-08d820624801");
+        Guid referrerId1 = new Guid("77cfa0b6-cc4d-4ec4-2a8a-08d8206247f6");
+        Guid referrerId2 = new Guid("9c1239b2-e9b9-4380-0f9d-08d820624801");
+        Guid referrerId3 = new Guid("15edbcdb-d17b-4ab0-0f9e-08d820624801");
+        Guid referrerId4 = new Guid("c0c30e03-c906-4846-0f9f-08d820624801");
+        //Guid referrerId5 = new Guid("13911194-75e4-4a20-0fa0-08d820624801");
+
+        Browser browser;
+        Device device;
+        PageTitle pageTitleObj;
         PageUrl pageUrlObj;
         Visit visit01, visit02, visit03;
         Visit visit0, visit1, visit2, visit3;
@@ -73,10 +75,29 @@ namespace SiteVisitsNetCore2020Web.Tests
 
         public VisitServiceTests()
         {
+            browser = new Browser
+            {
+                Id = browserId,
+                Name = "MSIE",
+                Version = "8.0"
+            };
+            device = new Device
+            {
+                Id = deviceId,
+                OperatingSystem = "Windows NT6.1",
+                Resolution = "1280x1024"
+            };
+            pageTitleObj = new PageTitle
+            {
+                Title = pageTitle,
+                FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
+                //PageUrl = pageUrlObj,
+            };
             pageUrlObj = new PageUrl
             {
                 Url = pageUrl,
                 UrlCompact = urlCompact,
+                PageTitle = pageTitleObj,
                 FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38")
             };
 
@@ -95,22 +116,16 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = new List<ExtractedTerm> {
                     new ExtractedTerm {
-                        Id = 401,
+                        Id = extractedTermId1,
                         VisitId = visitId03,
                         Term= "ATHH 2009"
                     }
                 },
-
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
-                PageTitle = new PageTitle
-                {
-                    Title = pageTitle,
-                    FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
-                },
                 CameFrom = new Referrer
                 {
-                    Id = 1212,
+                    Id = referrerId1,
                     CameFrom = "http://www.google.com/search?hl=en&q=ATHH 2009&start=10&sa=N",
                     ShortCameFrom = "q=ATHH 2009"
                 },
@@ -133,22 +148,24 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = new List<ExtractedTerm> {
                     new ExtractedTerm {
-                        Id = 401,
+                        Id = extractedTermId1,
                         VisitId = visitId02,
                         Term= "ATHH 2009"
                     }
                 },
-
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
+                    //PageUrl = pageUrlObj,
                 },
+                ***/
                 CameFrom = new Referrer
                 {
-                    Id = 1212,
+                    Id = referrerId1,
                     CameFrom = "http://www.google.com/search?hl=en&q=ATHH 2009&start=10&sa=N",
                     ShortCameFrom = "q=ATHH 2009"
                 },
@@ -171,22 +188,24 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = new List<ExtractedTerm> {
                     new ExtractedTerm {
-                        Id = 401,
+                        Id = extractedTermId1,
                         VisitId = visitId01,
                         Term= "ATHH 2009"
                     }
                 },
-
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
                     PageUrl = pageUrlObj,
                 },
+                ***/
                 CameFrom = new Referrer
                 {
-                    Id = 1212,
+                    Id = referrerId1,
                     CameFrom = "http://www.google.com/search?hl=en&q=ATHH 2009&start=10&sa=N",
                     ShortCameFrom = "q=ATHH 2009"
                 },
@@ -209,22 +228,24 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = new List<ExtractedTerm> {
                     new ExtractedTerm {
-                        Id = 402,
+                        Id = extractedTermId2,
                         VisitId = visitId0,
                         Term= "\"austin tech happy hour\" 2009"
                     }
                 },
-
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
+                    //PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1213,
+                    Id = referrerId2,
                     CameFrom = "http://www.google.com/search?hl=en&q=%22austin tech happy hour%22 2009&start=10&sa=N",
                     ShortCameFrom = "q=\"austin tech happy hour\" 2009"
                 },
@@ -249,17 +270,21 @@ namespace SiteVisitsNetCore2020Web.Tests
                 {
                     Url = "http://pic.geekitude.com/v/2008/20080911ATHH/?g2_page=2",
                     UrlCompact = "2008/20080911ATHH/?g2_page=2",
+                    PageTitle = pageTitleObj,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:56")
                 },
+                PageTitle = pageTitleObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
                     PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1214,
+                    Id = referrerId3,
                     CameFrom = cameFrom1,
                 },
                 Browser = browser,
@@ -281,21 +306,24 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = new List<ExtractedTerm> {
                     new ExtractedTerm {
-                        Id = 403,
+                        Id = extractedTermId3,
                         VisitId = visitId2,
                         Term= "\"austin tech happy hour\" 2009"
                     }
                 },
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
                     PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1213,
+                    Id = referrerId2,
                     CameFrom = "http://www.google.com/search?hl=en&q=%22austin tech happy hour%22 2009&start=10&sa=N",
                     ShortCameFrom = "q=\"austin tech happy hour\" 2009"
                 },
@@ -316,16 +344,19 @@ namespace SiteVisitsNetCore2020Web.Tests
                     NumberOfTimes = 1,
                 },
                 ExtractedTerms = null,
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
                     PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1215,
+                    Id = referrerId4,
                     CameFrom = cameFrom3,
                 },
                 Browser = browser,
@@ -346,15 +377,18 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = null,
                 PageUrl = pageUrlObj,
+                PageTitle = pageTitleObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
+//                    PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1215,
+                    Id = referrerId4,
                     CameFrom = cameFrom3,
                 },
                 Browser = browser,
@@ -375,15 +409,18 @@ namespace SiteVisitsNetCore2020Web.Tests
                 },
                 ExtractedTerms = null,
                 PageUrl = pageUrlObj,
+                PageTitle = pageTitleObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
+                    //PageUrl = pageUrlObj,
                 },
+                **/
                 CameFrom = new Referrer
                 {
-                    Id = 1215,
+                    Id = referrerId4,
                     CameFrom = cameFrom3,
                 },
                 Browser = browser,
@@ -403,16 +440,19 @@ namespace SiteVisitsNetCore2020Web.Tests
                     NumberOfTimes = 1,
                 },
                 ExtractedTerms = null,
+                PageTitle = pageTitleObj,
                 PageUrl = pageUrlObj,
+                /**
                 PageTitle = new PageTitle
                 {
                     Title = pageTitle,
                     FirstOccurrence = DateTime.Parse("2009-09-02T22:51:38"),
-                    PageUrl = pageUrlObj,
+                    //PageUrl = pageUrlObj,
                 },
+                ***/
                 CameFrom = new Referrer
                 {
-                    Id = 1215,
+                    Id = referrerId4,
                     CameFrom = cameFrom3,
                 },
                 Browser = browser,
@@ -479,7 +519,7 @@ namespace SiteVisitsNetCore2020Web.Tests
               )).ReturnsAsync(new List<Visit> { visit0, visit1, visit2, visit3 });
             VisitsService visitsService = new VisitsService(_mockEntityHelper.Object);
             var visitSession = await visitsService.GetVisitSessionByDeviceAndBrowserPair(visit2);
-            Assert.Equal(visit2.IpAddress.Isp?.Name, visitSession.Isp);
+            Assert.Equal(visit2.IpAddress.Organization?.Name, visitSession.Organization);
             var visitSessionBlocks = visitSession.VisitSessionBlocks;
             Assert.Single(visitSessionBlocks);
             Assert.Equal(browser.Name, visitSessionBlocks[0].Browser);

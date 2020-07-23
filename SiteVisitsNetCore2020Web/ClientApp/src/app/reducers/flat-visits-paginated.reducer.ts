@@ -9,7 +9,7 @@ import { VisitFlat } from '../viewmodels/VisitFlat';
 import { PaginatedFlatVisitsResult } from '../viewmodels/PaginatedFlatVisitsResult';
 
 export interface PaginatedFlatVisitsState {
-  result: PaginatedFlatVisitsResult,
+  result: PaginatedFlatVisitsResult;
   loading: boolean;
   error: string | null;
 }

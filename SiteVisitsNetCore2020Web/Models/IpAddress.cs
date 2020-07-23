@@ -14,7 +14,7 @@ namespace SiteVisitsNetCore2020Web.Models
         public virtual City City { get; set; }
         public virtual Region Region { get; set; }
         public virtual Country Country { get; set; }
-        public virtual Isp Isp { get; set; }
+        public virtual Organization Organization { get; set; }
         public virtual Visitor Visitor { get; set; }
         public virtual List<IpAddressRelation> IpAddressRelations { get; set; }
         public DateTime FirstOccurrence { get; set; }

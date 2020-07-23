@@ -8,7 +8,7 @@ namespace SiteVisitsNetCore2020Web.ViewModels
 {
     public class VisitSession
     {
-        public string Isp { get; set; }
+        public string Organization { get; set; }
         /**
         public DateTime firstVisit { get; set; }
         public DateTime lastVisit { get; set; }

@@ -1,10 +1,12 @@
 export class Device {
-  id: number;
+  //id: number;
+  id: string;
   operatingSystem: string;
   resolution: string;
 
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     operatingSystem: string,
     resolution: string
   }) {

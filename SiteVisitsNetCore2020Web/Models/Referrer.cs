@@ -6,7 +6,8 @@ namespace SiteVisitsNetCore2020Web.Models
 {
     public class Referrer
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public Guid Id { get; set; }
         public string CameFrom { get; set; }
         public string ShortCameFrom { get; set; }
         public DateTime FirstOccurrence { get; set; }

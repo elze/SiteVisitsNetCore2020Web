@@ -1,10 +1,12 @@
 export class Visitor {
-  id: number;
+  //id: number;
+  id: string;
   label: string;
   note: string;
 
   constructor(options: {
-    id: number,
+    //id: number,
+    id: string,
     label: string,
     note: string
   }) {

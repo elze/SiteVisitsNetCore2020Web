@@ -10,7 +10,7 @@ export class VisitFlat {
   logFileName: string;
   visitType: string;
   ipAddress: string;
-  isp: string;
+  organization: string;
   pageUrl: string;
   pageTitle: string;
   cameFrom: string;
@@ -22,7 +22,7 @@ export class VisitFlat {
     logFileName: string,
     visitType: string,
     ipAddress: string,
-    isp: string,
+    organization: string,
     city: string,
     region: string,
     country: string,
@@ -39,7 +39,7 @@ export class VisitFlat {
     this.logFileName = options.logFileName;
     this.visitType = options.visitType;
     this.ipAddress = options.ipAddress;
-    this.isp = options.isp;
+    this.organization = options.organization;
     this.city = options.city;
     this.region = options.region;
     this.country = options.country;

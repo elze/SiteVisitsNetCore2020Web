@@ -153,11 +153,11 @@ namespace SiteVisitsNetCore2020Web.Services
             List<Visit> subsequentSessionVisits = await GetSubsequentSessionVisits(visit, ipAddresses);
             List<Visit> precedingSessionVisits = await GetPrecedingSessionVisits(visit, ipAddresses);
             var sessionVisits = precedingSessionVisits.Concat(subsequentSessionVisits);
-            string isp = visit.IpAddress.Isp?.Name;
-            var diffIsp = sessionVisits.FirstOrDefault(v => v.IpAddress.Isp?.Name != isp);
-            if (diffIsp != null)
+            string organization = visit.IpAddress.Organization?.Name;
+            var diffOrg = sessionVisits.FirstOrDefault(v => v.IpAddress.Organization?.Name != organization);
+            if (diffOrg != null)
             {
-                throw new Exception($"Found an ISP in this session, {diffIsp.IpAddress.Isp?.Name}, that's different from ISP of the sample visit, {isp}");
+                throw new Exception($"Found an organization in this session, {diffOrg.IpAddress.Organization?.Name}, that's different from ISP of the sample visit, {organization}");
             }
             var sessionVisitsGrouped = sessionVisits
             .GroupBy(v => new Tuple<Device, Browser>(v.Device, v.Browser));
@@ -188,7 +188,7 @@ namespace SiteVisitsNetCore2020Web.Services
             string sampleIpAddress = visit.IpAddress?.IpV4Address;
             VisitSession visitSession = new VisitSession
             {
-                Isp = isp,
+                Organization = organization,
                 SampleIpAddress = sampleIpAddress,
                 SampleVisitDateTime = sampleVisitDateTime,
                 VisitSessionBlocks = visitSessionBlocks
@@ -205,7 +205,7 @@ namespace SiteVisitsNetCore2020Web.Services
                 VisitDatetime = v.VisitDatetime,
                 NumberOfTimes = v.NumberOfTimes,
                 IpAddress = v.IpAddress.IpV4Address,
-                Isp = v.IpAddress.Isp.Name,
+                Organization = v.IpAddress.Organization.Name,
                 City = v.IpAddress.City != null ? v.IpAddress.City.Name : "",
                 Region = v.IpAddress.Region != null ? v.IpAddress.Region.Name : "",
                 Country = v.IpAddress.Country != null ? v.IpAddress.Country.Name : "",
